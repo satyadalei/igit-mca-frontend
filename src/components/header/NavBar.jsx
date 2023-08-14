@@ -32,7 +32,7 @@ const NavBar = () => {
 
           {/* Nav Menus */}
           <ul className={styles.nav_item} >
-            <li><Link href="/batch" >Batch</Link></li>
+            <li><Link  href="/batch" >Batch</Link></li>
             <li><Link href="/semesters" >Semesters</Link></li>
             <li><Link href="/notes" >Notes</Link></li>
             <li><Link href="/galleries" >Galleries</Link></li>
@@ -58,13 +58,16 @@ const NavBar = () => {
           {/* Login & registartion Details ends */}
 
           {/* hamburger */}
-            <MenuIcon onClick={toggleNavBar} className={styles.hamburger_menu} />
+          <span className={styles.hamburger_menu} >
+            <MenuIcon onClick={toggleNavBar}  />
+          </span>
 
           {/* Responsive nav links*/}
-          <div ref={responsive_Nav_ref} className={`${styles.responsive_nav} active_nav`} >
+          <div ref={responsive_Nav_ref} className={`${styles.responsive_nav}`} >
             <CloseIcon onClick={toggleNavBar} className={styles.cross_hamburger_menu} />
             <UserAvatarAndNameReverse/>
-            <NavLinkItems />
+            {/* when a link is clicked then closes responsive navbar */}
+            <NavLinkItems toggleNav={toggleNavBar} />
             <LogOutBtn/>
           </div>
 
