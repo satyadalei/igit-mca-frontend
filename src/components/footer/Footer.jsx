@@ -1,8 +1,8 @@
+"use client"
 import React from 'react'
 import styles from "./css/footer.module.css"
 import Link from 'next/link'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 const Footer = () => {
 
   const currentYear = new Date().getFullYear() ;
