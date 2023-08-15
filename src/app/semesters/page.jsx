@@ -2,7 +2,11 @@ import React from 'react'
 
 const semesters = () => {
   return (
-    <div>semesters</div>
+    <>
+      <section className='page_section' >
+         <h1>Semester page</h1>
+       </section>  
+    </>
   )
 }
 

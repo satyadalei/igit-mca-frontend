@@ -2,9 +2,11 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>
-        This is coordinators page
-    </div>
+    <>
+       <section className='page_section' >
+         <h1>Coordinators page</h1>
+       </section>  
+    </>
   )
 }
 

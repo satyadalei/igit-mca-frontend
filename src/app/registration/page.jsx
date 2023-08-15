@@ -2,7 +2,11 @@ import React from 'react'
 
 const registration = () => {
   return (
-    <div>registration</div>
+    <>
+      <section className='page_section' >
+         <h1>Registration page</h1>
+       </section>  
+    </>
   )
 }
 

@@ -2,7 +2,11 @@ import React from 'react'
 
 const galleries = () => {
   return (
-    <div>galleries</div>
+    <>
+      <section className='page_section' >
+         <h1>Galleries page</h1>
+       </section>  
+    </>
   )
 }
 

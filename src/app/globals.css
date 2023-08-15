@@ -4,3 +4,7 @@
   box-sizing: border-box;
   text-decoration: none;
 }
+section.page_section{
+  width: 100%;
+  min-height: 100vh;
+}

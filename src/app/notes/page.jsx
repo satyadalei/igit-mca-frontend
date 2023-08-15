@@ -2,7 +2,11 @@ import React from 'react'
 
 const notes = () => {
   return (
-    <div>notes</div>
+    <>
+      <section className='page_section' >
+         <h1>All notes page</h1>
+       </section>  
+    </>
   )
 }
 
