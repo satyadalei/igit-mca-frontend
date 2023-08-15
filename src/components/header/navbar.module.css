@@ -8,6 +8,9 @@
     align-items: center;
     position: relative;
 }
+.navbar {
+    color: black !important;
+}
 .navbar .navbar_container{
     width: 98%;
     height: 95%;
@@ -32,6 +35,13 @@
 }
 .navbar ul.nav_item li :link{
     text-decoration: none;
+    color: black;
+}
+.navbar ul.nav_item li :link:visited{
+    color: inherit;
+}
+.navbar a{
+    color: black;
 }
 .login_link,.registration_link, .logout_btn{
    border-radius: 1rem;
@@ -41,10 +51,10 @@
    cursor: pointer;
 }
 .login_link{
-    background-color: #2EF20E;
+    background-color:#7CC5FA;
 }
 .registration_link, .logout_btn{
-    border: 2px solid #2EF20E ;
+    border: 2px solid #3584FC ;
 }
 /* -- div box containing user name & profile picture */
 div.logedIn_user{

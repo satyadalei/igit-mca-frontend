@@ -1,0 +1,128 @@
+.footer_section{
+    background-color: black;
+    width: 100%;
+    /* max-width: 1200px; */
+    min-height: fit-content;
+    padding: 2rem ;
+    display: flex;
+    flex-direction: column;
+}
+.font_size_inherit{
+    font-size: inherit !important;
+}
+.footer_section > *{
+    color: white;
+}
+.footer_section ul li{
+    list-style-type: none;
+    margin: 5px 0 5px 0;
+}
+.footer_section ul li a{
+    color: white;
+    font-size: 14px;
+}
+.footer_top{
+   display: flex; 
+   justify-content: space-between; 
+   flex: 85;
+   flex-wrap: wrap;
+   margin-bottom: 2rem;
+}
+.footer_top p{
+    font-size: 14px;
+}
+.footer_item{
+    width: 20%;
+    margin-right: 1.5rem;
+    margin-bottom: 1rem;
+    max-height: 150px;
+}
+.footer_item1{
+    width: 25%;
+}
+.footer_item2{
+    width: fit-content;
+}
+.footer_item .footer_link_heading{
+    color: #3584FC;
+    margin-bottom: 1rem;
+}
+.footer_item .dual_links_box{
+    width: 100%;
+    display: flex;
+}
+.footer_item .dual_links_box ul:first-of-type {
+    margin-right: 2rem;
+}
+.footer_bottom{
+    flex: 15;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.footer_bottom p{
+    font-size: 12px;
+    text-align: center;
+}
+.footer_bottom .link_text{
+    color: #3584FC;
+}
+.disabled_link_text{
+    color: rgba(128, 128, 128, 0.534) !important;
+    cursor: default;
+}
+p.technical_issue_text{
+    font-size: 12px;
+    color: rgb(128, 128, 128)  ;
+}
+/* ---------Responsive footer styles --------*/
+@media only screen and (max-width: 1000px) {
+    .footer_item{
+       width: 45%;
+       margin-bottom: 1rem;
+    }
+    .footer_item .dual_links_box ul:first-of-type {
+        margin-right: 3rem;
+    }
+    .footer_item .footer_link_heading{
+      margin-bottom: 0.5rem;
+      font-size: large;
+    }
+    .footer_section ul li a{
+        font-size: 12px;
+      }
+      .footer_top .footer_item p{
+        font-size: 12px;
+        line-height: 15px;
+      }
+}
+@media only screen and (max-width: 590px) {
+    .footer_item{
+       width: 90%;
+    }
+    .footer_item{
+        margin-right: 0;
+    }
+    .footer_item .footer_link_heading{
+        font-size: 13px;
+      }
+      .footer_section ul li a{
+        font-size: 11px;
+      }
+      .footer_top .footer_item p{
+        font-size: 12px;
+      }
+      .footer_top .footer_item1 p{
+        text-align: justify;
+      }
+      p.technical_issue_text{
+        font-size: 10px;
+      }
+      .footer_item{
+        width: 100%;
+      }
+      .footer_bottom{
+        font-size: 10px;
+      }
+}

@@ -22,17 +22,18 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className={styles.navbar} >
+      <nav className={`${styles.navbar} "navbar" `} >
         <div className={styles.navbar_container} >
 
           {/* Logo */}
-          <h1 className={styles.logo}>
-            <Link href="/" >IGIT-MCA</Link>
+          <h1 className={`${styles.logo}`}>
+            <Link href="/" className={`${styles.link_text}`} >IGIT-MCA</Link>
           </h1>
 
           {/* Nav Menus */}
-          <ul className={styles.nav_item} >
-            <li><Link  href="/batch" >Batch</Link></li>
+          <ul className={`${styles.nav_item}`} >
+            <li><Link href={"/"} >Home</Link></li>
+            <li><Link href="/batch" >Batch</Link></li>
             <li><Link href="/semesters" >Semesters</Link></li>
             <li><Link href="/notes" >Notes</Link></li>
             <li><Link href="/galleries" >Galleries</Link></li>
