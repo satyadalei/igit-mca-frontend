@@ -46,6 +46,7 @@ const HeroSectionMain = () => {
 
           </div>
        </div>   
+       {/* hero section ends */}
     </>
   )
 }
