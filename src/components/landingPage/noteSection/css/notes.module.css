@@ -1,0 +1,35 @@
+.notes_section{
+    width: 100%;
+    max-width: 1400px;
+    margin: 1rem auto;
+    height: max-content;
+    padding: 1rem 1rem 1rem 3rem;
+}
+.all_sem_notes_box{
+    display: flex;
+    flex-wrap: wrap;
+}
+.card_item{
+    margin: 0.5rem 0.8rem 0.5rem 0;
+    width: 280px;
+}
+.sem_btn{
+    margin-right: 0.5rem;
+}
+
+
+
+
+
+
+/* ---------Responsive -------------- */
+@media only screen and (max-width: 950px) {
+    .card_item{
+        margin-right: 1.5rem;
+    }
+}
+@media only screen and (max-width: 540px) {
+    .notes_section{
+        padding-left: 1.5rem;
+    }   
+}
