@@ -1,0 +1,33 @@
+.notice_section{
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+   height: max-content;
+    padding: 1rem 1rem 1rem 3rem;
+}
+.allNotices_box{
+  display: flex;
+  flex-wrap: wrap;
+}
+.card_item{
+    width: 200px;
+    margin: 0.5rem 1rem 0.5rem 0 ;
+    background-color: #3584FC;
+    color: white;
+}
+.card_text{
+    font-size: 1rem;
+}
+.notice_heading{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+/* --------- Responsive styles ------------ */
+@media only screen and (max-width: 500px) {
+    .card_item{
+        width: 100%;
+    } 
+    .notice_section{
+        padding-left: 1.5rem;
+    }
+}
