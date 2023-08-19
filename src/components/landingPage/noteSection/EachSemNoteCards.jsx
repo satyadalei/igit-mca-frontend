@@ -15,7 +15,7 @@ const EachSemNoteCards = (props) => {
                     <CardMedia
                         component="img"
                         height="140"
-                        image=""
+                        image={props.img_url}
                         alt="green iguana"
                     />
                     <CardContent>
