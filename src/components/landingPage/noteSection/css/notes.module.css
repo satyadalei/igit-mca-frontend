@@ -5,6 +5,14 @@
     height: max-content;
     padding: 1rem 1rem 1rem 3rem;
 }
+.note_heading{
+    font-size: 2rem;
+    margin: 0.5rem 0 0.5rem 0;
+}
+.note_description{
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
 .all_sem_notes_box{
     display: flex;
     flex-wrap: wrap;
@@ -16,17 +24,21 @@
 .sem_btn{
     margin-right: 0.5rem;
 }
-
-
-
-
-
-
 /* ---------Responsive -------------- */
 @media only screen and (max-width: 950px) {
     .card_item{
         margin-right: 1.5rem;
     }
+}
+@media only screen and (max-width: 680px) {
+    .card_item{
+        width: 230px !important;
+    }
+}
+@media only screen and (max-width: 570px) {
+    .card_item{
+        width: 100% !important;
+    } 
 }
 @media only screen and (max-width: 540px) {
     .notes_section{
