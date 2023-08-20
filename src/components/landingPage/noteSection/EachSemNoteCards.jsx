@@ -25,7 +25,9 @@ const EachSemNoteCards = (props) => {
                         <Typography variant="body2" color="text.secondary">
                                 { props.sem_subjects && props.sem_subjects.map((subject,index)=>{
                                     return (
-                                        <span  style={{display:"inline-block"}} key={index} >{index+1}.  {subject} <br /> </span>
+                                        <>
+                                        <span style={{display:"block"}} key={index} >{index+1}.  {subject}</span>
+                                        </>
                                     )
                                 })}
                         </Typography>
