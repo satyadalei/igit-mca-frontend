@@ -23,9 +23,11 @@ const EachSemNoteCards = (props) => {
                            {props.sem_no} 
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                            {
-                            !props.sem_subjects && "|| Lizards are a widespread group of squamate reptiles, with over 6,000species, ranging across all continents except Antarctica" 
-                            }
+                                { props.sem_subjects && props.sem_subjects.map((subject,index)=>{
+                                    return (
+                                        <span  style={{display:"inline-block"}} key={index} >{index+1}.  {subject} <br /> </span>
+                                    )
+                                })}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
