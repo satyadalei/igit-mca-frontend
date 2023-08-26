@@ -1,0 +1,71 @@
+.registration_main_container{
+    width: 100%;
+    /* border: 1px solid red; */
+    padding: 1.5rem;
+}
+.register_top_container{
+  margin-bottom: 1.5rem;
+}
+.form_input_container{
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid green; */
+}
+.input_box{
+    width: 30%;
+    /* border: 1px solid red; */
+}
+.input_field{
+    margin: 0.5rem;
+    color: bisque;
+}
+.social_link_heading{
+    color: #3584FC;
+    margin: 0.5rem;
+    font: 1.5rem;
+}
+.upload_profile_pic_heading{
+    color: #3584FC;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 0.3rem;
+}
+.upload_profile_pic_note{
+    text-align: center;
+    color: grey;
+    margin-bottom: 0.5rem;
+}
+.upload_profile_pic_box{
+    /* border: 1px solid red; */
+    padding-top: 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.remove_profile_pic{
+    position: absolute;
+    cursor: pointer;
+    top: 0.5rem;
+    left: 35%;
+    display: flex;
+    align-items: center;
+}
+.remove_profile_pic_remove_text{
+   margin-left: 0.1rem;
+}
+.chose_file_btn{
+    margin-top: 0.5rem;
+}
+.supported_files{
+    margin-top: 1rem;
+}
+.note_for_pic{
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: grey;
+    text-align: center;
+}
+.submit_button{
+    margin-top: 1rem;
+}
