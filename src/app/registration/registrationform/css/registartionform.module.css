@@ -9,6 +9,7 @@
 .form_input_container{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     /* border: 1px solid green; */
 }
 .input_box{
@@ -68,4 +69,32 @@
 }
 .submit_button{
     margin-top: 1rem;
+}
+/* ------------ RESPONSIVE STYLES ---------- */
+@media only screen and (max-width: 1000px) {
+    .form_input_container{
+        justify-content:flex-start;
+    }
+    .input_box{
+        width: 45%;
+        margin-bottom: 1.5rem;
+        margin-right: 2rem;
+    }
+}
+@media only screen and (max-width: 690px) {
+    .registration_main_container{
+        padding: 0.5rem;
+    }
+    .form_input_container{
+        justify-content:space-evenly;
+    }
+    .input_box{
+        width: 40%;
+        margin-right: 0.5rem;
+    }
+}
+@media only screen and (max-width: 550px) {
+    .input_box{
+        width: 95%;
+    }
 }

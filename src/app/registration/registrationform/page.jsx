@@ -1,64 +1,62 @@
 "use client"
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import RegistrationContext from "@/context/registration/registrationContext";
 import { useRouter } from 'next/navigation'
 import Loading from "../../../components/common/Loding"
 import styles from "./css/registartionform.module.css"
 import { Avatar, Button, Checkbox, FormControlLabel, MenuItem, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import {sortedDistricts,fieldOfInterest,bachelorCourses,assignedTag} from "./formSelectOption"
 const RegistrationForm = () => {
 
   const registrationContext = useContext(RegistrationContext);
   const { registeringUser, googleSignUp, user } = registrationContext;
+  // registeringUser = 42 or 41
+  // user = allDetals of user --> user.email is email id of user
   const router = useRouter();
-  const districts = [
-    'Angul', 'Balangir', 'Bargarh', 'Deogarh', 'Dhenkanal', 'Jharsuguda',
-    'Kendujhar', 'Sambalpur', 'Subarnapur (Sonepur)', 'Sundargarh', 'Balasore', 'Bhadrak',
-    'Cuttack', 'Jagatsinghpur', 'Jajpur', 'Kendrapada', 'Khordha', 'Mayurbhanj',
-    'Nayagarh', 'Puri', 'Boudh', 'Gajapati', 'Ganjam', 'Kalahandi', 'Kandhamal',
-    'Koraput', 'Malkangiri', 'Nabarangpur', 'Nuapada', 'Rayagada', "other"
-  ];
-  const sortedDistricts = districts.sort();
-  const bachelorCourses = [
-    "B.Sc(Physics)",
-    "B.Sc(Chemistry)",
-    "B.Sc(Mathematics)",
-    "B.Sc(Biology)",
-    "B.Sc(Statistics)",
-    "B.Sc(Computer Science)",
-    "BCA",
-    "other"
-  ].sort();
-  const fieldOfInterest = [
-    "Data Analytics/Science",
-    "Advanced Business Application Programming",
-    "Systems Applications and Products",
-    "Artificial Intelligence",
-    "Machine Learning",
-    "Data Science",
-    "Full-Stack Web Dev",
-    "App Development",
-    "Cloud Computing",
-    "Internet of Things",
-    "Cyber Security",
-    "UI/UX Designer",
-  ].sort()
-  const assignedTag = [
-    "CR/BR",
-    "Student Secretary",
-    "Cultural Secretary",
-    "Mycomp Secretary",
-    "Placement Secretary",
-    "Fund Secretary",
-    "Sports Secretary",
-    "Library Secretary",
-  ].sort()
-  // useEffect(()=>{
-  //   if (registeringUser === null || user === null) {
-  //     router.push("/registration")
-  //   }
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // },[])
+
+
+  const [details, setDetails] = useState({
+    batch : "",
+    email : "",
+    regNum : "",
+    rollNum : "",
+    fName : "",
+    lName : "",
+    homeDist : "",
+    mobile : "",
+    fieldOfInterest : "",
+    gradCourse : "",
+    tag : "",
+    githubLink :"",
+    linkedInLink : "",
+    profilePic : "",
+  }) 
+
+   // user will automatically redirect if not done previous two step
+  useEffect(()=>{
+    if (registeringUser === null || user === null) {
+      router.push("/registration")
+    }else{
+      // set batch & email previously
+      setDetails((prev)=>{
+        return {...prev, batch : registeringUser, email : `${user.email}`}
+      })
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  // handle onchange to modify form data
+  const handleChange = (e)=>{
+      setDetails((prev)=>{
+        return {...prev, [e.target.name] : e.target.value}
+      })
+  }
+
+  // handle submit 
+  const handleSubmit = (details)=>{
+    console.log(details);
+  }
 
   return (
     <>
@@ -81,11 +79,12 @@ const RegistrationForm = () => {
                   <TextField
                     className={styles.input_field}
                     name='email'
+                    onChange={handleChange}
                     required
                     fullWidth
                     id="outlined-basic"
                     label="Email"
-                    value={"someone@gmail.com"}
+                    value={details.email}
                     variant="filled"
                     placeholder='ex: mca41@gmail.com'
                     disabled
@@ -94,11 +93,12 @@ const RegistrationForm = () => {
                   <TextField
                     className={styles.input_field}
                     name='batch'
+                    onChange={handleChange}
                     fullWidth
                     required
                     id="outlined-basic"
                     label="Batch"
-                    value={42}
+                    value={details.batch}
                     variant="filled"
                     placeholder='ex: 42'
                     disabled
@@ -106,7 +106,9 @@ const RegistrationForm = () => {
                   {/* --- Registration number --- */}
                   <TextField
                     className={styles.input_field}
-                    name='registrationNumber'
+                    value={details.regNum}
+                    name='regNum'
+                    onChange={handleChange}
                     required
                     fullWidth
                     id="outlined-basic"
@@ -118,7 +120,9 @@ const RegistrationForm = () => {
                   {/* --- Roll number --- */}
                   <TextField
                     className={styles.input_field}
-                    name='rollNumber'
+                    name='rollNum'
+                    value={details.rollNum}
+                    onChange={handleChange}
                     required
                     fullWidth
                     id="filled-error-helper-text"
@@ -130,7 +134,9 @@ const RegistrationForm = () => {
                   {/* --- first name --- */}
                   <TextField
                     className={styles.input_field}
-                    name='firstName'
+                    name='fName'
+                    value={details.fName}
+                    onChange={handleChange}
                     required
                     fullWidth
                     id="filled-error-helper-text"
@@ -142,7 +148,9 @@ const RegistrationForm = () => {
                   {/* --- last name --- */}
                   <TextField
                     className={styles.input_field}
-                    name='lastName'
+                    name='lName'
+                    value={details.lName}
+                    onChange={handleChange}
                     required
                     fullWidth
                     autoComplete='off'
@@ -156,12 +164,14 @@ const RegistrationForm = () => {
                   <TextField
                     id="outlined-select-currency"
                     className={styles.input_field}
-                    name='district'
+                    name='homeDist'
+                    value={details.homeDist}
+                    onChange={handleChange}
                     required
                     fullWidth
                     select
                     label="Home district"
-                    defaultValue="no district"
+                    // defaultValue="no district"
                     variant="filled"
                     helperText="To know classmates from same town"
                   >
@@ -179,7 +189,9 @@ const RegistrationForm = () => {
                   <TextField
                     className={styles.input_field}
                     fullWidth
-                    name='MobileNum'
+                    name='mobile'
+                    value={details.mobile}
+                    onChange={handleChange}
                     autoComplete='off'
                     id="filled-error-helper-text"
                     label="Mobile number"
@@ -190,11 +202,13 @@ const RegistrationForm = () => {
                   <TextField
                     id="outlined-select-currency"
                     className={styles.input_field}
-                    name='interestField'
+                    name='fieldOfInterest'
+                    value={details.fieldOfInterest}
+                    onChange={handleChange}
                     required
                     select
                     label="Field of interest"
-                    defaultValue={"nothing selected"}
+                    // defaultValue={"nothing selected"}
                     variant="filled"
                     fullWidth
                   >
@@ -205,42 +219,17 @@ const RegistrationForm = () => {
                     ))}
                     <MenuItem value={"other"} >Other</MenuItem>
                   </TextField>
-                  <div>
-                    <h4 className={styles.social_link_heading} >Social Links</h4>
-                    {/* --- GITHUB --- */}
-                    <TextField
-                      className={styles.input_field}
-                      fullWidth
-                      name='githubLink'
-                      autoComplete='off'
-                      id="filled-error-helper-text"
-                      label="Github Profile link"
-                      variant="filled"
-                      placeholder='ex: https://github.com/...'
-                    />
-
-                    {/* --- Linked In ---- */}
-                    <TextField
-                      className={styles.input_field}
-                      fullWidth
-                      name='linkedInLink'
-                      autoComplete='off'
-                      id="filled-error-helper-text"
-                      label="LinkedIn Profile link"
-                      variant="filled"
-                      placeholder='ex: https://www.linkedin.com/in/...'
-                    />
-
-                  </div>
                   {/* --- Graduation --- */}
                   <TextField
                     id="outlined-select-currency"
                     className={styles.input_field}
+                    name='gradCourse'
+                    value={details.gradCourse}
+                    onChange={handleChange}
                     fullWidth
-                    name='graduation'
                     select
                     label="Graduation course"
-                    defaultValue={"no district"}
+                    // defaultValue={"no district"}
                     variant="filled"
                   >
                     {bachelorCourses.map((course, index) => (
@@ -256,10 +245,13 @@ const RegistrationForm = () => {
                     className={styles.input_field}
                     fullWidth
                     name='tag'
+                    value={details.tag}
+                    onChange={handleChange}
                     select
                     label="Any tag provided"
-                    defaultValue={"nothing selected"}
+                    // defaultValue={"nothing selected"}
                     variant="filled"
+                    helperText="You can left empty if nothing given"
                   >
                     {assignedTag.map((tagAssigned, index) => (
                       <MenuItem style={{ zIndex: "1001" }} key={index} value={tagAssigned}>
@@ -267,6 +259,40 @@ const RegistrationForm = () => {
                       </MenuItem>
                     ))}
                   </TextField>
+
+                  {/* ------- SOCIAL LINKS -------- */}
+                  <div>
+                    <h4 className={styles.social_link_heading} >Social Links</h4>
+                    {/* --- GITHUB --- */}
+                    <TextField
+                      className={styles.input_field}
+                      fullWidth
+                      name='githubLink'
+                      value={details.githubLink}
+                      onChange={handleChange}
+                      autoComplete='off'
+                      id="filled-error-helper-text"
+                      label="Github Profile link"
+                      variant="filled"
+                      placeholder='ex: https://github.com/...'
+                    />
+
+                    {/* --- Linked In ---- */}
+                    <TextField
+                      className={styles.input_field}
+                      fullWidth
+                      name='linkedInLink'
+                      value={details.linkedInLink}
+                      onChange={handleChange}
+                      autoComplete='off'
+                      id="filled-error-helper-text"
+                      label="LinkedIn Profile link"
+                      variant="filled"
+                      placeholder='ex: https://www.linkedin.com/in/...'
+                    />
+
+                  </div>
+
                 </div>
 
                 {/* --- BOX 3 --- */}
@@ -306,7 +332,7 @@ const RegistrationForm = () => {
               {/* actual form inputs ends */}
               <div>
                 <FormControlLabel required control={<Checkbox />} label="I am aware that my information's such as name, mobile & other details are going to be used within our department circle for everybody's beneficial purpose." /> <br />
-                <Button className={styles.submit_button} variant="contained"
+                <Button onClick={()=>{handleSubmit(details)}} className={styles.submit_button} variant="contained"
                       component="label" style={{backgroundColor:"green", width:"200px", height:"3rem"}} >
                   Submit
                 </Button>
