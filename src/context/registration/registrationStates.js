@@ -23,9 +23,9 @@ const RegistrationStates = (props) => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 // result is the source data from firebase
-                console.log("Logged In", result);
                 // user loged in then redirect to registration form
-                router.push("/registration/registrationform")
+                setUser(result.user);
+                router.push("/registration/registrationform",undefined, { shallow: true });
             })
             .catch((error) => {
                 console.log("Caught error Popup closed");
@@ -36,12 +36,12 @@ const RegistrationStates = (props) => {
         signOut(auth)
     }
 
-    useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        })
-        return () => unSubscribe()
-    }, [])
+    // useEffect(() => {
+    //     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+    //         setUser(currentUser);
+    //     })
+    //     return () => unSubscribe()
+    // }, [])
 
     return (
         <registrationContext.Provider value={{ registeringUser, setRegisteringUser, updateBatch, user, googleSignUp, logOut }} >

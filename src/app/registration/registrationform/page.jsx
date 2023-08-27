@@ -2,11 +2,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import RegistrationContext from "@/context/registration/registrationContext";
 import { useRouter } from 'next/navigation'
-import Loading from "../../../components/common/Loding"
-import styles from "./css/registartionform.module.css"
+import Loading from "../../../components/common/Loading"
+import styles from "./css/registrationform.module.css"
 import { Avatar, Button, Checkbox, FormControlLabel, MenuItem, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import {sortedDistricts,fieldOfInterest,bachelorCourses,assignedTag} from "./formSelectOption"
+import { sortedDistricts, fieldOfInterest, bachelorCourses, assignedTag } from "./formSelectOption"
+import UserTypeForm from "./UserTypeForm"
 const RegistrationForm = () => {
 
   const registrationContext = useContext(RegistrationContext);
@@ -17,57 +18,62 @@ const RegistrationForm = () => {
 
 
   const [details, setDetails] = useState({
-    batch : "",
-    email : "",
-    regNum : "",
-    rollNum : "",
-    fName : "",
-    lName : "",
-    homeDist : "",
-    mobile : "",
-    fieldOfInterest : "",
-    gradCourse : "",
-    tag : "",
-    githubLink :"",
-    linkedInLink : "",
-    profilePic : "",
-  }) 
+    batch: "",
+    email: "",
+    regNum: "",
+    rollNum: "",
+    fName: "",
+    lName: "",
+    homeDist: "",
+    mobile: "",
+    fieldOfInterest: "",
+    gradCourse: "",
+    tag: "",
+    githubLink: "",
+    linkedInLink: "",
+    profilePic: "",
+  })
 
-   // user will automatically redirect if not done previous two step
-  useEffect(()=>{
+  //user will automatically redirect if not done previous two step
+  useEffect(() => {
     if (registeringUser === null || user === null) {
       router.push("/registration")
-    }else{
+    } else {
       // set batch & email previously
-      setDetails((prev)=>{
-        return {...prev, batch : registeringUser, email : `${user.email}`}
+      console.log("from registration form" + user);
+      setDetails((prev) => {
+        return { ...prev, batch: registeringUser, email: `${user.email}` }
       })
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // handle onchange to modify form data
-  const handleChange = (e)=>{
-      setDetails((prev)=>{
-        return {...prev, [e.target.name] : e.target.value}
-      })
+  const handleChange = (e) => {
+    setDetails((prev) => {
+      return { ...prev, [e.target.name]: e.target.value }
+    })
   }
 
   // handle submit 
-  const handleSubmit = (details)=>{
+  const handleSubmit = (details) => {
     console.log(details);
   }
 
   return (
     <>
       <section className='page_section' >
-        {(registeringUser != null || user != null || registeringUser === null) ?
+        {(registeringUser != null && user != null)  ?
           <>
             <div className={styles.registration_main_container} >
               {/* top heading of form */}
               <div className={styles.register_top_container} >
-                <h1>I am registration form page</h1>
-                <p>Registration form</p>
+                {registeringUser === 41
+                  ?
+                    <UserTypeForm mainHeading={"41 batch (2022-24)"} subHeading={"2nd year registration form"} />
+                  :
+                    <UserTypeForm mainHeading={"42 batch (2023-25)"} subHeading={"1st year registration form"} />
+                }
               </div>
 
               {/* actual form inputs */}
@@ -300,14 +306,14 @@ const RegistrationForm = () => {
                   <h1 className={styles.upload_profile_pic_heading} >Upload profile picture</h1>
                   <p className={styles.upload_profile_pic_note} >You can edit later too</p>
                   <div className={styles.upload_profile_pic_box} >
-                        <Avatar
-                          alt="Remy Sharp"
-                          src="/static/images/avatar/1.jpg"
-                          sx={{ width: 250, height: 250 }}
-                        />
-                        <p className={styles.remove_profile_pic} ><CloseIcon style={{backgroundColor:"red", color:"white",borderRadius:"50%",fontSize:"20px"}} />
-                          <span className={styles.remove_profile_pic_remove_text} >Remove pic</span>
-                        </p>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="/static/images/avatar/1.jpg"
+                      sx={{ width: 250, height: 250 }}
+                    />
+                    <p className={styles.remove_profile_pic} ><CloseIcon style={{ backgroundColor: "red", color: "white", borderRadius: "50%", fontSize: "20px" }} />
+                      <span className={styles.remove_profile_pic_remove_text} >Remove pic</span>
+                    </p>
                     <Button
                       className={styles.chose_file_btn}
                       variant="contained"
@@ -332,8 +338,8 @@ const RegistrationForm = () => {
               {/* actual form inputs ends */}
               <div>
                 <FormControlLabel required control={<Checkbox />} label="I am aware that my information's such as name, mobile & other details are going to be used within our department circle for everybody's beneficial purpose." /> <br />
-                <Button onClick={()=>{handleSubmit(details)}} className={styles.submit_button} variant="contained"
-                      component="label" style={{backgroundColor:"green", width:"200px", height:"3rem"}} >
+                <Button onClick={() => { handleSubmit(details) }} className={styles.submit_button} variant="contained"
+                  component="label" style={{ backgroundColor: "green", width: "200px", height: "3rem" }} >
                   Submit
                 </Button>
               </div>

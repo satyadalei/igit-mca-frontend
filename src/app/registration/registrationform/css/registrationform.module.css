@@ -5,12 +5,19 @@
 }
 .register_top_container{
   margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
 }
 .form_input_container{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     /* border: 1px solid green; */
+}
+.userType_form_heading{
+    color : "#3584FC";
+}
+.userType_form_sub_heading{
+    color : "#8eb8f8";
 }
 .input_box{
     width: 30%;
