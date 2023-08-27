@@ -83,6 +83,7 @@ const RegistrationForm = () => {
                 <div className={`${styles.input_box} ${styles.input_box1}`} >
                   {/* ---EMAIL---- */}
                   <TextField
+                    styles={{margin:"0.5rem"}}
                     className={styles.input_field}
                     name='email'
                     onChange={handleChange}
@@ -98,6 +99,7 @@ const RegistrationForm = () => {
                   {/* ---BATCH--- */}
                   <TextField
                     className={styles.input_field}
+                    styles={{margin:"0.5rem"}}
                     name='batch'
                     onChange={handleChange}
                     fullWidth
@@ -112,6 +114,7 @@ const RegistrationForm = () => {
                   {/* --- Registration number --- */}
                   <TextField
                     className={styles.input_field}
+                    styles={{margin:"0.5rem"}}
                     value={details.regNum}
                     name='regNum'
                     onChange={handleChange}
@@ -126,6 +129,7 @@ const RegistrationForm = () => {
                   {/* --- Roll number --- */}
                   <TextField
                     className={styles.input_field}
+                    styles={{margin:"0.5rem"}}
                     name='rollNum'
                     value={details.rollNum}
                     onChange={handleChange}
@@ -140,6 +144,7 @@ const RegistrationForm = () => {
                   {/* --- first name --- */}
                   <TextField
                     className={styles.input_field}
+                    styles={{margin:"0.5rem"}}
                     name='fName'
                     value={details.fName}
                     onChange={handleChange}
@@ -154,6 +159,7 @@ const RegistrationForm = () => {
                   {/* --- last name --- */}
                   <TextField
                     className={styles.input_field}
+                    styles={{margin:"0.5rem"}}
                     name='lName'
                     value={details.lName}
                     onChange={handleChange}
@@ -170,6 +176,7 @@ const RegistrationForm = () => {
                   <TextField
                     id="outlined-select-currency"
                     className={styles.input_field}
+                    styles={{margin:"0.5rem"}}
                     name='homeDist'
                     value={details.homeDist}
                     onChange={handleChange}
@@ -194,6 +201,7 @@ const RegistrationForm = () => {
                   {/* ---Mobile number ---- */}
                   <TextField
                     className={styles.input_field}
+                    styles={{margin:"0.5rem"}}
                     fullWidth
                     name='mobile'
                     value={details.mobile}
@@ -210,6 +218,7 @@ const RegistrationForm = () => {
                     className={styles.input_field}
                     name='fieldOfInterest'
                     value={details.fieldOfInterest}
+                    styles={{margin:"0.5rem"}}
                     onChange={handleChange}
                     required
                     select
@@ -232,6 +241,7 @@ const RegistrationForm = () => {
                     name='gradCourse'
                     value={details.gradCourse}
                     onChange={handleChange}
+                    styles={{margin:"0.5rem"}}
                     fullWidth
                     select
                     label="Graduation course"
@@ -253,6 +263,7 @@ const RegistrationForm = () => {
                     name='tag'
                     value={details.tag}
                     onChange={handleChange}
+                    styles={{margin:"0.5rem"}}
                     select
                     label="Any tag provided"
                     // defaultValue={"nothing selected"}
@@ -276,6 +287,7 @@ const RegistrationForm = () => {
                       name='githubLink'
                       value={details.githubLink}
                       onChange={handleChange}
+                      styles={{margin:"0.5rem"}}
                       autoComplete='off'
                       id="filled-error-helper-text"
                       label="Github Profile link"
@@ -290,6 +302,7 @@ const RegistrationForm = () => {
                       name='linkedInLink'
                       value={details.linkedInLink}
                       onChange={handleChange}
+                      styles={{margin:"0.5rem"}}
                       autoComplete='off'
                       id="filled-error-helper-text"
                       label="LinkedIn Profile link"
