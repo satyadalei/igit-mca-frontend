@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 import "./globals.css"
 // -------- context apis --------
 import RegistrationStates from "../context/registration/registrationStates"
+import Head from 'next/head'
 
 
 export const metadata = {
@@ -17,6 +18,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
       <body className={`${inter.className}`} >
         <NavBar/>
         <RegistrationStates> {/*Registration context*/}
