@@ -11,7 +11,7 @@ import UserTypeForm from "./UserTypeForm"
 const RegistrationForm = () => {
 
   const registrationContext = useContext(RegistrationContext);
-  const { registeringUser, googleSignUp, user } = registrationContext;
+  const { registeringUser, googleSignUp, user, registerNewUser } = registrationContext;
   // registeringUser = 42 or 41
   // user = allDetals of user --> user.email is email id of user
   const router = useRouter();
@@ -58,6 +58,7 @@ const RegistrationForm = () => {
   // handle submit 
   const handleSubmit = (details) => {
     console.log(details);
+    registerNewUser(details)
   }
 
   return (
