@@ -20,6 +20,7 @@ const RegistrationForm = () => {
   const [details, setDetails] = useState({
     batch: "",
     email: "",
+    password : "",
     regNum: "",
     rollNum: "",
     fName: "",
@@ -82,6 +83,22 @@ const RegistrationForm = () => {
 
                 {/* Box 1 */}
                 <div className={`${styles.input_box} ${styles.input_box1}`} >
+
+                {/* ---BATCH--- */}
+                <TextField
+                    className={styles.input_field}
+                    styles={{margin:"0.5rem"}}
+                    name='batch'
+                    onChange={handleChange}
+                    fullWidth
+                    required
+                    // id="outlined-basic"
+                    label="Batch"
+                    value={details.batch}
+                    variant="filled"
+                    placeholder='ex: 42'
+                    disabled
+                  />
                   {/* ---EMAIL---- */}
                   <TextField
                     styles={{margin:"0.5rem"}}
@@ -90,28 +107,29 @@ const RegistrationForm = () => {
                     onChange={handleChange}
                     required
                     fullWidth
-                    id="outlined-basic"
+                    // id="outlined-basic"
                     label="Email"
                     value={details.email}
                     variant="filled"
                     placeholder='ex: mca41@gmail.com'
                     disabled
                   />
-                  {/* ---BATCH--- */}
-                  <TextField
-                    className={styles.input_field}
+                   {/* ---PASSWORD---- */}
+                   <TextField
                     styles={{margin:"0.5rem"}}
-                    name='batch'
+                    className={styles.input_field}
+                    name='password'
                     onChange={handleChange}
-                    fullWidth
+                    label="Password"
+                    type="password"
                     required
-                    id="outlined-basic"
-                    label="Batch"
-                    value={details.batch}
+                    fullWidth
+                    // id="outlined-basic"
+                    value={details.password}
                     variant="filled"
-                    placeholder='ex: 42'
-                    disabled
+                    helperText="At least 5 characters"
                   />
+
                   {/* --- Registration number --- */}
                   <TextField
                     className={styles.input_field}
@@ -121,7 +139,7 @@ const RegistrationForm = () => {
                     onChange={handleChange}
                     required
                     fullWidth
-                    id="outlined-basic"
+                    // id="outlined-basic"
                     label="Registration number"
                     variant="filled"
                     placeholder='ex: 2205105056'
@@ -136,7 +154,7 @@ const RegistrationForm = () => {
                     onChange={handleChange}
                     required
                     fullWidth
-                    id="filled-error-helper-text"
+                    // id="filled-error-helper-text"
                     label="Roll number"
                     variant="filled"
                     placeholder='ex: 50'
@@ -151,7 +169,7 @@ const RegistrationForm = () => {
                     onChange={handleChange}
                     required
                     fullWidth
-                    id="filled-error-helper-text"
+                    // id="filled-error-helper-text"
                     label="First name"
                     variant="filled"
                     placeholder='ex: Aradhana'
@@ -167,7 +185,7 @@ const RegistrationForm = () => {
                     required
                     fullWidth
                     autoComplete='off'
-                    id="filled-error-helper-text"
+                    // id="filled-error-helper-text"
                     label="Last name"
                     variant="filled"
                     placeholder='ex: Das'
@@ -175,7 +193,7 @@ const RegistrationForm = () => {
 
                   {/* --- Home district --- */}
                   <TextField
-                    id="outlined-select-currency"
+                    // id="outlined-select-currency"
                     className={styles.input_field}
                     styles={{margin:"0.5rem"}}
                     name='homeDist'
@@ -208,14 +226,14 @@ const RegistrationForm = () => {
                     value={details.mobile}
                     onChange={handleChange}
                     autoComplete='off'
-                    id="filled-error-helper-text"
+                    // id="filled-error-helper-text"
                     label="Mobile number"
                     variant="filled"
                     placeholder='ex: 814457XXXX'
                     helperText="To add you in group"
                   />
                   <TextField
-                    id="outlined-select-currency"
+                    // id="outlined-select-currency"
                     className={styles.input_field}
                     name='fieldOfInterest'
                     value={details.fieldOfInterest}
@@ -237,7 +255,7 @@ const RegistrationForm = () => {
                   </TextField>
                   {/* --- Graduation --- */}
                   <TextField
-                    id="outlined-select-currency"
+                    // id="outlined-select-currency"
                     className={styles.input_field}
                     name='gradCourse'
                     value={details.gradCourse}
@@ -258,7 +276,7 @@ const RegistrationForm = () => {
 
                   {/* --- ANY TAG PROVIDED ---*/}
                   <TextField
-                    id="outlined-select-currency"
+                    // id="outlined-select-currency"
                     className={styles.input_field}
                     fullWidth
                     name='tag'
@@ -290,7 +308,7 @@ const RegistrationForm = () => {
                       onChange={handleChange}
                       styles={{margin:"0.5rem"}}
                       autoComplete='off'
-                      id="filled-error-helper-text"
+                      // id="filled-error-helper-text"
                       label="Github Profile link"
                       variant="filled"
                       placeholder='ex: https://github.com/...'
@@ -305,7 +323,7 @@ const RegistrationForm = () => {
                       onChange={handleChange}
                       styles={{margin:"0.5rem"}}
                       autoComplete='off'
-                      id="filled-error-helper-text"
+                      // id="filled-error-helper-text"
                       label="LinkedIn Profile link"
                       variant="filled"
                       placeholder='ex: https://www.linkedin.com/in/...'
