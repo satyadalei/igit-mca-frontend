@@ -19,3 +19,13 @@ section.page_section{
   margin: 0 auto;
 
 }
+.alert_container{
+  position: fixed;
+  width: 100%;
+  top: 20;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}

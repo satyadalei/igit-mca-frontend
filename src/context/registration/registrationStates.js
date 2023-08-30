@@ -16,7 +16,7 @@ const RegistrationStates = (props) => {
     }
 
     const router = useRouter()
-    // ------- This function is for NEW user who are willing to regsiter :: SIGN UP
+    // ------- This function is for NEW user who are willing to register :: SIGN UP
     const googleSignUp = () => {
         const provider = new GoogleAuthProvider()
 

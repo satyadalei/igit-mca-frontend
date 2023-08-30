@@ -1,26 +1,42 @@
 "use client"
+// eslint-disable-next-line react/no-unescaped-entities
 import React, { useContext, useEffect, useState } from 'react'
 import RegistrationContext from "@/context/registration/registrationContext";
 import { useRouter } from 'next/navigation'
 import Loading from "../../../components/common/Loading"
 import styles from "./css/registrationform.module.css"
-import { Avatar, Button, Checkbox, FormControlLabel, MenuItem, TextField } from '@mui/material';
+import { Avatar, Button, Checkbox, FormControlLabel, MenuItem, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { sortedDistricts, fieldOfInterest, bachelorCourses, assignedTag } from "./formSelectOption"
 import UserTypeForm from "./UserTypeForm"
+import validateFormData from "./verifyFormData"
+import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
+import Alert from '@/components/common/Alert';
+
+
+
+
+
+
+
+
+
 const RegistrationForm = () => {
 
-  const registrationContext = useContext(RegistrationContext);
-  const { registeringUser, googleSignUp, user, registerNewUser } = registrationContext;
+  // const registrationContext = useContext(RegistrationContext);
+  const { registeringUser, googleSignUp, user, registerNewUser } = useContext(RegistrationContext);
+  const { setLoading, setAlert, loading, alert } = useContext(loadingAndAlertContext);
+
   // registeringUser = 42 or 41
-  // user = allDetals of user --> user.email is email id of user
+  // user = allDetails of user --> user.email is email id of user
   const router = useRouter();
 
 
+  const [isChecked, setIsChecked] = useState(false);
   const [details, setDetails] = useState({
     batch: "",
     email: "",
-    password : "",
+    password: "",
     regNum: "",
     rollNum: "",
     fName: "",
@@ -41,7 +57,6 @@ const RegistrationForm = () => {
       router.push("/registration")
     } else {
       // set batch & email previously
-      console.log("from registration form" + user);
       setDetails((prev) => {
         return { ...prev, batch: registeringUser, email: `${user.email}` }
       })
@@ -56,25 +71,52 @@ const RegistrationForm = () => {
     })
   }
 
+  //handle checkbox
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
   // handle submit 
   const handleSubmit = (details) => {
-    console.log(details);
-    registerNewUser(details)
+    const { error, message } = validateFormData(details)
+    if (error) {
+      // credential error
+      setAlert({
+        alert: true,
+        alertType: "warning",
+        alertMessage: message
+      })
+    } else {
+      // is check box checked
+      if (isChecked) {
+        registerNewUser(details)
+      } else {
+        // Force user to agree to share personnel information
+        setAlert({
+          alert: true,
+          alertType: "warning",
+          alertMessage: "Please Agree to share you personal information!"
+        })
+      }
+    }
   }
+
 
   return (
     <>
       <section className='page_section' >
-        {(registeringUser != null && user != null)  ?
+        {(registeringUser != null && user != null) ?
           <>
+            {alert.alert && <Alert />}
+            {/* <Alert/>   */}
             <div className={styles.registration_main_container} >
               {/* top heading of form */}
               <div className={styles.register_top_container} >
                 {registeringUser === 41
                   ?
-                    <UserTypeForm mainHeading={"41 batch (2022-24)"} subHeading={"2nd year registration form"} />
+                  <UserTypeForm mainHeading={"41 batch (2022-24)"} subHeading={"2nd year registration form"} />
                   :
-                    <UserTypeForm mainHeading={"42 batch (2023-25)"} subHeading={"1st year registration form"} />
+                  <UserTypeForm mainHeading={"42 batch (2023-25)"} subHeading={"1st year registration form"} />
                 }
               </div>
 
@@ -84,10 +126,10 @@ const RegistrationForm = () => {
                 {/* Box 1 */}
                 <div className={`${styles.input_box} ${styles.input_box1}`} >
 
-                {/* ---BATCH--- */}
-                <TextField
+                  {/* ---BATCH--- */}
+                  <TextField
                     className={styles.input_field}
-                    styles={{margin:"0.5rem"}}
+                    styles={{ margin: "0.5rem" }}
                     name='batch'
                     onChange={handleChange}
                     fullWidth
@@ -101,7 +143,7 @@ const RegistrationForm = () => {
                   />
                   {/* ---EMAIL---- */}
                   <TextField
-                    styles={{margin:"0.5rem"}}
+                    styles={{ margin: "0.5rem" }}
                     className={styles.input_field}
                     name='email'
                     onChange={handleChange}
@@ -114,9 +156,9 @@ const RegistrationForm = () => {
                     placeholder='ex: mca41@gmail.com'
                     disabled
                   />
-                   {/* ---PASSWORD---- */}
-                   <TextField
-                    styles={{margin:"0.5rem"}}
+                  {/* ---PASSWORD---- */}
+                  <TextField
+                    styles={{ margin: "0.5rem" }}
                     className={styles.input_field}
                     name='password'
                     onChange={handleChange}
@@ -131,24 +173,28 @@ const RegistrationForm = () => {
                   />
 
                   {/* --- Registration number --- */}
-                  <TextField
-                    className={styles.input_field}
-                    styles={{margin:"0.5rem"}}
-                    value={details.regNum}
-                    name='regNum'
-                    onChange={handleChange}
-                    required
-                    fullWidth
-                    // id="outlined-basic"
-                    label="Registration number"
-                    variant="filled"
-                    placeholder='ex: 2205105056'
-                  />
+                  {registeringUser === 41 &&
+                    <>
+                      <TextField
+                        className={styles.input_field}
+                        styles={{ margin: "0.5rem" }}
+                        value={details.regNum}
+                        name='regNum'
+                        onChange={handleChange}
+                        required
+                        fullWidth
+                        // id="outlined-basic"
+                        label="Registration number"
+                        variant="filled"
+                        placeholder='ex: 2205105056'
+                      />
+                    </>
+                  }
 
                   {/* --- Roll number --- */}
                   <TextField
                     className={styles.input_field}
-                    styles={{margin:"0.5rem"}}
+                    styles={{ margin: "0.5rem" }}
                     name='rollNum'
                     value={details.rollNum}
                     onChange={handleChange}
@@ -163,7 +209,7 @@ const RegistrationForm = () => {
                   {/* --- first name --- */}
                   <TextField
                     className={styles.input_field}
-                    styles={{margin:"0.5rem"}}
+                    styles={{ margin: "0.5rem" }}
                     name='fName'
                     value={details.fName}
                     onChange={handleChange}
@@ -178,7 +224,7 @@ const RegistrationForm = () => {
                   {/* --- last name --- */}
                   <TextField
                     className={styles.input_field}
-                    styles={{margin:"0.5rem"}}
+                    styles={{ margin: "0.5rem" }}
                     name='lName'
                     value={details.lName}
                     onChange={handleChange}
@@ -195,7 +241,7 @@ const RegistrationForm = () => {
                   <TextField
                     // id="outlined-select-currency"
                     className={styles.input_field}
-                    styles={{margin:"0.5rem"}}
+                    styles={{ margin: "0.5rem" }}
                     name='homeDist'
                     value={details.homeDist}
                     onChange={handleChange}
@@ -220,7 +266,7 @@ const RegistrationForm = () => {
                   {/* ---Mobile number ---- */}
                   <TextField
                     className={styles.input_field}
-                    styles={{margin:"0.5rem"}}
+                    styles={{ margin: "0.5rem" }}
                     fullWidth
                     name='mobile'
                     value={details.mobile}
@@ -232,27 +278,30 @@ const RegistrationForm = () => {
                     placeholder='ex: 814457XXXX'
                     helperText="To add you in group"
                   />
-                  <TextField
-                    // id="outlined-select-currency"
-                    className={styles.input_field}
-                    name='fieldOfInterest'
-                    value={details.fieldOfInterest}
-                    styles={{margin:"0.5rem"}}
-                    onChange={handleChange}
-                    required
-                    select
-                    label="Field of interest"
-                    // defaultValue={"nothing selected"}
-                    variant="filled"
-                    fullWidth
-                  >
-                    {fieldOfInterest.map((interest, index) => (
-                      <MenuItem style={{ zIndex: "1001" }} key={index} value={interest}>
-                        {interest}
-                      </MenuItem>
-                    ))}
-                    <MenuItem value={"other"} >Other</MenuItem>
-                  </TextField>
+                  {registeringUser === 41 &&
+                    <>
+                      <TextField
+                        // id="outlined-select-currency"
+                        className={styles.input_field}
+                        name='fieldOfInterest'
+                        value={details.fieldOfInterest}
+                        styles={{ margin: "0.5rem" }}
+                        onChange={handleChange}
+                        required
+                        select
+                        label="Field of interest"
+                        // defaultValue={"nothing selected"}
+                        variant="filled"
+                        fullWidth
+                      >
+                        {fieldOfInterest.map((interest, index) => (
+                          <MenuItem style={{ zIndex: "1001" }} key={index} value={interest}>
+                            {interest}
+                          </MenuItem>
+                        ))}
+                        <MenuItem value={"other"} >Other</MenuItem>
+                      </TextField>
+                    </>}
                   {/* --- Graduation --- */}
                   <TextField
                     // id="outlined-select-currency"
@@ -260,7 +309,7 @@ const RegistrationForm = () => {
                     name='gradCourse'
                     value={details.gradCourse}
                     onChange={handleChange}
-                    styles={{margin:"0.5rem"}}
+                    styles={{ margin: "0.5rem" }}
                     fullWidth
                     select
                     label="Graduation course"
@@ -275,30 +324,35 @@ const RegistrationForm = () => {
                   </TextField>
 
                   {/* --- ANY TAG PROVIDED ---*/}
-                  <TextField
-                    // id="outlined-select-currency"
-                    className={styles.input_field}
-                    fullWidth
-                    name='tag'
-                    value={details.tag}
-                    onChange={handleChange}
-                    styles={{margin:"0.5rem"}}
-                    select
-                    label="Any tag provided"
-                    // defaultValue={"nothing selected"}
-                    variant="filled"
-                    helperText="You can left empty if nothing given"
-                  >
-                    {assignedTag.map((tagAssigned, index) => (
-                      <MenuItem style={{ zIndex: "1001" }} key={index} value={tagAssigned}>
-                        {tagAssigned}
-                      </MenuItem>
-                    ))}
-                  </TextField>
+                  {registeringUser === 41 &&
+                    <>
+                      <TextField
+                        // id="outlined-select-currency"
+                        className={styles.input_field}
+                        fullWidth
+                        name='tag'
+                        value={details.tag}
+                        onChange={handleChange}
+                        styles={{ margin: "0.5rem" }}
+                        select
+                        label="Any tag provided"
+                        // defaultValue={"nothing selected"}
+                        variant="filled"
+                        helperText="You can left empty if nothing given"
+                      >
+                        {assignedTag.map((tagAssigned, index) => (
+                          <MenuItem style={{ zIndex: "1001" }} key={index} value={tagAssigned}>
+                            {tagAssigned}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </>
+                  }
 
                   {/* ------- SOCIAL LINKS -------- */}
                   <div>
                     <h4 className={styles.social_link_heading} >Social Links</h4>
+                    <p className={styles.upload_profile_pic_note} style={{textAlign:"start", fontSize:"12px",marginLeft:"0.5rem"}}>You can edit later too</p>
                     {/* --- GITHUB --- */}
                     <TextField
                       className={styles.input_field}
@@ -306,7 +360,7 @@ const RegistrationForm = () => {
                       name='githubLink'
                       value={details.githubLink}
                       onChange={handleChange}
-                      styles={{margin:"0.5rem"}}
+                      styles={{ margin: "0.5rem" }}
                       autoComplete='off'
                       // id="filled-error-helper-text"
                       label="Github Profile link"
@@ -321,7 +375,7 @@ const RegistrationForm = () => {
                       name='linkedInLink'
                       value={details.linkedInLink}
                       onChange={handleChange}
-                      styles={{margin:"0.5rem"}}
+                      styles={{ margin: "0.5rem" }}
                       autoComplete='off'
                       // id="filled-error-helper-text"
                       label="LinkedIn Profile link"
@@ -338,14 +392,20 @@ const RegistrationForm = () => {
                   <h1 className={styles.upload_profile_pic_heading} >Upload profile picture</h1>
                   <p className={styles.upload_profile_pic_note} >You can edit later too</p>
                   <div className={styles.upload_profile_pic_box} >
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/1.jpg"
-                      sx={{ width: 250, height: 250 }}
-                    />
-                    <p className={styles.remove_profile_pic} ><CloseIcon style={{ backgroundColor: "red", color: "white", borderRadius: "50%", fontSize: "20px" }} />
-                      <span className={styles.remove_profile_pic_remove_text} >Remove pic</span>
-                    </p>
+                    <div className={styles.profile_box} >
+                      <Avatar
+                        // alt={details.profilePic === "" ? "" : ""}
+                        src="/static/images/avatar/1.jpg"
+                        sx={{ width: 250, height: 250 }}
+                      />
+                    </div>
+                    {details.profilePic != "" &&
+                      <>
+                        <p className={styles.remove_profile_pic} ><CloseIcon style={{ backgroundColor: "red", color: "white", borderRadius: "50%", fontSize: "20px" }} />
+                          <span className={styles.remove_profile_pic_remove_text} >Remove pic</span>
+                        </p>
+                      </>
+                    }
                     <Button
                       className={styles.chose_file_btn}
                       variant="contained"
@@ -368,8 +428,12 @@ const RegistrationForm = () => {
               </div>
 
               {/* actual form inputs ends */}
-              <div>
-                <FormControlLabel required control={<Checkbox />} label="I am aware that my information's such as name, mobile & other details are going to be used within our department circle for everybody's beneficial purpose." /> <br />
+              <div style={{margin:"0.5rem"}}>
+                <FormControlLabel required control={<Checkbox checked={isChecked} onChange={handleCheckboxChange} />} label="I agree!" />
+                <Typography  >
+                  My personnel information such as name, mobile number & other details are going to be used within our department circle only for better coordination purpose & some of {"information's"} such as name & field of interest will displayed on igit-MCA website.
+                </Typography>
+                <br />
                 <Button onClick={() => { handleSubmit(details) }} className={styles.submit_button} variant="contained"
                   component="label" style={{ backgroundColor: "green", width: "200px", height: "3rem" }} >
                   Submit

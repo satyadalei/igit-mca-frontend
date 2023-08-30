@@ -8,6 +8,7 @@ import "./globals.css"
 // -------- context apis --------
 import RegistrationStates from "../context/registration/registrationStates"
 import Head from 'next/head'
+import LoadingAndAlertStates from '@/context/loadingAndAlert/loadingAndAlertStates'
 
 
 export const metadata = {
@@ -22,11 +23,13 @@ export default function RootLayout({ children }) {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <body className={`${inter.className}`} >
-        <NavBar/>
-        <RegistrationStates> {/*Registration context*/}
-          {children}
-        </RegistrationStates>
-        <Footer/>
+          <LoadingAndAlertStates> {/* TOP priority */}
+            <RegistrationStates> 
+              <NavBar/> 
+              {children}
+              <Footer/>
+            </RegistrationStates>
+          </LoadingAndAlertStates>
       </body>
     </html>
   )

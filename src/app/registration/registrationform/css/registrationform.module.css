@@ -2,6 +2,7 @@
     width: 100%;
     /* border: 1px solid red; */
     padding: 1.5rem;
+    padding-bottom: 2rem;
 }
 .register_top_container{
   margin-bottom: 1.5rem;
@@ -63,7 +64,8 @@
    margin-left: 0.1rem;
 }
 .chose_file_btn{
-    margin-top: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 .supported_files{
     margin-top: 1rem;
@@ -91,6 +93,7 @@
 @media only screen and (max-width: 690px) {
     .registration_main_container{
         padding: 0.5rem;
+        padding-bottom: 2rem;
     }
     .form_input_container{
         justify-content:space-evenly;
