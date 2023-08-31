@@ -36,15 +36,24 @@ const RegistrationForm = () => {
   const [details, setDetails] = useState({
     batch: "",
     email: "",
-    password: "",
-    regNum: "",
-    rollNum: "",
-    fName: "",
-    lName: "",
-    homeDist: "",
-    mobile: "",
-    fieldOfInterest: "",
-    gradCourse: "",
+    password: "satya123",
+    // password: "",
+    regNum: "2205105056",
+    // regNum: "",
+    rollNum: "56",
+    // rollNum: "",
+    fName: "Satya",
+    // fName: "",
+    lName: "Dalei",
+    // lName: "",
+    homeDist: "Balasore",
+    // homeDist: "",
+    mobile: "8144573354",
+    // mobile: """,
+    fieldOfInterest: "Systems Applications and Products",
+    // fieldOfInterest: "",
+    gradCourse: "B.Sc(Mathematics)",
+    // gradCourse: "",
     tag: "",
     githubLink: "",
     linkedInLink: "",
@@ -66,11 +75,30 @@ const RegistrationForm = () => {
 
   // handle onchange to modify form data
   const handleChange = (e) => {
+    console.log(details);
     setDetails((prev) => {
       return { ...prev, [e.target.name]: e.target.value }
     })
   }
-
+  // handle file input 
+  const handleFileInput = (e)=>{
+    // this will be helpful when user opens file window & cancels without selecting any file. Because if file is undefined & set it directly to react hook. It cause problem. 
+    if (e.target.files[0] != undefined) {
+      setDetails((prev)=>{
+        return {
+          ...prev,profilePic : e.target.files[0]
+        }
+      })
+    }
+  }
+  // handle remove file image
+  const handleRemovePic = ()=>{
+    setDetails((prev)=>{
+      return {
+        ...prev,profilePic : ""
+      }
+    })
+  }
   //handle checkbox
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
@@ -407,13 +435,13 @@ const RegistrationForm = () => {
                     <div className={styles.profile_box} >
                       <Avatar
                         // alt={details.profilePic === "" ? "" : ""}
-                        src="/static/images/avatar/1.jpg"
+                        src={details.profilePic != "" ? `${URL.createObjectURL(details.profilePic)}` : ""}
                         sx={{ width: 250, height: 250 }}
                       />
                     </div>
                     {details.profilePic != "" &&
                       <>
-                        <p className={styles.remove_profile_pic} ><CloseIcon style={{ backgroundColor: "red", color: "white", borderRadius: "50%", fontSize: "20px" }} />
+                        <p onClick={handleRemovePic} className={styles.remove_profile_pic} ><CloseIcon style={{ backgroundColor: "red", color: "white", borderRadius: "50%", fontSize: "20px" }} />
                           <span className={styles.remove_profile_pic_remove_text} >Remove pic</span>
                         </p>
                       </>
@@ -425,12 +453,14 @@ const RegistrationForm = () => {
                     >
                       Choose picture
                       <input
+                        accept='image/png, image/jpeg'
+                        onChange={handleFileInput}
                         type="file"
                         hidden
                       />
                     </Button>
                     <p className={styles.supported_files} >
-                      Supported files are .PNG, .JPEG, .JPG
+                      Supported files are .PNG, .JPEG, .JPG & maximum size : 300KB
                     </p>
                     <p className={styles.note_for_pic} >
                       <span>Note</span> : If possible upload a professional & recent picture so others can recognize easily.
