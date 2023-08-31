@@ -51,7 +51,6 @@ const RegistrationStates = (props) => {
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-
     // ------- registering new User starts------
     const registerNewUser = async (userDetails) => {
         //console.log(userDetails);
@@ -71,7 +70,9 @@ const RegistrationStates = (props) => {
         formData.append('textData', JSON.stringify(textData));
         formData.append('imageFile', imageFile);
         console.log(Object.fromEntries(formData));
+        console.log(url);
         try {
+            console.log(url);
             const register = await fetch(url, {
                 method: "POST",
                 // headers: {
