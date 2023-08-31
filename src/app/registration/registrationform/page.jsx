@@ -77,8 +77,8 @@ const RegistrationForm = () => {
   };
 
   // handle submit 
-  const handleSubmit = (details) => {
-    const { error, message } = validateFormData(details)
+  const handleSubmit = (formData) => {
+    const { error, message } = validateFormData(formData)
     if (error) {
       // credential error
       setAlert({
@@ -89,7 +89,12 @@ const RegistrationForm = () => {
     } else {
       // is check box checked
       if (isChecked) {
-        registerNewUser(details)
+        setLoading(true)
+       const resetDetails =  registerNewUser(formData)
+       if (resetDetails != null) {
+        setDetails(details);
+        setIsChecked(false)
+       }
       } else {
         // Force user to agree to share personnel information
         setAlert({
@@ -107,8 +112,15 @@ const RegistrationForm = () => {
       <section className='page_section' >
         {(registeringUser != null && user != null) ?
           <>
+
+
+            {/* ---- <Alert/> -----  */}
             {alert.alert && <Alert />}
-            {/* <Alert/>   */}
+            
+            {/* ---- Loading -----  */}
+            {loading && <Loading/>}
+
+
             <div className={styles.registration_main_container} >
               {/* top heading of form */}
               <div className={styles.register_top_container} >

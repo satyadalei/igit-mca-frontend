@@ -3,11 +3,20 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 const Loding = () => {
   return (
-    <div className='page_section' >
-        <Box sx={{ display: 'flex', alignItems:"center", justifyContent:"center", height:"60vh" }}>
+    <>
+      <div className='loading_component' >
+        <Box sx={{ display: 'flex', alignItems:"center", justifyContent:"center"}}>
            <CircularProgress />
          </Box>
     </div>
+
+    {/* Initial loader */}
+    {/* <div className='page_section' >
+        <Box sx={{ display: 'flex', alignItems:"center", justifyContent:"center", height:"60vh" }}>
+           <CircularProgress />
+         </Box>
+    </div> */}
+    </>
   )
 }
 

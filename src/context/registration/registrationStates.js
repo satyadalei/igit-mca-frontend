@@ -1,14 +1,17 @@
 "use client"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { useEffect } from "react"
+import { redirect, useRouter } from 'next/navigation'
 import registrationContext from "./registrationContext"
+import loadingAndAlertContext from "../loadingAndAlert/loadingAndAlertContext"
 
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth"
 import { auth } from "../../../firebase/firebase"
-import { useEffect } from "react"
-import { useRouter } from 'next/navigation'
 
 const RegistrationStates = (props) => {
-    const [registeringUser, setRegisteringUser] = useState(null);
+
+    const {setLoading,setAlert} = useContext(loadingAndAlertContext);
+    const [registeringUser, setRegisteringUser] = useState();
     const [user, setUser] = useState(null);
     const updateBatch = (batch) => {
         // console.log(batch);
@@ -56,6 +59,29 @@ const RegistrationStates = (props) => {
         })
         const response = await register.json();
         console.log(response);
+        if (response.success) {
+            // user successfully created
+            setAlert({
+                alert : true,
+                alertMessage : "Account created successfully",
+                alertType : "success"
+            })
+            // save token 
+            localStorage.setItem("token", response.token)
+            // redirect to home page after 3 sec
+            setTimeout(()=>{
+                router.push("/")
+                setLoading(false)
+            },3000);
+            return {resetDetails : true}
+        }else{
+            setLoading(false);
+            setAlert({
+                alert : true,
+                alertMessage : response.message,
+                alertType : "error"
+            })
+        }
     }
 
     return (
