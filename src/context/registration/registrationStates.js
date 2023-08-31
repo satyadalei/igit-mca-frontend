@@ -71,7 +71,7 @@ const RegistrationStates = (props) => {
         formData.append('textData', JSON.stringify(textData));
         formData.append('imageFile', imageFile);
         console.log(Object.fromEntries(formData));
-        // try {
+        try {
             const register = await fetch(url, {
                 method: "POST",
                 // headers: {
@@ -103,14 +103,14 @@ const RegistrationStates = (props) => {
                     alertType: "error"
                 })
             }
-        // } catch (error) {
-            // setLoading(false);
-            // setAlert({
-            //     alert: true,
-            //     alertMessage: "Some unexpected error occurred",
-            //     alertType: "error"
-            // })
-        // }
+        } catch (error) {
+            setLoading(false);
+            setAlert({
+                alert: true,
+                alertMessage: "Some unexpected error occurred",
+                alertType: "error"
+            })
+        }
         //try catch ends
     }
     // ------- registering new User ends------
