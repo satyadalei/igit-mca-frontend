@@ -12,10 +12,11 @@ import { json } from "react-router-dom"
 const RegistrationStates = (props) => {
 
     const { setLoading, setAlert } = useContext(loadingAndAlertContext);
-    const [registeringUser, setRegisteringUser] = useState(41);
-    const [user, setUser] = useState({ email: "satya@gmail.com" });
+    const [registeringUser, setRegisteringUser] = useState(null);
+    // const [registeringUser, setRegisteringUser] = useState(41); // for test only
+    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState({ email: "satya@gmail.com" }); // for test only
     const updateBatch = (batch) => {
-        // console.log(batch);
         setRegisteringUser(batch);
     }
 
