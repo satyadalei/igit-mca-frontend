@@ -24,7 +24,7 @@ import Alert from '@/components/common/Alert';
 const RegistrationForm = () => {
 
   // const registrationContext = useContext(RegistrationContext);
-  const { registeringUser, googleSignUp, user, registerNewUser } = useContext(RegistrationContext);
+  const { registeringUser, setRegisteringUser ,setUser, googleSignUp, user, registerNewUser } = useContext(RegistrationContext);
   const { setLoading, setAlert, loading, alert } = useContext(loadingAndAlertContext);
 
   // registeringUser = 42 or 41
@@ -120,8 +120,11 @@ const RegistrationForm = () => {
         setLoading(true)
        const resetDetails =  registerNewUser(formData)
        if (resetDetails != null) {
-        setDetails(details);
+        // set all to default values
+        setRegisteringUser(null)
+        setUser(null)
         setIsChecked(false)
+        setDetails(details);
        }
       } else {
         // Force user to agree to share personnel information

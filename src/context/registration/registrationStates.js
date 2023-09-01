@@ -117,7 +117,7 @@ const RegistrationStates = (props) => {
     // ------- registering new User ends------
 
     return (
-        <registrationContext.Provider value={{ registeringUser, setRegisteringUser, updateBatch, user, googleSignUp, logOut, registerNewUser }} >
+        <registrationContext.Provider value={{ registeringUser, setRegisteringUser, updateBatch, user, setUser, googleSignUp, logOut, registerNewUser }} >
             {props.children}
         </registrationContext.Provider>
     )
