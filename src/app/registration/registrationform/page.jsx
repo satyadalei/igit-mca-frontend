@@ -23,8 +23,8 @@ import Alert from '@/components/common/Alert';
 
 const RegistrationForm = () => {
 
-  // const registrationContext = useContext(RegistrationContext);
-  const { registeringUser, setRegisteringUser ,setUser, googleSignUp, user, registerNewUser } = useContext(RegistrationContext);
+  
+  const { registeringUser, setRegisteringUser, setUser, googleSignUp, user, registerNewUser } = useContext(RegistrationContext);
   const { setLoading, setAlert, loading, alert } = useContext(loadingAndAlertContext);
 
   // registeringUser = 42 or 41
@@ -36,24 +36,31 @@ const RegistrationForm = () => {
   const [details, setDetails] = useState({
     batch: "",
     email: "",
-    // password: "satya123",
+
     password: "",
-    // regNum: "2205105056",
     regNum: "",
-    // rollNum: "56",
     rollNum: "",
-    // fName: "Satya",
     fName: "",
-    // lName: "Dalei",
     lName: "",
-    // homeDist: "Balasore",
     homeDist: "",
-    // mobile: "8147573354",
     mobile: "",
-    // fieldOfInterest: "Systems Applications and Products",
     fieldOfInterest: "",
-    // gradCourse: "B.Sc(Mathematics)",
     gradCourse: "",
+
+    // only for test
+
+    // password: "satya123",
+    // regNum: "2205105056",
+    // rollNum: "56",
+    // fName: "Satya",
+    // lName: "Dalei",
+    // homeDist: "Balasore",
+    // mobile: "8147573354",
+    // fieldOfInterest: "Systems Applications and Products",
+    // gradCourse: "B.Sc(Mathematics)",
+
+    // only for test
+
     tag: "",
     githubLink: "",
     linkedInLink: "",
@@ -81,21 +88,21 @@ const RegistrationForm = () => {
     })
   }
   // handle file input 
-  const handleFileInput = (e)=>{
+  const handleFileInput = (e) => {
     // this will be helpful when user opens file window & cancels without selecting any file. Because if file is undefined & set it directly to react hook. It cause problem. 
     if (e.target.files[0] != undefined) {
-      setDetails((prev)=>{
+      setDetails((prev) => {
         return {
-          ...prev,profilePic : e.target.files[0]
+          ...prev, profilePic: e.target.files[0]
         }
       })
     }
   }
   // handle remove file image
-  const handleRemovePic = ()=>{
-    setDetails((prev)=>{
+  const handleRemovePic = () => {
+    setDetails((prev) => {
       return {
-        ...prev,profilePic : ""
+        ...prev, profilePic: ""
       }
     })
   }
@@ -118,14 +125,15 @@ const RegistrationForm = () => {
       // is check box checked
       if (isChecked) {
         setLoading(true)
-       const resetDetails =  registerNewUser(formData)
-       if (resetDetails != null) {
-        // set all to default values
-        setRegisteringUser(null)
-        setUser(null)
-        setIsChecked(false)
-        setDetails(details);
-       }
+        //registerNewUser(formData)
+        const resetDetails = registerNewUser(formData) 
+
+
+        if (resetDetails.resetDetails) {
+          // set all to default values
+          setIsChecked(false)
+          setDetails(details);
+        }
       } else {
         // Force user to agree to share personnel information
         setAlert({
@@ -147,9 +155,9 @@ const RegistrationForm = () => {
 
             {/* ---- <Alert/> -----  */}
             {alert.alert && <Alert />}
-            
+
             {/* ---- Loading -----  */}
-            {loading && <Loading/>}
+            {loading && <Loading />}
 
 
             <div className={styles.registration_main_container} >
@@ -395,7 +403,7 @@ const RegistrationForm = () => {
                   {/* ------- SOCIAL LINKS -------- */}
                   <div>
                     <h4 className={styles.social_link_heading} >Social Links</h4>
-                    <p className={styles.upload_profile_pic_note} style={{textAlign:"start", fontSize:"12px",marginLeft:"0.5rem"}}>You can edit later too</p>
+                    <p className={styles.upload_profile_pic_note} style={{ textAlign: "start", fontSize: "12px", marginLeft: "0.5rem" }}>You can edit later too</p>
                     {/* --- GITHUB --- */}
                     <TextField
                       className={styles.input_field}
@@ -473,7 +481,7 @@ const RegistrationForm = () => {
               </div>
 
               {/* actual form inputs ends */}
-              <div style={{margin:"0.5rem"}}>
+              <div style={{ margin: "0.5rem" }}>
                 <FormControlLabel required control={<Checkbox checked={isChecked} onChange={handleCheckboxChange} />} label="I agree!" />
                 <Typography  >
                   My personnel information such as name, mobile number & other details are going to be used within our department circle only for better coordination purpose & some of {"information's"} such as name & field of interest will displayed on igit-MCA website.

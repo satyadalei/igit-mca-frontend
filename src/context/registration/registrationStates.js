@@ -11,11 +11,15 @@ import { json } from "react-router-dom"
 
 const RegistrationStates = (props) => {
 
-    const { setLoading, setAlert } = useContext(loadingAndAlertContext);
+    const LoadingContext = useContext(loadingAndAlertContext);
+    const { setLoading, setAlert} = LoadingContext;
+
     const [registeringUser, setRegisteringUser] = useState(null);
-    // const [registeringUser, setRegisteringUser] = useState(41); // for test only
     const [user, setUser] = useState(null);
-    // const [user, setUser] = useState({ email: "satya@gmail.com" }); // for test only
+
+    // const [registeringUser, setRegisteringUser] = useState(41); // for test only
+    //const [user, setUser] = useState({ email: "satya123@gmail.com" }); // for test only
+
     const updateBatch = (batch) => {
         setRegisteringUser(batch);
     }
@@ -53,26 +57,18 @@ const RegistrationStates = (props) => {
 
     // ------- registering new User starts------
     const registerNewUser = async (userDetails) => {
-        //console.log(userDetails);
         const url = `${baseUrl}/api/user/createUser`;
         const imageFile = userDetails.profilePic;
-        //console.log(imageFile);
         const {
             batch, email, password, regNum, rollNum, fName, lName, homeDist, mobile, fieldOfInterest, gradCourse, tag, githubLink, linkedInLink
         } = userDetails;
-        console.log(batch);
         const textData = {
             batch, email, password, regNum, rollNum, fName, lName, homeDist, mobile, fieldOfInterest, gradCourse, tag, githubLink, linkedInLink
         }
-         //console.log(textData);
-        //console.log(userDetails);
         let formData = new FormData;
         formData.append('textData', JSON.stringify(textData));
         formData.append('imageFile', imageFile);
-        console.log(Object.fromEntries(formData));
-        console.log(url);
         try {
-            console.log(url);
             const register = await fetch(url, {
                 method: "POST",
                 // headers: {
@@ -81,21 +77,24 @@ const RegistrationStates = (props) => {
                 body: formData
             })
             const response = await register.json();
-            console.log(response);
             if (response.success) {
                 // user successfully created
                 setAlert({
                     alert: true,
-                    alertMessage: "Account created successfully",
+                    alertMessage: response.message,
                     alertType: "success"
                 })
                 // save token 
                 localStorage.setItem("token", response.token)
+                // set registration details to initial value
+                router.push("/", undefined, { shallow: true })
                 // redirect to home page after 3 sec
                 setTimeout(() => {
-                    router.push("/")
+                    setRegisteringUser(null)
+                    setUser(null)
                     setLoading(false)
                 }, 3000);
+                // this is for detecting whether to reset form data or not
                 return { resetDetails: true }
             } else {
                 setLoading(false);
@@ -104,14 +103,16 @@ const RegistrationStates = (props) => {
                     alertMessage: response.message,
                     alertType: "error"
                 })
+                return { resetDetails: false }
             }
         } catch (error) {
             setLoading(false);
             setAlert({
                 alert: true,
-                alertMessage: "Some unexpected error occurred",
+                alertMessage: "Some unexpected error occurred! Contact site admin or try after some time.",
                 alertType: "error"
-            })
+            });
+            return { resetDetails: false }
         }
         //try catch ends
     }

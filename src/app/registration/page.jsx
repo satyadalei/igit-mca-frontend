@@ -11,8 +11,8 @@ import RegistrationContext from "@/context/registration/registrationContext";
 
 
 const Registration = () => {
-  const registrationContext = useContext(RegistrationContext);
-  const {updateBatch} = registrationContext;
+  
+  const {updateBatch} = useContext(RegistrationContext);
   const router = useRouter()
 
   const handleBatch = (batch)=>{
