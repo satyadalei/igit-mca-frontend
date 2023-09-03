@@ -81,6 +81,7 @@ const RegistrationStates = (props) => {
                 body: formData
             })
             const response = await register.json();
+            console.log(response);
             if (response.success) {
                 // user successfully created
                 setAlert({
