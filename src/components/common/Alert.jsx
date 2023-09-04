@@ -33,7 +33,7 @@ const Alert = () => {
               (alert.alertType === "success") && "green"
       }} >
       <p style={{color:"white"}} >{alert.alertMessage}</p>
-      <CloseIcon onClick={hideAlertBox} />
+      <CloseIcon style={{cursor:"pointer"}} onClick={hideAlertBox} />
     </div>
   )
 }

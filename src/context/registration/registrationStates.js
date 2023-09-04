@@ -87,9 +87,9 @@ const RegistrationStates = (props) => {
                 // save token 
                 localStorage.setItem("token", response.token)
                 // set registration details to initial value
-                router.push("/", undefined, { shallow: true })
                 // redirect to home page after 3 sec
                 setTimeout(() => {
+                    router.push("/", undefined, { shallow: true })
                     setRegisteringUser(null)
                     setUser(null)
                     setLoading(false)
