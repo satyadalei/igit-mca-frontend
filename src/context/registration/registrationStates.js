@@ -40,6 +40,52 @@ const RegistrationStates = (props) => {
                 console.log("Caught error Popup closed" + error);
             });
     }
+    const googleSignIn = ()=>{
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+        .then(async (result)=>{
+            // console.log(result);
+            // console.log(result.user.stsTokenManager.accessToken);
+           const accessToken = result.user.stsTokenManager.accessToken;
+        //    console.log(id_token);
+            //---- call API to server --
+            const url = `${baseUrl}/api/user/loginViaGoogle`;
+            const userDetails = {
+                uid : accessToken
+            }
+            //console.log(JSON.stringify(userDetails));
+            const loginUser = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userDetails)
+            })
+            const response = await loginUser.json();
+            console.log(response);
+            setAlert({
+                alert: true,
+                alertMessage: "email found",
+                alertType: "success"
+            })
+            return { resetDetails: true }
+        })
+        .catch((error)=>{
+            console.log(error);
+            setAlert({
+                alert: true,
+                alertMessage: "Some error occurred. Try after some time!",
+                alertType: "danger"
+            })
+            return { resetDetails: false }
+        })
+    }
+
+    // when user sign in through email & password
+    const signInManually = (loginDetails)=>{
+        const url = `${baseUrl}/api/user/loginManually`;
+       // call api 
+    }
 
     const logOut = () => {
         signOut(auth)
@@ -119,7 +165,7 @@ const RegistrationStates = (props) => {
     // ------- registering new User ends------
 
     return (
-        <registrationContext.Provider value={{ registeringUser, setRegisteringUser, updateBatch, user, setUser, googleSignUp, logOut, registerNewUser }} >
+        <registrationContext.Provider value={{ registeringUser, setRegisteringUser, updateBatch, user, setUser, googleSignUp ,googleSignIn ,signInManually , logOut, registerNewUser }} >
             {props.children}
         </registrationContext.Provider>
     )
