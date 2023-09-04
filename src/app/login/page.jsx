@@ -26,13 +26,12 @@ const Login = () => {
   });
   const handleChange = (e) => {
     setloginDetails((prev) => {
-      console.log(loginDetails);
       return {
         ...prev, [e.target.name]: e.target.value
       }
     })
   }
-  const handleLoginManually = ()=>{
+  const handleLoginManually = async ()=>{
     const isError = validate(loginDetails);
     if (isError.error) {
       setAlert({
@@ -42,8 +41,10 @@ const Login = () => {
       })
     }else{
       // call api to authenticate user
-      const isSigned = signInManually(loginDetails);
-
+      const isSigned = await signInManually(loginDetails);
+      if (isSigned.resetDetails) {
+        setloginDetails(loginDetails)
+      }
     }
   }
 
