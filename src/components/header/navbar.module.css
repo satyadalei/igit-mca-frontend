@@ -1,6 +1,6 @@
 .navbar{
-    background-color: #d9d9d94c;
-    backdrop-filter: blur(0.6rem);
+    background-color: white;
+    /* backdrop-filter: blur(0.6rem); */
     width: 100%;
     max-width: 1400px;
     height: 10vh;
