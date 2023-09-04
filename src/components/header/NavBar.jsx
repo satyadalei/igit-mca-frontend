@@ -46,8 +46,8 @@ const NavBar = () => {
             {/* show based on log in status*/}
             {logedIn ?
               <div className={styles.logedIn_user} >
-                <span className={styles.logout_btn} >Logout</span>
-                <UserNameAndAvatar/>
+                {/* <LogOutBtn /> */}
+                <UserNameAndAvatar />
               </div>
               :
               <div>
@@ -60,16 +60,29 @@ const NavBar = () => {
 
           {/* hamburger */}
           <span className={styles.hamburger_menu} >
-            <MenuIcon onClick={toggleNavBar}  />
+            <MenuIcon onClick={toggleNavBar} />
           </span>
 
           {/* Responsive nav links*/}
           <div ref={responsive_Nav_ref} className={`${styles.responsive_nav}`} >
             <CloseIcon onClick={toggleNavBar} className={styles.cross_hamburger_menu} />
-            <UserAvatarAndNameReverse/>
             {/* when a link is clicked then closes responsive navbar */}
+            {logedIn ?
+              <>
+                <UserAvatarAndNameReverse />
+                {/* <div className={styles.logedIn_user} >
+                  <LogOutBtn />
+                  <UserNameAndAvatar />
+                </div> */}
+              </>
+              :
+              <div>
+                <Link className={styles.login_link} href="/login">Login</Link>
+                <Link className={styles.registration_link} href="/registration">Registration</Link>
+              </div>
+            }
             <NavLinkItems toggleNav={toggleNavBar} />
-            <LogOutBtn/>
+            {/* show based on log in status*/}
           </div>
 
         </div>
