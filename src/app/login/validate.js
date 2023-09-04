@@ -5,7 +5,7 @@ const validate = (loginCredentials)=>{
             message : "Enter email"
         }
     }
-    if (loginCredentials.password.length < 5) {
+    if (loginCredentials.password === "") {
         return {
             error : true,
             message : "Enter password"
