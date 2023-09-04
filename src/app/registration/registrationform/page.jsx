@@ -1,7 +1,6 @@
 "use client"
 // eslint-disable-next-line react/no-unescaped-entities
 import React, { useContext, useEffect, useState } from 'react'
-import RegistrationContext from "@/context/registration/registrationContext";
 import { useRouter } from 'next/navigation'
 import Loading from "../../../components/common/Loading"
 import styles from "./css/page.module.css"
@@ -10,6 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { sortedDistricts, fieldOfInterest, bachelorCourses, assignedTag } from "./formSelectOption"
 import UserTypeForm from "./UserTypeForm"
 import validateFormData from "./verifyFormData"
+import RegistrationContext from "@/context/registration/registrationContext";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
 import Alert from '@/components/common/Alert';
 

@@ -48,6 +48,9 @@
 .navbar a{
     color: black;
 }
+.avatar_name_for_responsive_nav{
+    margin-bottom: 2rem;
+}
 .login_link,.registration_link, .logout_btn{
    border-radius: 1rem;
    padding:0.5rem 1rem 0.5rem 1rem;
@@ -87,7 +90,7 @@ div.logedIn_user .avatar{
     width: 100%;
     background-color: #D9D9D9;
     overflow: scroll;
-    padding: 1rem 0 0.5rem 2rem;
+    padding: 2rem 0 0.5rem 2rem;
 }
 .responsive_nav .avatar_name_for_responsive_nav{
     display: flex;

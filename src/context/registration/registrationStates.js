@@ -12,7 +12,7 @@ import { json } from "react-router-dom"
 const RegistrationStates = (props) => {
 
     const LoadingContext = useContext(loadingAndAlertContext);
-    const { setLoading, setAlert} = LoadingContext;
+    const { setLoading, setAlert } = LoadingContext;
 
     const [registeringUser, setRegisteringUser] = useState(null);
     const [user, setUser] = useState(null);
@@ -41,6 +41,97 @@ const RegistrationStates = (props) => {
             });
     }
 
+
+    // ----- SIGN IN VIA GOOGLE ------
+    const googleSignIn = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then(async (result) => {
+                // token of user to be sent to server
+                setLoading(true)
+                const accessToken = result.user.stsTokenManager.accessToken;
+                //---- call API to server --
+                const url = `${baseUrl}/api/user/loginViaGoogle`;
+                const userDetails = {
+                    uid: accessToken
+                }
+                const loginUser = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userDetails)
+                })
+                const response = await loginUser.json();
+                if (response.success) {
+                    setAlert({
+                        alert: true,
+                        alertMessage: response.message,
+                        alertType: "success"
+                    })
+                    // redirect home page
+                    setTimeout(() => {
+                        setLoading(false)
+                        router.push("/")
+                    }, 3000)
+                    return { resetDetails: true }
+                } else {
+                    setLoading(false)
+                    setAlert({
+                        alert: true,
+                        alertMessage: response.message,
+                        alertType: "error"
+                    })
+                    return { resetDetails: false }
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                setAlert({
+                    alert: true,
+                    alertMessage: "Some error occurred. Try after some time!",
+                    alertType: "error"
+                })
+                return { resetDetails: false }
+            })
+    }
+
+    // -------- LOGIN USER MANUALLY -------------
+    const signInManually = async (loginDetails) => {
+        const url = `${baseUrl}/api/user/loginManually`;
+        setLoading(true)
+        // call api 
+        const loginUser = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginDetails)
+        })
+        const response = await loginUser.json();
+        if (response.success) {
+            setAlert({
+                alert: true,
+                alertMessage: response.message,
+                alertType: "success"
+            })
+            // redirect home page
+            setTimeout(() => {
+                setLoading(false)
+                router.push("/")
+            }, 3000)
+            return { resetDetails: true }
+        } else {
+            setLoading(false)
+            setAlert({
+                alert: true,
+                alertMessage: response.message,
+                alertType: "error"
+            })
+            return { resetDetails: false }
+        }
+    }
+
     const logOut = () => {
         signOut(auth)
     }
@@ -55,7 +146,7 @@ const RegistrationStates = (props) => {
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-    // ------- registering new User starts------
+    // ------- REGISTERING NEW USER STARTS ------
     const registerNewUser = async (userDetails) => {
         const url = `${baseUrl}/api/user/createUser`;
         const imageFile = userDetails.profilePic;
@@ -116,10 +207,10 @@ const RegistrationStates = (props) => {
         }
         //try catch ends
     }
-    // ------- registering new User ends------
+    // -------REGISTERING NEW USER ENDS ------
 
     return (
-        <registrationContext.Provider value={{ registeringUser, setRegisteringUser, updateBatch, user, setUser, googleSignUp, logOut, registerNewUser }} >
+        <registrationContext.Provider value={{ registeringUser, setRegisteringUser, updateBatch, user, setUser, googleSignUp, googleSignIn, signInManually, logOut, registerNewUser }} >
             {props.children}
         </registrationContext.Provider>
     )
