@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "./css/notice.module.css"
+import styles from "./css/NoticeSection.module.css"
 import NoticeCard from './NoticeCard'
 const NoticeSection = () => {
   return (

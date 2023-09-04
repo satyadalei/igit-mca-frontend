@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 
-import styles from "./css/notice.module.css"
+import styles from "./css/NoticeSection.module.css"
 const NoticeCard = (props) => {
     return (
         <>

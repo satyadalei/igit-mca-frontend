@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import RegistrationContext from "@/context/registration/registrationContext";
 import { useRouter } from 'next/navigation'
 import Loading from "../../../components/common/Loading"
-import styles from "./css/registrationform.module.css"
+import styles from "./css/page.module.css"
 import { Avatar, Button, Checkbox, FormControlLabel, MenuItem, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { sortedDistricts, fieldOfInterest, bachelorCourses, assignedTag } from "./formSelectOption"
@@ -82,7 +82,6 @@ const RegistrationForm = () => {
 
   // handle onchange to modify form data
   const handleChange = (e) => {
-    console.log(details);
     setDetails((prev) => {
       return { ...prev, [e.target.name]: e.target.value }
     })
