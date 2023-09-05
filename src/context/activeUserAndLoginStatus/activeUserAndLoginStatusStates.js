@@ -8,7 +8,6 @@ const ActiveUserAndLoginStatusStates = (props) => {
     // -------- STATES ----------
     const [activeUser, setActiveUser] = useState(null);
     const [loginStatus, setLoginStatus] = useState(null);
-    const [token, setToken] = useState(null);
      
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -16,10 +15,8 @@ const ActiveUserAndLoginStatusStates = (props) => {
     useEffect(() => {
         if (typeof window != 'undefined') {
             // Access localStorage here and store it in state
-            const tokenString = localStorage.getItem('token');
             const isLogIn = localStorage.getItem("isLogIn");
             setLoginStatus(isLogIn);
-            setToken(tokenString);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -29,6 +26,7 @@ const ActiveUserAndLoginStatusStates = (props) => {
         const token = localStorage.getItem('token');
         if (!token) {
             setLoginStatus(false)
+            localStorage.removeItem("isLogIn");
         } else {
             //fetch user & login status
             const url = `${baseUrl}/api/user/fetchUser`;
