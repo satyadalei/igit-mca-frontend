@@ -1,5 +1,5 @@
 "use client"
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import styles from "./navbar.module.css"
 import "./navbar.css"
 import Link from 'next/link'
@@ -9,11 +9,21 @@ import NavLinkItems from './NavLinkItems'
 import UserNameAndAvatar from './UserNameAndAvatar'
 import UserAvatarAndNameReverse from './UserAvatarAndNameReverse'
 import LogOutBtn from './LogOutBtn'
+import ActiveUserAndLoginStatusContext from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext'
+import { useContext } from 'react'
+import { useEffect } from 'react'
 
 const NavBar = () => {
 
-  const [logedIn, setLogedIn] = useState(false);
+  // ----- Context -----
+  const { activeUser, loginStatus, fetchActiveUser } = useContext(ActiveUserAndLoginStatusContext)
+
+
   const responsive_Nav_ref = useRef();
+  useEffect(() => {
+    fetchActiveUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const toggleNavBar = () => {
     responsive_Nav_ref.current.classList.toggle("active_nav");
@@ -41,15 +51,18 @@ const NavBar = () => {
             <li><Link href="/contacts" >Contacts</Link></li>
           </ul>
 
-          {/* Login & registartion Details starts*/}
+          {/* Login & registration Details starts*/}
           <div className={styles.login_credentials} >
             {/* show based on log in status*/}
-            {logedIn ?
+            
+            {loginStatus &&
               <div className={styles.logedIn_user} >
                 {/* <LogOutBtn /> */}
                 <UserNameAndAvatar />
               </div>
-              :
+            }
+
+            {loginStatus === false &&
               <div>
                 <Link className={styles.login_link} href="/login">Login</Link>
                 <Link className={styles.registration_link} href="/registration">Registration</Link>
@@ -67,7 +80,7 @@ const NavBar = () => {
           <div ref={responsive_Nav_ref} className={`${styles.responsive_nav}`} >
             <CloseIcon onClick={toggleNavBar} className={styles.cross_hamburger_menu} />
             {/* when a link is clicked then closes responsive navbar */}
-            {logedIn ?
+            {loginStatus &&
               <>
                 <UserAvatarAndNameReverse />
                 {/* <div className={styles.logedIn_user} >
@@ -75,10 +88,11 @@ const NavBar = () => {
                   <UserNameAndAvatar />
                 </div> */}
               </>
-              :
+            }
+            {(loginStatus === false) &&
               <div>
-                <Link className={styles.login_link} href="/login">Login</Link>
-                <Link className={styles.registration_link} href="/registration">Registration</Link>
+                <Link className={styles.login_link} onClick={toggleNavBar} href="/login">Login</Link>
+                <Link className={styles.registration_link} onClick={toggleNavBar} href="/registration">Registration</Link>
               </div>
             }
             <NavLinkItems toggleNav={toggleNavBar} />
