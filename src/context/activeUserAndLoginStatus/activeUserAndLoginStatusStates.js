@@ -7,30 +7,34 @@ const ActiveUserAndLoginStatusStates = (props) => {
 
     // -------- STATES ----------
     const [activeUser, setActiveUser] = useState(null);
-    const [loginStatus, setLoginStatus] = useState(false);
-    const [token, setToken] = useState(null)
-    
+    const [loginStatus, setLoginStatus] = useState(null);
+    const [token, setToken] = useState(null);
+     
+
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
+        if (typeof window != 'undefined') {
             // Access localStorage here and store it in state
             const tokenString = localStorage.getItem('token');
+            const isLogIn = localStorage.getItem("isLogIn");
+            setLoginStatus(isLogIn);
             setToken(tokenString);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // ---------- FETCH ACTIVE USER -----------
     const fetchActiveUser = async () => {
+        const token = localStorage.getItem('token');
         if (!token) {
             setLoginStatus(false)
         } else {
             //fetch user & login status
-            const url = `${baseUrl}/user/fetchUser`;
-            const getUser = fetch(url, {
+            const url = `${baseUrl}/api/user/fetchUser`;
+            const getUser = await fetch(url, {
                 method: "GET",
                 headers: {
-                    "Content-type": "application/json",
                     "token": token
                 }
             })
@@ -38,13 +42,18 @@ const ActiveUserAndLoginStatusStates = (props) => {
             if (response.success) {
                 setLoginStatus(true);
                 setActiveUser(response.user);
+                localStorage.setItem("isLogIn",true)
             } else {
                 setLoginStatus(false);
                 setActiveUser(null);
+                localStorage.removeItem("isLogIn");
             }
         }
     }
-
+    useEffect(()=>{
+        fetchActiveUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[loginStatus])
     // -------- LOGOUT USER -----------
     const logOutUser = () => {
         localStorage.removeItem("token");

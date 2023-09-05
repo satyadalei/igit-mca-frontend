@@ -7,7 +7,6 @@ import loadingAndAlertContext from "../loadingAndAlert/loadingAndAlertContext"
 
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth"
 import { auth } from "../../../firebase/firebase"
-import { json } from "react-router-dom"
 import ActiveUserAndLoginStatusContext from "../activeUserAndLoginStatus/activeUserAndLoginStatusContext"
 
 const RegistrationStates = (props) => {
@@ -72,6 +71,7 @@ const RegistrationStates = (props) => {
                     })
                     // save token & set user
                     localStorage.setItem("token", response.token)
+                    localStorage.setItem("isLogIn",true)
                     setActiveUser(response.user);
                     setLoginStatus(true)
                     // redirect home page
@@ -92,6 +92,7 @@ const RegistrationStates = (props) => {
             })
             .catch((error) => {
                 console.log(error);
+                setLoading(false)
                 setAlert({
                     alert: true,
                     alertMessage: "Some error occurred. Try after some time!",
@@ -123,6 +124,7 @@ const RegistrationStates = (props) => {
 
             // save token & set user
             localStorage.setItem("token", response.token)
+            localStorage.setItem("isLogIn",true)
             setActiveUser(response.user);
             setLoginStatus(true)
 
@@ -185,6 +187,7 @@ const RegistrationStates = (props) => {
                 })
                 // save token & set user
                 localStorage.setItem("token", response.token)
+                localStorage.setItem("isLogIn",true)
                 setActiveUser(response.user);
                 setLoginStatus(true)
                 // set registration details to initial value
