@@ -8,12 +8,13 @@ import loadingAndAlertContext from "../loadingAndAlert/loadingAndAlertContext"
 import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth"
 import { auth } from "../../../firebase/firebase"
 import { json } from "react-router-dom"
+import ActiveUserAndLoginStatusContext from "../activeUserAndLoginStatus/activeUserAndLoginStatusContext"
 
 const RegistrationStates = (props) => {
 
-    const LoadingContext = useContext(loadingAndAlertContext);
-    const { setLoading, setAlert } = LoadingContext;
-
+    // ---- context API ----
+    const { setLoading, setAlert } = useContext(loadingAndAlertContext);
+    const { setActiveUser, setLoginStatus } = useContext(ActiveUserAndLoginStatusContext)
     const [registeringUser, setRegisteringUser] = useState(null);
     const [user, setUser] = useState(null);
 
@@ -69,6 +70,10 @@ const RegistrationStates = (props) => {
                         alertMessage: response.message,
                         alertType: "success"
                     })
+                    // save token & set user
+                    localStorage.setItem("token", response.token)
+                    setActiveUser(response.user);
+                    setLoginStatus(true)
                     // redirect home page
                     setTimeout(() => {
                         setLoading(false)
@@ -115,6 +120,12 @@ const RegistrationStates = (props) => {
                 alertMessage: response.message,
                 alertType: "success"
             })
+
+            // save token & set user
+            localStorage.setItem("token", response.token)
+            setActiveUser(response.user);
+            setLoginStatus(true)
+
             // redirect home page
             setTimeout(() => {
                 setLoading(false)
@@ -132,9 +143,6 @@ const RegistrationStates = (props) => {
         }
     }
 
-    const logOut = () => {
-        signOut(auth)
-    }
 
     // useEffect(() => {
     //     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -175,8 +183,10 @@ const RegistrationStates = (props) => {
                     alertMessage: response.message,
                     alertType: "success"
                 })
-                // save token 
+                // save token & set user
                 localStorage.setItem("token", response.token)
+                setActiveUser(response.user);
+                setLoginStatus(true)
                 // set registration details to initial value
                 // redirect to home page after 3 sec
                 setTimeout(() => {
@@ -210,7 +220,7 @@ const RegistrationStates = (props) => {
     // -------REGISTERING NEW USER ENDS ------
 
     return (
-        <registrationContext.Provider value={{ registeringUser, setRegisteringUser, updateBatch, user, setUser, googleSignUp, googleSignIn, signInManually, logOut, registerNewUser }} >
+        <registrationContext.Provider value={{ registeringUser, setRegisteringUser, updateBatch, user, setUser, googleSignUp, googleSignIn, signInManually, registerNewUser }} >
             {props.children}
         </registrationContext.Provider>
     )
