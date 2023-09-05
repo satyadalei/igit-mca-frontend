@@ -9,6 +9,7 @@ import "./globals.css"
 import RegistrationStates from "../context/registration/registrationStates"
 import Head from 'next/head'
 import LoadingAndAlertStates from '@/context/loadingAndAlert/loadingAndAlertStates'
+import ActiveUserAndLoginStatusStates from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusStates'
 
 
 export const metadata = {
@@ -24,11 +25,13 @@ export default function RootLayout({ children }) {
       </Head>
       <body className={`${inter.className}`} >
           <LoadingAndAlertStates> {/* TOP priority */}
+          <ActiveUserAndLoginStatusStates>
             <RegistrationStates> 
               <NavBar/> 
               {children}
               <Footer/>
             </RegistrationStates>
+          </ActiveUserAndLoginStatusStates>
           </LoadingAndAlertStates>
       </body>
     </html>
