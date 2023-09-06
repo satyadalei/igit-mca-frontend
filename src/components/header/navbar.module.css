@@ -64,6 +64,10 @@
 .registration_link, .logout_btn{
     border: 2px solid #3584FC ;
 }
+.avatar_name_for_desktop{
+    display: flex;
+    cursor: pointer;
+}
 /* -- div box containing user name & profile picture */
 div.logedIn_user{
     display: flex;
@@ -92,18 +96,19 @@ div.logedIn_user .avatar{
     overflow: scroll;
     padding: 2rem 0 0.5rem 2rem;
 }
-.responsive_nav .avatar_name_for_responsive_nav{
+.avatar_name_for_responsive_nav{
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
-.responsive_nav .avatar_name_for_responsive_nav .user_name{
+.user_name{
     font-size: 1.1rem;
     font-weight: bold;
 }
-.responsive_nav .avatar_name_for_responsive_nav .avatar{
+.avatar{
     margin-right: 0.5rem;
 }
-.responsive_nav .avatar_name_for_responsive_nav .verification_status{
+.verification_status{
     font-size: 0.8rem;
     color: #878686;
     display: flex;

@@ -12,9 +12,13 @@ import LogOutBtn from './LogOutBtn'
 import ActiveUserAndLoginStatusContext from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext'
 import { useContext } from 'react'
 import { useEffect } from 'react'
+import UserAvatar from './UserAvatar'
+import VerificationStatus from './VerificationStatus'
+import UserName from './UserName'
+import { useRouter } from 'next/navigation'
 
 const NavBar = () => {
-
+   const router = useRouter();
   // ----- Context -----
   const { activeUser, loginStatus, fetchActiveUser } = useContext(ActiveUserAndLoginStatusContext)
 
@@ -28,7 +32,10 @@ const NavBar = () => {
   const toggleNavBar = () => {
     responsive_Nav_ref.current.classList.toggle("active_nav");
   }
-
+  
+  const redirectProfilePage = ()=>{
+    router.push("/profile")
+  }
 
   return (
     <>
@@ -54,12 +61,17 @@ const NavBar = () => {
           {/* Login & registration Details starts*/}
           <div className={styles.login_credentials} >
             {/* show based on log in status*/}
-            
-            {loginStatus &&
-              <div className={styles.logedIn_user} >
-                {/* <LogOutBtn /> */}
-                <UserNameAndAvatar />
-              </div>
+
+            {(loginStatus && activeUser != null) &&
+              <>
+                <div onClick={redirectProfilePage} className={styles.avatar_name_for_desktop} >
+                  <div style={{display:"flex",flexDirection:"column",alignItems:"end", marginRight:"0.5rem"}} >
+                    <UserName userDetails={activeUser.userDetails}  />
+                    <VerificationStatus status={activeUser.status} />
+                  </div>
+                  <UserAvatar userName={activeUser.userDetails.fName} profileUrl={activeUser.profilePic.url} />
+                </div>
+              </>
             }
 
             {loginStatus === false &&
@@ -80,13 +92,15 @@ const NavBar = () => {
           <div ref={responsive_Nav_ref} className={`${styles.responsive_nav}`} >
             <CloseIcon onClick={toggleNavBar} className={styles.cross_hamburger_menu} />
             {/* when a link is clicked then closes responsive navbar */}
-            {loginStatus &&
+            {(loginStatus && activeUser != null) &&
               <>
-                <UserAvatarAndNameReverse />
-                {/* <div className={styles.logedIn_user} >
-                  <LogOutBtn />
-                  <UserNameAndAvatar />
-                </div> */}
+                <div onClick={redirectProfilePage} className={styles.avatar_name_for_responsive_nav} >
+                  <UserAvatar userName={activeUser.userDetails.fName} profileUrl={activeUser.profilePic.url} />
+                  <div>
+                    <UserName userDetails={activeUser.userDetails}  />
+                    <VerificationStatus status={activeUser.status} />
+                  </div>
+                </div>
               </>
             }
             {(loginStatus === false) &&
