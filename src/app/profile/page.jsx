@@ -20,7 +20,6 @@ const Page = () => {
   const { setLoading, setAlert, loading, alert } = useContext(
     loadingAndAlertContext
   );
-  console.log(loginStatus);
   // registeringUser = 42 or 41
   // user = allDetails of user --> user.email is email id of user
   const router = useRouter();
@@ -40,7 +39,6 @@ const Page = () => {
       <section className="page_section">
         {activeUser != null && loginStatus === true ? (
           <>
-            {console.log(getTimeDifference(activeUser.registrationDate))}
             {/* ---- <Alert/> -----  */}
             {alert.alert && <Alert />}
 
