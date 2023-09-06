@@ -161,10 +161,10 @@ const RegistrationStates = (props) => {
         const url = `${baseUrl}/api/user/createUser`;
         const imageFile = userDetails.profilePic;
         const {
-            batch, email, password, regNum, rollNum, fName, lName, homeDist, mobile, fieldOfInterest, gradCourse, tag, githubLink, linkedInLink
+            batch, email, password, regNum, rollNum, fName, mName, lName, homeDist, mobile, fieldOfInterest, gradCourse, tag, githubLink, linkedInLink
         } = userDetails;
         const textData = {
-            batch, email, password, regNum, rollNum, fName, lName, homeDist, mobile, fieldOfInterest, gradCourse, tag, githubLink, linkedInLink
+            batch, email, password, regNum, rollNum, fName, mName, lName, homeDist, mobile, fieldOfInterest, gradCourse, tag, githubLink, linkedInLink
         }
         let formData = new FormData;
         formData.append('textData', JSON.stringify(textData));

@@ -23,7 +23,7 @@ import Alert from '@/components/common/Alert';
 
 const RegistrationForm = () => {
 
-  
+
   const { registeringUser, setRegisteringUser, setUser, googleSignUp, user, registerNewUser } = useContext(RegistrationContext);
   const { setLoading, setAlert, loading, alert } = useContext(loadingAndAlertContext);
 
@@ -41,6 +41,7 @@ const RegistrationForm = () => {
     regNum: "",
     rollNum: "",
     fName: "",
+    mName: "",
     lName: "",
     homeDist: "",
     mobile: "",
@@ -53,6 +54,7 @@ const RegistrationForm = () => {
     // regNum: "2205105056",
     // rollNum: "56",
     // fName: "Satya",
+    // mName: "",
     // lName: "Dalei",
     // homeDist: "Balasore",
     // mobile: "8147573354",
@@ -125,7 +127,7 @@ const RegistrationForm = () => {
       if (isChecked) {
         setLoading(true)
         //registerNewUser(formData)
-        const resetDetails = registerNewUser(formData) 
+        const resetDetails = registerNewUser(formData)
 
 
         if (resetDetails.resetDetails) {
@@ -271,6 +273,21 @@ const RegistrationForm = () => {
                     placeholder='ex: Aradhana'
                   />
 
+                  {/* --- middle name --- */}
+                  <TextField
+                    className={styles.input_field}
+                    style={{ margin: "0.5rem" }}
+                    name='mName'
+                    value={details.mName}
+                    onChange={handleChange}
+                    required
+                    fullWidth
+                    // id="filled-error-helper-text"
+                    label="Middle name"
+                    variant="filled"
+                    placeholder='ex: Kumar'
+                  />
+
                   {/* --- last name --- */}
                   <TextField
                     className={styles.input_field}
@@ -286,6 +303,12 @@ const RegistrationForm = () => {
                     variant="filled"
                     placeholder='ex: Das'
                   />
+
+                  
+                </div>
+
+                {/* BOX 2 */}
+                <div className={`${styles.input_box} ${styles.input_box2}`} >
 
                   {/* --- Home district --- */}
                   <TextField
@@ -309,10 +332,7 @@ const RegistrationForm = () => {
                       </MenuItem>
                     ))}
                   </TextField>
-                </div>
 
-                {/* BOX 2 */}
-                <div className={`${styles.input_box} ${styles.input_box2}`} >
                   {/* ---Mobile number ---- */}
                   <TextField
                     className={styles.input_field}
@@ -402,7 +422,7 @@ const RegistrationForm = () => {
                   {/* ------- SOCIAL LINKS -------- */}
                   <div>
                     <h4 className={styles.social_link_heading} >Social Links</h4>
-                    <p className={styles.upload_profile_pic_note} style={{ textAlign: "start", fontSize: "12px", marginLeft: "0.5rem" }}>You can edit later too</p>
+                    {/* <p className={styles.upload_profile_pic_note} style={{ textAlign: "start", fontSize: "12px", marginLeft: "0.5rem" }}>You can edit later too</p> */}
                     {/* --- GITHUB --- */}
                     <TextField
                       className={styles.input_field}
@@ -440,7 +460,7 @@ const RegistrationForm = () => {
                 {/* --- BOX 3 --- */}
                 <div className={`${styles.input_box} ${styles.input_box3}`} >
                   <h1 className={styles.upload_profile_pic_heading} >Upload profile picture</h1>
-                  <p className={styles.upload_profile_pic_note} >You can edit later too</p>
+                  {/* <p className={styles.upload_profile_pic_note} >You can edit later too</p> */}
                   <div className={styles.upload_profile_pic_box} >
                     <div className={styles.profile_box} >
                       <Avatar
@@ -469,11 +489,11 @@ const RegistrationForm = () => {
                         hidden
                       />
                     </Button>
-                    <p className={styles.supported_files} >
+                    <p className={styles.supported_files} style={{textAlign:"center", fontSize:"0.7rem"}} >
                       Supported files are .PNG, .JPEG, .JPG & maximum size : 300KB
                     </p>
                     <p className={styles.note_for_pic} >
-                      <span>Note</span> : If possible upload a professional & recent picture so others can recognize easily.
+                      <span style={{color:"red"}} >Note</span> : Please upload a professional & recent picture so others can recognize easily.
                     </p>
                   </div>
                 </div>
