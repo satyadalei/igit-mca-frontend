@@ -35,6 +35,7 @@ const NavBar = () => {
   
   const redirectProfilePage = ()=>{
     router.push("/profile")
+    toggleNavBar();
   }
 
   return (
