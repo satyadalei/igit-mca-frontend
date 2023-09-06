@@ -6,13 +6,9 @@ import styles from "../registration/registrationform/css/page.module.css";
 import {
   Avatar,
   Button,
-  Checkbox,
-  FormControlLabel,
-  MenuItem,
   TextField,
-  Typography,
+  Typography
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import UserTypeForm from "../registration/registrationform/UserTypeForm";
 import activeUserAndLoginContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
@@ -20,25 +16,31 @@ import Alert from "@/components/common/Alert";
 import Loading from "@/components/common/Loading";
 
 const Page = () => {
-  const { activeUser } = useContext(activeUserAndLoginContext);
+  const { activeUser, loginStatus,logOutUser, fetchActiveUser, setLoginStatus } = useContext(activeUserAndLoginContext);
   const { setLoading, setAlert, loading, alert } = useContext(
     loadingAndAlertContext
   );
-
+  console.log(loginStatus);
   // registeringUser = 42 or 41
   // user = allDetails of user --> user.email is email id of user
   const router = useRouter();
 
   //user will automatically redirect if not done previous two step
   useEffect(() => {
+     if (loginStatus === false) {
+        router.push("/login")
+     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loginStatus]);
+
+  
 
   return (
     <>
       <section className="page_section">
-        {activeUser != null ? (
+        {activeUser != null && loginStatus === true ? (
           <>
+            {console.log(getTimeDifference(activeUser.registrationDate))}
             {/* ---- <Alert/> -----  */}
             {alert.alert && <Alert />}
 
@@ -262,6 +264,7 @@ const Page = () => {
 
                 {/* --- BOX 3 --- */}
                 <div className={`${styles.input_box} ${styles.input_box3}`}>
+                    <Typography style={{color:"#3584FC", textAlign:"center"}} >Profile Picture</Typography>
                   <div className={styles.upload_profile_pic_box}>
                     <div className={styles.profile_box}>
                       <Avatar
@@ -283,6 +286,7 @@ const Page = () => {
                 <Button
                   onClick={() => {
                     // logout option
+                    logOutUser()
                   }}
                   className={styles.submit_button}
                   variant="contained"

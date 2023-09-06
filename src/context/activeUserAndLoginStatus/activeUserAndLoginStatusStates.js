@@ -71,4 +71,4 @@ const ActiveUserAndLoginStatusStates = (props) => {
     )
 }
 
-export default ActiveUserAndLoginStatusStates;
+module.exports = ActiveUserAndLoginStatusStates;
