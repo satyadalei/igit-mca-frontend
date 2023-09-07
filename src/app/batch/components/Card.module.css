@@ -1,14 +1,12 @@
-.batch_main_container {
-    /* background-color: red; */
+/* .batch_main_container {
     width: 100%;
-    /* border: 1px solid red; */
     padding: 1.5rem;
     padding-bottom: 2rem;
   }
   .latest_batches_and_create_batch_container{
       display: flex;
       flex-wrap: wrap;
-  }
+  } */
   .card_item{
       margin: 0.5rem;
       position: relative;
