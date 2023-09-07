@@ -18,10 +18,10 @@
       top: 0;
       left: 0;
   }
-  .all_previous_batches{
+  /* .all_previous_batches{
       display: flex;
       flex-wrap: wrap;
-  }
+  } */
   .icon_container{
       width: 100%;
       display: flex;
