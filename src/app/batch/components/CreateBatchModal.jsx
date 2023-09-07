@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button, TextField } from "@mui/material";
-import styles from "../page.module.css";
+import styles from "./Card.module.css";
 import { useState, useEffect, useContext } from "react";
 import verify from "./verifyCreateBatchFormData";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
