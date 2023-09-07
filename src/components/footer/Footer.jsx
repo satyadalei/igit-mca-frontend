@@ -53,6 +53,7 @@ const Footer = () => {
              <h4 className={styles.footer_link_heading} >Important Links</h4>
              <ul>
                 <li><Link target='_blank' href={"https://igitsarang.ac.in/"} >IGIT Website <OpenInNewIcon className={styles.font_size_inherit} /> </Link></li>
+                <li><Link target='_blank' href={"https://igit.icrp.in/academic/"} >IGIT payment portal <OpenInNewIcon className={styles.font_size_inherit} /> </Link></li>
                 <li><Link target='_blank' href={"https://www.linkedin.com/school/indira-gandhi-institute-of-technology-igit-sarang/"} >IGIT LinkedIn page <OpenInNewIcon className={styles.font_size_inherit} /></Link></li>
                 <li><Link target='_blank' href={"https://scholarship.odisha.gov.in/website/home"} >Scholarship Portal <OpenInNewIcon className={styles.font_size_inherit} /> </Link></li>
              </ul>

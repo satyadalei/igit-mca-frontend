@@ -207,7 +207,7 @@ const RegistrationStates = (props) => {
                     alertMessage: response.message,
                     alertType: "error"
                 })
-                return { resetDetails: false }
+                return { resetDetails: true }
             }
         } catch (error) {
             setLoading(false);

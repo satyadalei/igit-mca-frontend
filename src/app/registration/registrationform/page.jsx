@@ -280,7 +280,6 @@ const RegistrationForm = () => {
                     name='mName'
                     value={details.mName}
                     onChange={handleChange}
-                    required
                     fullWidth
                     // id="filled-error-helper-text"
                     label="Middle name"
@@ -347,6 +346,7 @@ const RegistrationForm = () => {
                     variant="filled"
                     placeholder='ex: 814457XXXX'
                     helperText="To add you in group"
+                    required
                   />
                   {registeringUser === 41 &&
                     <>
@@ -385,6 +385,7 @@ const RegistrationForm = () => {
                     label="Graduation course"
                     // defaultValue={"no district"}
                     variant="filled"
+                    required
                   >
                     {bachelorCourses.map((course, index) => (
                       <MenuItem style={{ zIndex: "1001" }} key={index} value={course}>
