@@ -2,7 +2,6 @@
   width: 100%;
   padding: 1.5rem;
   padding-bottom: 2rem;
-  overflow-x: scroll;
 }
 .latest_batches_and_create_batch_container{
     display: flex;

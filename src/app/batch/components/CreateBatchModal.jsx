@@ -34,12 +34,6 @@ export default function BasicModal(props) {
         startingYear: "",
         endingYear: "",
     });
-    const initialBatchValue = {
-        batchNum: "",
-        strength: "",
-        startingYear: "",
-        endingYear: "",
-    };
     const handleChange = (e) => {
         setBatch((prev) => {
             return {

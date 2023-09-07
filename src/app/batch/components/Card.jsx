@@ -9,7 +9,6 @@ import AddIcon from '@mui/icons-material/Add';
 import BasicModal from "../components/CreateBatchModal"
 
 export default function ActionAreaCard(props) {
-
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -30,10 +29,13 @@ export default function ActionAreaCard(props) {
         {props.cardType === "batch" ? (
             <CardContent className={styles.card_item_content}>
               <Typography gutterBottom variant="h5" component="div">
-                42
+                {props.batch != undefined ? props.batch.batchNum : "46"}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Satya hshhsh
+               strength : {props.batch != undefined ? props.batch.strength : "unknown"}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+               Registered : {props.batch != undefined ? props.batch.studentLists.length : "unknown"}
               </Typography>
             </CardContent>
         ) : (
