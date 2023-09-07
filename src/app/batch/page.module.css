@@ -7,38 +7,7 @@
     display: flex;
     flex-wrap: wrap;
 }
-.card_item{
-    margin: 0.5rem;
-    position: relative;
-    background-color: rgb(181, 181, 181);
-}
-.card_item_content{
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
 .all_previous_batches{
     display: flex;
     flex-wrap: wrap;
-}
-.icon_container{
-    width: 100%;
-    display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.add_new_batch_icon{
-    font-size: 8rem;
-    color: grey;
-}
-.card_item_content.create_new_batch_card_item_content{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.batch_input_item{
-    margin: 0.8rem 0 1rem 0;
-    display: block;
 }
