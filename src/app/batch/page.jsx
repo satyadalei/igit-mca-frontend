@@ -7,17 +7,15 @@ import styles from "./page.module.css";
 import ActionAreaCard from "./components/Card";
 import Alert from "@/components/common/Alert";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
+
+
 const Batch = () => {
 
-
   const router = useRouter();
-  const { loginStatus, activeUser, fetchActiveUser } = useContext(
-    ActiveUserAndLoginStatusContext
-  );
 
-  const { alert } = useContext(
-    loadingAndAlertContext
-);
+  // ----- Context APIs ---------
+  const { loginStatus, activeUser, fetchActiveUser } = useContext(ActiveUserAndLoginStatusContext);
+  const { alert } = useContext(loadingAndAlertContext);
 
   useEffect(() => {
     fetchActiveUser(); // use to every page to check user login status
@@ -31,7 +29,7 @@ const Batch = () => {
       {loginStatus ? (
         <section className="page_section">
           {/* --- MAIN BATCH CONTAINER STARTS ------- */}
-          {alert.alert && <Alert/>}
+          {alert.alert && <Alert />}
           <div className={styles.batch_main_container}>
             {/* -------- TOP SECTION STARTS :: LATEST TWO BATCHES ------------ */}
             <div className={styles.top_container_latest_two_batches}>
@@ -48,9 +46,16 @@ const Batch = () => {
                 </div>
 
                 {/* create new batch */}
-                <div>
-                  <ActionAreaCard cardType="create_new_batch" />
-                </div>
+                {
+                  activeUser != null 
+                  && 
+                  (
+                    activeUser.isSpecialUser === "admin" &&
+                    <div>
+                       <ActionAreaCard cardType="create_new_batch" />
+                    </div>
+                  )
+                }
               </div>
             </div>
             {/* -------- TOP SECTION ENDS ------------ */}
