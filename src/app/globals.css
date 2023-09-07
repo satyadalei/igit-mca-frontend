@@ -28,7 +28,7 @@ section.page_section{
   width: 100%;
   top: 20;
   left: 0;
-  z-index: 100;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
