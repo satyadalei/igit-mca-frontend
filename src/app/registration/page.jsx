@@ -1,24 +1,50 @@
 "use client"
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation'
 import styles from "./register.module.css";
 import { Badge, Button, Typography } from "@mui/material";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import RegistrationContext from "@/context/registration/registrationContext";
-
+import sortArrayObject from "../batch/sortBatches";
+import Loading from "@/components/common/Loading";
 
 
 
 
 const Registration = () => {
-  
-  const {updateBatch} = useContext(RegistrationContext);
-  const router = useRouter()
 
-  const handleBatch = (batch)=>{
+  const router = useRouter()
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  // ------ STATES ------------
+  const [batchLists, setBatchLists] = useState(null);
+
+  // ------ CONTEXT APIS --------
+  const { updateBatch } = useContext(RegistrationContext);
+
+  // ------ API CALLS ---------
+  const fetchBatchLists = async () => {
+    const url = `${baseUrl}/api/batch/fetchBatchLists`;
+    const fetchBatch = await fetch(url, {
+      method: "GET"
+    })
+    const response = await fetchBatch.json();
+    if (response.success) {
+      const sortedBatches = sortArrayObject(response.batchLists);
+      setBatchLists(sortedBatches.reverse());
+    } else {
+      console.log(response);
+      // create alert
+    }
+  }
+
+  const handleBatch = (batch) => {
     updateBatch(batch);
     router.push('/registration/registervia')
   }
+
+  useEffect(() => {
+    fetchBatchLists();
+  })
 
   return (
     <>
@@ -28,16 +54,41 @@ const Registration = () => {
             <Typography className={styles.register_heading} variant="h4" component="h3">
               Register As!!
             </Typography>
-            <Button style={{backgroundColor:"orange"}} onClick={()=>{handleBatch(41)}} className={styles.second_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
+
+            {
+              batchLists != null ?
+                <>
+                  {batchLists.map((batch, index) => {
+                    if (index === 0) {
+                      return (
+                        <Badge key={index} color="error" badgeContent="New">
+                          <Button key={index} style={{ margin: "0.8rem 0 0.8rem 0", backgroundColor: `${index % 2 === 0 ? "orange" : ""}` }} onClick={() => { handleBatch(batch.batchNum) }} className={styles.second_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
+                            {batch.batchNum} Batch ({batch.startingYear} - {batch.endingYear})
+                          </Button>
+                        </Badge>
+                      )
+                    }
+                    return (
+                      <Button key={index} style={{ margin: "0.8rem 0 0.8rem 0", backgroundColor: `${index % 2 === 0 ? "orange" : ""}` }} onClick={() => { handleBatch(batch.batchNum) }} className={styles.second_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
+                        {batch.batchNum} Batch ({batch.startingYear} - {batch.endingYear})
+                      </Button>
+                    )
+                  })}
+                </>
+                :
+                <Loading />
+            }
+
+            {/* <Button style={{ backgroundColor: "orange" }} onClick={() => { handleBatch(41) }} className={styles.second_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
               41 Batch (2022-24)
             </Button>
             <br />
             <Badge color="error" badgeContent="New">
-              <Button onClick={()=>{handleBatch(42)}} className={styles.first_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
-               42 Batch (2023-25)
+              <Button onClick={() => { handleBatch(42) }} className={styles.first_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
+                42 Batch (2023-25)
               </Button>
-            </Badge>
-            
+            </Badge> */}
+
           </div>
         </div>
       </section>

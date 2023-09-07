@@ -37,6 +37,9 @@ export default function ActionAreaCard(props) {
               <Typography variant="body2" color="text.secondary">
                Registered : {props.batch != undefined ? props.batch.studentLists.length : "unknown"}
               </Typography>
+              <Typography variant="body2" color="text.secondary">
+               Year : {props.batch != undefined ? `${props.batch.startingYear} `+ "-" +` ${props.batch.endingYear}` : "unknown"}
+              </Typography>
             </CardContent>
         ) : (
             <CardContent onClick={handleOpen} className={`${styles.card_item_content} ${styles.create_new_batch_card_item_content}`}>
@@ -52,7 +55,7 @@ export default function ActionAreaCard(props) {
             </CardContent>
         )}
       </CardActionArea>
-        <BasicModal open={open} handleClose={handleClose} />
+        <BasicModal open={open} handleClose={handleClose} fetchAllBatch={props.fetchAllBatch} />
     </Card>
   );
 }

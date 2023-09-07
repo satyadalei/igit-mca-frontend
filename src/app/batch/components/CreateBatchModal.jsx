@@ -65,7 +65,7 @@ export default function BasicModal(props) {
                 alertMessage : response.message
             })
             props.handleClose()
-
+            props.fetchAllBatch();
             // fetch all branch & populate branch page
         } else {
             setLoading(false)

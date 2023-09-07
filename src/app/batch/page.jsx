@@ -44,15 +44,13 @@ const Batch = () => {
       })
     }
   }
-
+  console.log(allBatches);
   useEffect(() => {
     fetchActiveUser(); // use to every page to check user login status
     if (loginStatus === false) {
       router.push("/login");
-    } else {
-      fetchAllBatch();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchAllBatch()
   }, [loginStatus]);
 
 
@@ -86,7 +84,7 @@ const Batch = () => {
                   (
                     activeUser.isSpecialUser === "admin" &&
                     <div>
-                      <ActionAreaCard cardType="create_new_batch" />
+                      <ActionAreaCard cardType="create_new_batch" fetchAllBatch={fetchAllBatch} />
                     </div>
                   )
                 }
@@ -99,7 +97,7 @@ const Batch = () => {
               <h1>Previous Batches</h1>
               <div className={styles.all_previous_batches} >
               { allBatches != null && allBatches.map((batch, index) => {
-                    if (index < 1) {
+                    if (index > 1) {
                       return <ActionAreaCard cardType="batch" key={index} batch={batch} />;
                     }
                     return null; // Don't render components beyond the limit
