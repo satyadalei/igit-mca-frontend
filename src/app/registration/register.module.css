@@ -11,12 +11,9 @@
     align-items: center;
     color: #088dec;
 }
-.register_heading{
-    margin-bottom: 2rem;
-}
-.first_yr_btn{
-    margin: 0.5rem 0 0.3rem 0;
-}
+/* .register_heading{
+    margin-bottom: 1rem;
+} */
 /* ---------- REGISTER VIA STYLES ------------- */
 .via_google_box{
    width: 100%;

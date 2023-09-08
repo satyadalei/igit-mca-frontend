@@ -7,6 +7,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import RegistrationContext from "@/context/registration/registrationContext";
 import sortArrayObject from "../batch/sortBatches";
 import Loading from "@/components/common/Loading";
+import Link from "next/link";
 
 
 
@@ -54,7 +55,20 @@ const Registration = () => {
             <Typography className={styles.register_heading} variant="h4" component="h3">
               Register As!!
             </Typography>
-
+            <p style={{
+                color:"black",
+                marginTop: "1rem",
+                textAlign: "center",
+                marginBottom:"2rem"
+              }} >Already registered?  &nbsp;
+                <Link
+                  style={{
+                    textDecoration: "none", color: "#088dec",
+                  }}
+                  href={"/login"} >
+                  Login here!
+                </Link> 
+            </p>
             {
               batchLists != null ?
                 <>

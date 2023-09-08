@@ -5,14 +5,16 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import styles from "./Card.module.css";
-import AddIcon from '@mui/icons-material/Add';
-import BasicModal from "../components/CreateBatchModal"
+import AddIcon from "@mui/icons-material/Add";
+import BasicModal from "../components/CreateBatchModal";
+import { useRouter } from "next/navigation";
 
 export default function ActionAreaCard(props) {
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  const router = useRouter();
 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Card
       className={styles.card_item}
@@ -23,39 +25,64 @@ export default function ActionAreaCard(props) {
           className={styles.card_item_media}
           component="img"
           height="200"
-        //   image="/static/images/cards/contemplative-reptile.jpg"
-        //   alt="green iguana"
+          //   image="/static/images/cards/contemplative-reptile.jpg"
+          //   alt="green iguana"
         />
         {props.cardType === "batch" ? (
-            <CardContent className={styles.card_item_content}>
-              <Typography gutterBottom variant="h5" component="div">
-                {props.batch != undefined ? props.batch.batchNum : "46"}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-               strength : {props.batch != undefined ? props.batch.strength : "unknown"}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-               Registered : {props.batch != undefined ? props.batch.studentLists.length : "unknown"}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-               Year : {props.batch != undefined ? `${props.batch.startingYear} `+ "-" +` ${props.batch.endingYear}` : "unknown"}
-              </Typography>
-            </CardContent>
+          <CardContent
+            onClick={() => {
+              router.push(`/batch/${props.batch.batchNum}`, undefined, {
+                shallow: true,
+              });
+            }}
+            className={styles.card_item_content}
+          >
+            <Typography gutterBottom variant="h5" component="div">
+              {props.batch != undefined ? props.batch.batchNum : ""}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              strength : {props.batch != undefined ? props.batch.strength : ""}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Registered :{" "}
+              {props.batch != undefined ? props.batch.studentLists.length : ""}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Year :{" "}
+              {props.batch != undefined
+                ? `${props.batch.startingYear} ` +
+                  "-" +
+                  ` ${props.batch.endingYear}`
+                : ""}
+            </Typography>
+          </CardContent>
         ) : (
-            <CardContent onClick={handleOpen} className={`${styles.card_item_content} ${styles.create_new_batch_card_item_content}`}>
-              {/* <Typography variant="body2" color="text.secondary">
+          <CardContent
+            onClick={handleOpen}
+            className={`${styles.card_item_content} ${styles.create_new_batch_card_item_content}`}
+          >
+            {/* <Typography variant="body2" color="text.secondary">
                 hello
               </Typography> */}
-              <div className={styles.icon_container} >
-               <AddIcon className={styles.add_new_batch_icon} />
-              </div>
-              <Typography style={{fontSize:"14px", color:"grey"}} gutterBottom variant="h6" component="div">
-                Create new batch
-              </Typography>
-            </CardContent>
+            <div className={styles.icon_container}>
+              <AddIcon className={styles.add_new_batch_icon} />
+            </div>
+            <Typography
+              style={{ fontSize: "14px", color: "grey" }}
+              gutterBottom
+              variant="h6"
+              component="div"
+            >
+              Create new batch
+            </Typography>
+          </CardContent>
         )}
       </CardActionArea>
-        <BasicModal open={open} handleClose={handleClose} fetchAllBatch={props.fetchAllBatch} />
+      <BasicModal
+        open={open}
+        handleClose={handleClose}
+        fetchAllBatch={props.fetchAllBatch}
+      />
     </Card>
   );
 }

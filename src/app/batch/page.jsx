@@ -14,7 +14,7 @@ const Batch = () => {
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-  // ----- Context APIs ---------
+  // ----- Context APIs -------
   const { loginStatus, activeUser, fetchActiveUser } = useContext(ActiveUserAndLoginStatusContext);
   const { alert, setAlert } = useContext(loadingAndAlertContext);
 
@@ -44,13 +44,13 @@ const Batch = () => {
       })
     }
   }
-  console.log(allBatches);
   useEffect(() => {
     fetchActiveUser(); // use to every page to check user login status
     if (loginStatus === false) {
       router.push("/login");
     }
     fetchAllBatch()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginStatus]);
 
 

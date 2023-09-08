@@ -10,7 +10,7 @@ import RegistrationStates from "../context/registration/registrationStates"
 import Head from 'next/head'
 import LoadingAndAlertStates from '@/context/loadingAndAlert/loadingAndAlertStates'
 import ActiveUserAndLoginStatusStates from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusStates'
-
+import BatchStates from "../context/batch/batchStates"
 
 export const metadata = {
   title: 'igit mca website 2023',
@@ -25,6 +25,7 @@ export default function RootLayout({ children }) {
       </Head>
       <body className={`${inter.className}`} >
           <LoadingAndAlertStates> {/* TOP priority */}
+          <BatchStates>
           <ActiveUserAndLoginStatusStates>
             <RegistrationStates> 
               <NavBar/> 
@@ -32,7 +33,8 @@ export default function RootLayout({ children }) {
               <Footer/>
             </RegistrationStates>
           </ActiveUserAndLoginStatusStates>
-          </LoadingAndAlertStates>
+          </BatchStates> 
+          </LoadingAndAlertStates> {/* TOP priority */}
       </body>
     </html>
   )
