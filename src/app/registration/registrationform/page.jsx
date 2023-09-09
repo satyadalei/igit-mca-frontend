@@ -76,7 +76,6 @@ const RegistrationForm = () => {
     } else {
       // set batch & email previously
       setDetails((prev) => {
-        console.log(user);
         return { ...prev, batch: registeringUser, email: `${user.email}` }
       })
     }
@@ -91,10 +90,8 @@ const RegistrationForm = () => {
   }
   // handle file input 
   const handleFileInput = (e) => {
-    console.log(" hello  "+ e.target.files[0]);
     // this will be helpful when user opens file window & cancels without selecting any file. Because if file is undefined & set it directly to react hook. It cause problem. 
     if (e.target.files[0] != undefined) {
-      console.log("File input set");
       setDetails((prev) => {
         return {
           ...prev, profilePic: e.target.files[0]
@@ -105,7 +102,6 @@ const RegistrationForm = () => {
   // handle remove file image
   const handleRemovePic = () => {
     setDetails((prev) => {
-      console.log("File removed!");
       return {
         ...prev, profilePic: ""
       }
