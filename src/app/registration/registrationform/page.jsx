@@ -76,6 +76,7 @@ const RegistrationForm = () => {
     } else {
       // set batch & email previously
       setDetails((prev) => {
+        console.log(user);
         return { ...prev, batch: registeringUser, email: `${user.email}` }
       })
     }
@@ -90,8 +91,10 @@ const RegistrationForm = () => {
   }
   // handle file input 
   const handleFileInput = (e) => {
+    console.log(" hello  "+ e.target.files[0]);
     // this will be helpful when user opens file window & cancels without selecting any file. Because if file is undefined & set it directly to react hook. It cause problem. 
     if (e.target.files[0] != undefined) {
+      console.log("File input set");
       setDetails((prev) => {
         return {
           ...prev, profilePic: e.target.files[0]
@@ -102,6 +105,7 @@ const RegistrationForm = () => {
   // handle remove file image
   const handleRemovePic = () => {
     setDetails((prev) => {
+      console.log("File removed!");
       return {
         ...prev, profilePic: ""
       }
@@ -225,23 +229,19 @@ const RegistrationForm = () => {
                   />
 
                   {/* --- Registration number --- */}
-                  {registeringUser === 41 &&
-                    <>
                       <TextField
                         className={styles.input_field}
                         style={{ margin: "0.5rem" }}
                         value={details.regNum}
+                        type='number'
                         name='regNum'
                         onChange={handleChange}
-                        required
                         fullWidth
                         // id="outlined-basic"
                         label="Registration number"
                         variant="filled"
                         placeholder='ex: 2205105056'
                       />
-                    </>
-                  }
 
                   {/* --- Roll number --- */}
                   <TextField
@@ -250,6 +250,7 @@ const RegistrationForm = () => {
                     name='rollNum'
                     value={details.rollNum}
                     onChange={handleChange}
+                    type='number'
                     required
                     fullWidth
                     // id="filled-error-helper-text"
@@ -338,6 +339,7 @@ const RegistrationForm = () => {
                     style={{ margin: "0.5rem" }}
                     fullWidth
                     name='mobile'
+                    type='number'
                     value={details.mobile}
                     onChange={handleChange}
                     autoComplete='off'
@@ -348,8 +350,6 @@ const RegistrationForm = () => {
                     helperText="To add you in group"
                     required
                   />
-                  {registeringUser === 41 &&
-                    <>
                       <TextField
                         // id="outlined-select-currency"
                         className={styles.input_field}
@@ -357,7 +357,6 @@ const RegistrationForm = () => {
                         value={details.fieldOfInterest}
                         style={{ margin: "0.5rem" }}
                         onChange={handleChange}
-                        required
                         select
                         label="Field of interest"
                         // defaultValue={"nothing selected"}
@@ -371,7 +370,6 @@ const RegistrationForm = () => {
                         ))}
                         <MenuItem value={"other"} >Other</MenuItem>
                       </TextField>
-                    </>}
                   {/* --- Graduation --- */}
                   <TextField
                     // id="outlined-select-currency"
@@ -487,6 +485,7 @@ const RegistrationForm = () => {
                         accept='image/png, image/jpeg'
                         onChange={handleFileInput}
                         type="file"
+                        value={""}
                         hidden
                       />
                     </Button>

@@ -29,10 +29,10 @@ const BatchStates = (props) => {
             console.log("Not authorized");
         }
     }
-    useEffect(() => {
-        fetchAllBatch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    // useEffect(() => {
+    //     fetchAllBatch();
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[])
 
     return (
         <batchContext.Provider value={{

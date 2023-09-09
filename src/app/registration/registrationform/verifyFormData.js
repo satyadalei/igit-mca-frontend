@@ -6,13 +6,6 @@ const verifyFormData = (details) => {
             message: "Enter a valid password"
         }
     }
-    //fieldOfInterest
-    if (details.batch === 41 && details.regNum === ""){
-        return {
-            error: true,
-            message: "Enter you registration number"
-        }
-    }
     // roll number
     if (details.rollNum === "") {
         return {
@@ -62,13 +55,6 @@ const verifyFormData = (details) => {
             }
         }
     }
-    //fieldOfInterest
-    if (details.batch === 41 && details.fieldOfInterest === ""){
-        return {
-            error: true,
-            message: "Enter field of interest"
-        }
-    }
     //gradCourse
     if (details.gradCourse === "") {
         return {
@@ -76,6 +62,15 @@ const verifyFormData = (details) => {
             message: "Select your graduation course"
         }
     }
+    //profilePic
+    if (details.profilePic === "") {
+        return {
+            error : true,
+            message : "Enter a profile picture"
+        }
+    }
+
+    // -- IF everything is correct ----
     else{
         return {
             error : false,

@@ -45,7 +45,8 @@ const Registration = () => {
 
   useEffect(() => {
     fetchBatchLists();
-  })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   return (
     <>
@@ -53,7 +54,7 @@ const Registration = () => {
         <div className={styles.register_main_container}>
           <div className={styles.register_box}>
             <Typography className={styles.register_heading} variant="h4" component="h3">
-              Register As!!
+              Select Your Batch!!
             </Typography>
             <p style={{
                 color:"black",
