@@ -8,7 +8,9 @@ const UserName = (props) => {
         <Typography className={styles.user_name} 
         // style={{ marginRight: "1rem" }} 
         >
-          {props.userDetails.fName + " " + props.userDetails.lName}
+          {(props.userDetails.fName || "") + " " +
+          (props.userDetails.mName || "") + " " +
+          (props.userDetails.lName || " ")}
         </Typography>
     </div>
   )

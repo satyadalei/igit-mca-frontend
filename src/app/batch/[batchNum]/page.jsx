@@ -9,7 +9,10 @@ import StudentCard from "./StudentCard";
 import styles from "./page.module.css"
 const Page = ({ params }) => {
   const router = useRouter();
+   // const paramBatchNum = params.batchNum; // page route number
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
+
   // ----  CONTEXT APIS -----
   const { loginStatus, activeUser, fetchActiveUser } = useContext(
     ActiveUserAndLoginStatusContext
@@ -19,16 +22,14 @@ const Page = ({ params }) => {
   // ---- STATES -------
   const [isPageExist, setIsPageExist] = useState(null);
   const [students, setStudents] = useState(null);
-  const paramBatchNum = params.batchNum;
-  useEffect(() => {
-    fetchActiveUser(); // use to every page to check user login status
-    fetchAllBatch();
-    if (loginStatus === false) {
-      router.push("/login");
-    }
+  const [batchRoute, setBatchRoute] = useState(params.batchNum);
+
+  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(()=>{
     if (batches != null) {
       for (let i = 0; i < batches.length; i++) {
-        if (batches[i].batchNum.toString() === paramBatchNum) {
+        if (batches[i].batchNum.toString() === batchRoute) {
           setIsPageExist(true);
           break;
         } else if (i === batches.length - 1) {
@@ -36,12 +37,23 @@ const Page = ({ params }) => {
         }
       }
     }
+
+  })
+
+ 
+  useEffect(() => {
+    fetchActiveUser(); // use to every page to check user login status
+    fetchAllBatch();
+    if (loginStatus === false) {
+      router.push("/login");
+    }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginStatus]);
 
   const getBatchStudents = async () => {
     const token = localStorage.getItem("token");
-    const url = `${baseUrl}/api/batch/${paramBatchNum}/fetchStudents`;
+    const url = `${baseUrl}/api/batch/${batchRoute}/fetchStudents`;
     if (isPageExist && token) {
       // ----- fetchAPi ----
       const fetchStudents = await fetch(url, {
@@ -51,9 +63,7 @@ const Page = ({ params }) => {
         },
       });
       const response = await fetchStudents.json();
-      console.log(response);
       if (response.success) {
-        console.log(response.students);
         setStudents(response.students);
       }
     } else {
@@ -74,7 +84,7 @@ const Page = ({ params }) => {
           {isPageExist && (
             <div className={styles.students_container_box} >
               {/* --- BATCH STUDENTS CONTAINER ---- */}
-              <h1 className={styles.batch_student_heading} >{`${paramBatchNum} students`}</h1>
+              <h1 className={styles.batch_student_heading} >{`${batchRoute} students`}</h1>
               <div className={styles.only_students_box} >
                 {students != null ?
                   students.map((student, index) => {

@@ -82,12 +82,23 @@ const RegistrationStates = (props) => {
                     return { resetDetails: true }
                 } else {
                     setLoading(false)
-                    setAlert({
-                        alert: true,
-                        alertMessage: response.message,
-                        alertType: "error"
-                    })
-                    return { resetDetails: false }
+                    if (response.message === "User with same email already exists. Please login!") {
+                        setAlert({
+                            alert: true,
+                            alertMessage: response.message,
+                            alertType: "error"
+                        })
+                        setTimeout(()=>{
+                           return { resetDetails: true }
+                        },3000)
+                    }else{
+                        setAlert({
+                            alert: true,
+                            alertMessage: response.message,
+                            alertType: "error"
+                        })
+                        return { resetDetails: false }
+                    }
                 }
             })
             .catch((error) => {

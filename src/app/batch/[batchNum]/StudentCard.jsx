@@ -17,7 +17,7 @@ const StudentCard = (props) => {
   return (
     <Card
       className={styles.card_item}
-      sx={{ minWidth: 280, maxWidth: 345, minHeight: 200 }}
+      sx={{ minWidth: 280, maxWidth: 300, minHeight: 200 }}
     >
       <CardActionArea>
         <CardMedia

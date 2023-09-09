@@ -36,12 +36,6 @@ const Batch = () => {
     if (response.success) {
       const sortedBatches = sortArrayObject(response.batches)
       setAllBatches(sortedBatches.reverse());
-    } else {
-      setAlert({
-        alert: true,
-        alertType: "error",
-        alertMessage: response.message
-      })
     }
   }
   useEffect(() => {
