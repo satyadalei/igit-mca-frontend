@@ -1,6 +1,6 @@
 .batch_main_container {
   width: 100%;
-  padding: 1.5rem;
+  padding: 1rem 0 1rem 1rem;
   padding-bottom: 2rem;
 }
 .latest_batches_and_create_batch_container{
@@ -10,4 +10,12 @@
 .all_previous_batches{
     display: flex;
     flex-wrap: wrap;
+}
+.latest_batches{
+  color: #088dec;
+  margin: 0.5rem 0 1rem 0;
+}
+.prev_batch{
+  color: #088dec;
+  margin: 0.5rem 0 1rem 0;
 }

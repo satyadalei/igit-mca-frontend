@@ -5,7 +5,8 @@ import { useContext, useState, useEffect } from "react";
 import batchContext from "@/context/batch/batchContext";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/common/Loading";
-
+import StudentCard from "./StudentCard";
+import styles from "./page.module.css"
 const Page = ({ params }) => {
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -17,7 +18,7 @@ const Page = ({ params }) => {
 
   // ---- STATES -------
   const [isPageExist, setIsPageExist] = useState(null);
-  const [studentIds, setStudentIds] = useState(null);
+  const [students, setStudents] = useState(null);
   const paramBatchNum = params.batchNum;
   useEffect(() => {
     fetchActiveUser(); // use to every page to check user login status
@@ -53,7 +54,7 @@ const Page = ({ params }) => {
       console.log(response);
       if (response.success) {
         console.log(response.students);
-        setStudentIds(response.students);
+        setStudents(response.students);
       }
     } else {
       fetchActiveUser();
@@ -62,6 +63,7 @@ const Page = ({ params }) => {
 
   useEffect(() => {
     getBatchStudents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPageExist]);
 
   return (
@@ -70,9 +72,22 @@ const Page = ({ params }) => {
         <section className="page_section">
           {isPageExist === false && <h1>Page not found</h1>}
           {isPageExist && (
-            <div>
+            <div className={styles.students_container_box} >
               {/* --- BATCH STUDENTS CONTAINER ---- */}
-              {paramBatchNum}
+              <h1 className={styles.batch_student_heading} >{`${paramBatchNum} students`}</h1>
+              <div className={styles.only_students_box} >
+                {students != null ?
+                  students.map((student, index) => {
+                    return (
+                      <StudentCard student={student} cardType="student" key={index} />
+                    )
+                  })
+                  :
+                  <>
+                    <p>Show skeleton</p>
+                  </>
+                }
+              </div>
             </div>
           )}
         </section>

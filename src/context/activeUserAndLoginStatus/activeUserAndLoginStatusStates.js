@@ -45,6 +45,7 @@ const ActiveUserAndLoginStatusStates = (props) => {
                 setLoginStatus(false);
                 setActiveUser(null);
                 localStorage.removeItem("isLogIn");
+                localStorage.removeItem("token");
             }
         }
     }
