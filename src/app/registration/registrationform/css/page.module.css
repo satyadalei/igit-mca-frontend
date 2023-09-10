@@ -75,6 +75,8 @@
     font-size: 0.8rem;
     color: grey;
     text-align: center;
+    border: 1px solid red;
+    padding: 0.5rem;
 }
 .submit_button{
     margin-top: 1rem;

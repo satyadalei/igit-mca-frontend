@@ -92,11 +92,24 @@ const RegistrationForm = () => {
   const handleFileInput = (e) => {
     // this will be helpful when user opens file window & cancels without selecting any file. Because if file is undefined & set it directly to react hook. It cause problem. 
     if (e.target.files[0] != undefined) {
-      setDetails((prev) => {
-        return {
-          ...prev, profilePic: e.target.files[0]
+        const selectedFile = e.target.files[0];
+        const fileSize = selectedFile.size; // Size in bytes
+        const maxSize = 500 * 1024; // 500KB
+  
+        if (fileSize > maxSize) {
+          setAlert({
+            alert: true,
+            alertType: "error",
+            alertMessage: "File size exceeds 500KB. Please choose a smaller image."
+          })
+        } else {
+          // File is within size limit, set it in state
+          setDetails((prev) => {
+            return {
+              ...prev, profilePic: e.target.files[0]
+            }
+          })
         }
-      })
     }
   }
   // handle remove file image
@@ -166,9 +179,9 @@ const RegistrationForm = () => {
               <div className={styles.register_top_container} >
                 {registeringUser === 41
                   ?
-                  <UserTypeForm mainHeading={"41 batch (2022-24)"} subHeading={"2nd year registration form"} />
+                  <UserTypeForm mainHeading={"41 batch (2022-24)"} subHeading={"Registration form!"} />
                   :
-                  <UserTypeForm mainHeading={"42 batch (2023-25)"} subHeading={"1st year registration form"} />
+                  <UserTypeForm mainHeading={"42 batch (2023-25)"} subHeading={"Registration form!"} />
                 }
               </div>
 
@@ -247,7 +260,6 @@ const RegistrationForm = () => {
                     value={details.rollNum}
                     onChange={handleChange}
                     type='number'
-                    required
                     fullWidth
                     // id="filled-error-helper-text"
                     label="Roll number"
@@ -478,7 +490,7 @@ const RegistrationForm = () => {
                     >
                       Choose picture
                       <input
-                        accept='image/png, image/jpeg'
+                        accept=".png, .jpg, .jpeg"
                         onChange={handleFileInput}
                         type="file"
                         value={""}
@@ -486,10 +498,10 @@ const RegistrationForm = () => {
                       />
                     </Button>
                     <p className={styles.supported_files} style={{textAlign:"center", fontSize:"0.7rem"}} >
-                      Supported files are .PNG, .JPEG, .JPG & maximum size : 300KB
+                      Supported files are .PNG, .JPEG, .JPG & maximum size : 500KB
                     </p>
                     <p className={styles.note_for_pic} >
-                      <span style={{color:"red"}} >Note</span> : Please upload a professional & recent picture so others can recognize easily.
+                      <span style={{color:"red"}} >Note</span> : Please upload a professional & recent picture so your classmates & other can recognize easily.
                     </p>
                   </div>
                 </div>
@@ -504,7 +516,7 @@ const RegistrationForm = () => {
                 <br />
                 <Button onClick={() => { handleSubmit(details) }} className={styles.submit_button} variant="contained"
                   component="label" style={{ backgroundColor: "green", width: "200px", height: "3rem" }} >
-                  Submit
+                  Register
                 </Button>
               </div>
             </div>

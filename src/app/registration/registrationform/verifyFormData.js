@@ -7,12 +7,12 @@ const verifyFormData = (details) => {
         }
     }
     // roll number
-    if (details.rollNum === "") {
-        return {
-            error: true,
-            message: "Enter your roll number"
-        }
-    }
+    // if (details.rollNum === "") {
+    //     return {
+    //         error: true,
+    //         message: "Enter your roll number"
+    //     }
+    // }
     // fName 
     if (details.fName.length < 3) {
         if (details.fName === "") {
