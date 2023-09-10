@@ -37,8 +37,10 @@ export default function ActionAreaCard(props) {
             }}
             className={styles.card_item_content}
           >
-            <Typography gutterBottom variant="h5" component="div">
-              {props.batch != undefined ? props.batch.batchNum : ""}
+            <Typography 
+            style={{color:"#088dec"}}
+            variant="h5" component="div">
+             Batch : {props.batch != undefined ? props.batch.batchNum  : ""}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               strength : {props.batch != undefined ? props.batch.strength : ""}

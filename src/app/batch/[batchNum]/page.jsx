@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/common/Loading";
 import StudentCard from "./StudentCard";
 import styles from "./page.module.css"
+import sortStudentInRoll from "./sortStudentsInNames";
+
+
 const Page = ({ params }) => {
   const router = useRouter();
    // const paramBatchNum = params.batchNum; // page route number
@@ -64,7 +67,7 @@ const Page = ({ params }) => {
       });
       const response = await fetchStudents.json();
       if (response.success) {
-        setStudents(response.students);
+        setStudents(sortStudentInRoll(response.students));
       }
     } else {
       fetchActiveUser();
@@ -84,7 +87,7 @@ const Page = ({ params }) => {
           {isPageExist && (
             <div className={styles.students_container_box} >
               {/* --- BATCH STUDENTS CONTAINER ---- */}
-              <h1 className={styles.batch_student_heading} >{`${batchRoute} students`}</h1>
+              <h1 className={styles.batch_student_heading} >{`${batchRoute} batch students`}</h1>
               <div className={styles.only_students_box} >
                 {students != null ?
                   students.map((student, index) => {
@@ -94,7 +97,14 @@ const Page = ({ params }) => {
                   })
                   :
                   <>
-                    <p>Show skeleton</p>
+                    <StudentCard  cardType="skeleton" />
+                    <StudentCard  cardType="skeleton" />
+                    <StudentCard  cardType="skeleton" />
+                    <StudentCard  cardType="skeleton" />
+                    <StudentCard  cardType="skeleton" />
+                    <StudentCard  cardType="skeleton" />
+                    <StudentCard  cardType="skeleton" />
+                    <StudentCard  cardType="skeleton" />
                   </>
                 }
               </div>

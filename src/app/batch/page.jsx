@@ -8,6 +8,7 @@ import ActionAreaCard from "./components/Card";
 import Alert from "@/components/common/Alert";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
 import sortArrayObject from "./sortBatches"
+import BatchSkeleton from "./BatchSkeleton";
 
 const Batch = () => {
 
@@ -64,12 +65,17 @@ const Batch = () => {
               <div className={styles.latest_batches_and_create_batch_container}>
 
                 {/* two batches latest at top */}
-                  { allBatches != null && allBatches.map((batch, index) => {
+                  { allBatches != null ? allBatches.map((batch, index) => {
                     if (index < 2) {
                       return <ActionAreaCard cardType="batch" key={index} batch={batch} />;
                     }
                     return null; // Don't render components beyond the limit
-                  })}
+                  }) : 
+                  <>
+                    <BatchSkeleton />
+                    <BatchSkeleton />
+                  </>
+                  }
 
                 {/* create new batch */}
                 {
@@ -90,12 +96,24 @@ const Batch = () => {
             <div className={styles.bottom_container_previous_batches}>
               <h1 className={styles.prev_batch} >Previous Batches</h1>
               <div className={styles.all_previous_batches} >
-              { allBatches != null && allBatches.map((batch, index) => {
+              { allBatches != null ? allBatches.map((batch, index) => {
                     if (index > 1) {
                       return <ActionAreaCard cardType="batch" key={index} batch={batch} />;
                     }
                     return null; // Don't render components beyond the limit
-                  })}
+                  })
+                  : 
+                  <>
+                    <BatchSkeleton />
+                    <BatchSkeleton />
+                    <BatchSkeleton />
+                    <BatchSkeleton />
+                    <BatchSkeleton />
+                    <BatchSkeleton />
+                    <BatchSkeleton />
+                    <BatchSkeleton />
+                  </>
+                }
               </div>
             </div>
             {/* ---------BOTTOM SECTION ENDS :: PREVIOUS BATCHES ------- */}
