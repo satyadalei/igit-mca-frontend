@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "next/link";
+import EmailIcon from '@mui/icons-material/Email';
 
 const StudentCard = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -23,7 +24,7 @@ const StudentCard = (props) => {
 
   return (
     <Card className={styles.card_item}>
-      {/* <CardActionArea> */}
+      <CardActionArea>
       {/* <CardMedia
           className={styles.card_item_media}
           component="img"
@@ -58,6 +59,9 @@ const StudentCard = (props) => {
               `${props.student.userDetails.mName || ""}` +
               " " +
               `${props.student.userDetails.lName || ""}`}
+          </Typography>
+          <Typography>
+          From : {props.student.userDetails.homeDist || ""}
           </Typography>
           <div className={styles.social_links_box}>
             <Link
@@ -94,6 +98,16 @@ const StudentCard = (props) => {
             >
               <GitHubIcon className={styles.social_icon} />
             </Link>
+
+            <Link 
+            href={`mailto:${props.student.email}`} 
+            style={{
+                color: "#088dec" 
+                }
+              }
+            >
+              <EmailIcon />
+            </Link>
           </div>
         </CardContent>
       ) : (
@@ -123,7 +137,7 @@ const StudentCard = (props) => {
           </div>
         </CardContent>
       )}
-      {/* </CardActionArea> */}
+      </CardActionArea>
       <StudentModal open={open} handleClose={handleClose} />
     </Card>
   );

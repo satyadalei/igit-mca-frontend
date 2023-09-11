@@ -55,7 +55,7 @@ const Page = () => {
                   `${activeUser.userDetails.mName || " "}` + 
                   " " 
                   + activeUser.userDetails.lName}
-                  subHeading={activeUser.batch + " Batch"}
+                  subHeading={(activeUser.batch || "No" )+ " Batch"}
                 />
               </div>
 
