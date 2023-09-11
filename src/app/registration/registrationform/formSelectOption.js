@@ -11,14 +11,16 @@ const districts = [
     "B.Sc(Physics)",
     "B.Sc(Chemistry)",
     "B.Sc(Mathematics)",
-    "B.Sc(Biology)",
     "B.Sc(Statistics)",
     "B.Sc(Computer Science)",
+    "B.Sc(Geology)",
+    "B.Sc(Zoology)",
+    "B.Sc(Botany)",
     "BCA",
     "other"
   ].sort();
   const fieldOfInterest = [
-    "Data Analytics/Science",
+    "Data Analytics",
     "Advanced Business Application Programming",
     "Systems Applications and Products",
     "Artificial Intelligence",

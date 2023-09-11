@@ -24,7 +24,7 @@ const StudentCard = (props) => {
 
   return (
     <Card className={styles.card_item}>
-      <CardActionArea>
+      {/* <CardActionArea> */}
       {/* <CardMedia
           className={styles.card_item_media}
           component="img"
@@ -87,7 +87,8 @@ const StudentCard = (props) => {
                   props.student.userDetails.socialLinks.githubLink === ""
                     ? "#d0d0d1"
                     : "#1F2328"
-                }`
+                }`, 
+                marginRight:"0.5rem"
               }}
               target="_blank"
               onClick={
@@ -102,7 +103,8 @@ const StudentCard = (props) => {
             <Link 
             href={`mailto:${props.student.email}`} 
             style={{
-                color: "#088dec" 
+                color: "black" 
+                // color: "#088dec" 
                 }
               }
             >
@@ -137,7 +139,7 @@ const StudentCard = (props) => {
           </div>
         </CardContent>
       )}
-      </CardActionArea>
+      {/* </CardActionArea> */}
       <StudentModal open={open} handleClose={handleClose} />
     </Card>
   );
