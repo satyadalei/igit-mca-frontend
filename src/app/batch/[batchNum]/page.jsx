@@ -8,7 +8,7 @@ import Loading from "@/components/common/Loading";
 import StudentCard from "./StudentCard";
 import styles from "./page.module.css"
 import sortStudentInRoll from "./sortStudentsInNames";
-
+import PageNotFound from "@/components/common/PageNotFound"
 
 const Page = ({ params }) => {
   const router = useRouter();
@@ -83,7 +83,8 @@ const Page = ({ params }) => {
     <>
       {loginStatus ? (
         <section className="page_section">
-          {isPageExist === false && <h1>Page not found</h1>}
+          {/* {isPageExist === false && <h1>Page not found</h1>} */}
+          {isPageExist === false && <PageNotFound />}
           {isPageExist && (
             <div className={styles.students_container_box} >
               {/* --- BATCH STUDENTS CONTAINER ---- */}
