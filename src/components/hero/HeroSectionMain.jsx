@@ -1,9 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
+
 import React from 'react'
 import styles from "./css/hero.module.css"
 import Link from 'next/link'
 import Image from 'next/image'
 import classmateImage from "../../../public/images/classmates.jpg"
+import CarouselComponent from "./Carousel"
+
 const HeroSectionMain = () => {
   return (
     <>
@@ -31,14 +34,15 @@ const HeroSectionMain = () => {
              {/* right_section start*/}
              <div className={`${styles.right_section} ${styles.hero_main_items}`} >
                  {/* carosule image */}
-                 <div className={styles.carosule_img_box} >
-                       <Image 
+                 {/* <div className={styles.carosule_img_box} > */}
+                       {/* <Image 
                         className={styles.hero_section_image}
                         src={classmateImage}
                         width={500} 
                         alt="41th batch students image with niroj sir"
-                       />
-                 </div>
+                       /> */}
+                       <CarouselComponent/>
+                 {/* </div> */}
              </div>
              {/* right_section ends*/}
              
