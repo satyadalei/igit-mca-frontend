@@ -27,7 +27,7 @@
     position: relative;
     /* z-index: -1; */
     padding: 3rem 0 0 0;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     /* border: 2px solid yellow; */
     /* display: flex;
     justify-content: center;
@@ -35,11 +35,12 @@
 }
 .carosule_img_box{
     width: 100%;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
+    /* position: relative; */
 }
 .hero_section_image{
     border-radius: 10px;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     height: auto;
     cursor:grab;
 }
@@ -60,13 +61,18 @@
     color: white;
 }
 .paging_dot_container{
-    background-color: rgba(235, 235, 235, 0.479);
+    /* background-color: rgba(235, 235, 235, 0.479);
+    border: 1px solid red; */
     border-radius: 5px;
     padding: 0 2.5px 0 2.5px;
+    position: absolute !important;
+    top: 101% !important;
+    left: 50% !important;
+    transform: translate(-50%,-50%) !important;
 }
-.paging_dot_container > *{
+/* .paging_dot_container > *{
     color: red !important;
-}
+} */
 /* --------- Responsive-ness styles ------------- */
 @media only screen and (max-width: 12500px) {
     .hero_heading{

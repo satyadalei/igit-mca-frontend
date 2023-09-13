@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 
 import React from 'react'
-import styles from "./css/hero.module.css"
+import styles from "./hero.module.css"
 import Link from 'next/link'
 import Image from 'next/image'
 import classmateImage from "../../../public/images/classmates.jpg"

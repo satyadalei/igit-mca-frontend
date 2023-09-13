@@ -2,7 +2,7 @@
 import React from 'react'
 import Carousel from "nuka-carousel"
 import Image from 'next/image'
-import styles from "./css/hero.module.css"
+import styles from "./hero.module.css"
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 const CarouselComponent = () => {
@@ -27,6 +27,12 @@ const CarouselComponent = () => {
     wrapAround
     defaultControlsConfig={defaultControlsConfig}
     >
+    <Image className={styles.hero_section_image} src={"https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=600"} width={580} height={300} alt='panorama1' />
+    <Image className={styles.hero_section_image} src={"https://images.pexels.com/photos/1054777/pexels-photo-1054777.jpeg?auto=compress&cs=tinysrgb&w=600"} width={580} height={300} alt='panorama2' />
+    <Image className={styles.hero_section_image} src={"https://images.pexels.com/photos/6457579/pexels-photo-6457579.jpeg?auto=compress&cs=tinysrgb&w=600"} width={580} height={300} alt='panorama3' />
+    <Image className={styles.hero_section_image} src={"https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=600"} width={580} height={300} alt='panorama1' />
+    <Image className={styles.hero_section_image} src={"https://images.pexels.com/photos/1054777/pexels-photo-1054777.jpeg?auto=compress&cs=tinysrgb&w=600"} width={580} height={300} alt='panorama2' />
+    <Image className={styles.hero_section_image} src={"https://images.pexels.com/photos/6457579/pexels-photo-6457579.jpeg?auto=compress&cs=tinysrgb&w=600"} width={580} height={300} alt='panorama3' />
     <Image className={styles.hero_section_image} src={"https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=600"} width={580} height={300} alt='panorama1' />
     <Image className={styles.hero_section_image} src={"https://images.pexels.com/photos/1054777/pexels-photo-1054777.jpeg?auto=compress&cs=tinysrgb&w=600"} width={580} height={300} alt='panorama2' />
     <Image className={styles.hero_section_image} src={"https://images.pexels.com/photos/6457579/pexels-photo-6457579.jpeg?auto=compress&cs=tinysrgb&w=600"} width={580} height={300} alt='panorama3' />
