@@ -1,6 +1,6 @@
 import React from "react";
 import EachSemNoteCards from "./EachSemNoteCards";
-import styles from "./css/notes.module.css";
+import styles from "./notes.module.css";
 
 import Image from "next/image";
 const Notes = () => {

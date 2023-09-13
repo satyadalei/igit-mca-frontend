@@ -6,19 +6,21 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import DescriptionIcon from '@mui/icons-material/Description';
 
-import styles from "./css/notes.module.css"
+import styles from "./notes.module.css"
 const EachSemNoteCards = (props) => {
     return (
         <>
             <Card className={styles.card_item}>
-                <CardActionArea>
+                {/* <CardActionArea> */}
                     <CardMedia
                         component="img"
                         height="140"
                         image={props.img_url}
                         alt="green iguana"
                     />
-                    <CardContent>
+                    <CardContent className={styles.card_content} 
+                    //style={{border:"1px solid red", minHeight:"230px"}} 
+                    >
                         <Typography gutterBottom variant="h5" component="div">
                             {props.sem_no}
                         </Typography>
@@ -34,10 +36,10 @@ const EachSemNoteCards = (props) => {
                             })}
                         </Typography>
                     </CardContent>
-                </CardActionArea>
+                {/* </CardActionArea> */}
                 <CardActions>
-                    <Button style={{ cursor: "pointer" }} className={styles.sem_btn} variant="contained" size="small"><DescriptionIcon />Notes</Button>
-                    <Button variant="outlined" size="small">Instructors</Button>
+                    <Button style={{ cursor: "pointer"}} className={styles.sem_btn} variant="contained" size="small"><DescriptionIcon />Notes</Button>
+                    <Button variant="outlined" size="small">Syllabus</Button>
                 </CardActions>
             </Card>
         </>
