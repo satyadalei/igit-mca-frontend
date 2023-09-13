@@ -12,7 +12,7 @@ const NoticeCard = (props) => {
             <Card style={{backgroundColor:"#3584FC"}}  className={styles.card_item}>
                 <CardActionArea sx={{height:"100%"}} >
                     <CardContent>
-                        <Typography className={styles.card_text} sx={{textAlign:"center"}} gutterBottom variant="h5" component="div">
+                        <Typography className={styles.card_text} sx={{textAlign:"center",color:"white"}} gutterBottom variant="h5" component="div">
                            {props.notice_name}
                         </Typography>
                     </CardContent>

@@ -17,25 +17,24 @@ const MainCoordinators = () => {
 
   const fetchCoordinators = async () => {
     const url = `${baseUrl}/api/coordinators/${batches[1].batchNum}`
-    //console.log(url);
     const coordinators = await fetch(url, {
       method: "GET"
     })
     const response = await coordinators.json();
-    console.log(response.batchCoordinators);
     if (response.success) {
       setBatchCoordiNators(response.batchCoordinators);
     }
   }
-  console.log(batchCoordiNators);
   useEffect(() => {
+    // when second year is fully defined then only call api
     if (batches != null) {
-      // fetchCoordinators()
+      fetchCoordinators()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [batches])
   useEffect(() => {
     fetchAllBatch()
-    // when second year is fully defined then only call api
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <>
@@ -46,10 +45,9 @@ const MainCoordinators = () => {
           {/* <Coordinator name={"Sandeep Kumar Das"} tag={"Class Representative"} />
 
           <Coordinator name={"Bandana Priyadarshani Jena"} tag={"Class Representative"} /> */}
-
           {batchCoordiNators != null ?
             batchCoordiNators.map((coordiNator, index) => {
-              return (<Coordinator
+              return (coordiNator.tag === "CR/BR" ?(<Coordinator
                 key={index}
                 name={`${coordiNator.userDetails.fName || ""}` +
                   " " +
@@ -58,24 +56,16 @@ const MainCoordinators = () => {
                   `${coordiNator.userDetails.lName || ""}`}
                 tag={coordiNator.tag}
                 profile={coordiNator.profilePic.url}
-              />)
+              />) : null )
             })
             :
             <>
             {/* creates 50 element array */}
-              {Array.from({ length: 50 }, (_, index) => (
+              {Array.from({ length: 2 }, (_, index) => (
                 <div key={index}>
                   <SkeletonCoordinators />
                 </div>
               ))}
-              {/* <SkeletonCoordinators />
-              <SkeletonCoordinators />
-              <SkeletonCoordinators />
-              <SkeletonCoordinators />
-              <SkeletonCoordinators />
-              <SkeletonCoordinators />
-              <SkeletonCoordinators />
-              <SkeletonCoordinators /> */}
             </>
           }
         </div>
