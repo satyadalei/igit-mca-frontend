@@ -14,9 +14,8 @@ const MainCoordinators = () => {
   const { batches, fetchAllBatch } = useContext(batchContext)
 
   const [batchCoordiNators, setBatchCoordiNators] = useState(null)
-
   const fetchCoordinators = async () => {
-    const url = `${baseUrl}/api/coordinators/${batches[1].batchNum}`
+    const url = `${baseUrl}/api/coordinators/${batches[1]._id}`
     const coordinators = await fetch(url, {
       method: "GET"
     })

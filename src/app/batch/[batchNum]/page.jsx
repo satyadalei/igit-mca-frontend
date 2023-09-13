@@ -12,7 +12,7 @@ import PageNotFound from "@/components/common/PageNotFound"
 
 const Page = ({ params }) => {
   const router = useRouter();
-   // const paramBatchNum = params.batchNum; // page route number
+  // const paramBatchNum = params.batchNum; // page route number
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 
@@ -26,14 +26,15 @@ const Page = ({ params }) => {
   const [isPageExist, setIsPageExist] = useState(null);
   const [students, setStudents] = useState(null);
   const [batchRoute, setBatchRoute] = useState(params.batchNum);
+  const [batchId, setBatchId] = useState(null);
 
-  
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(()=>{
+  useEffect(() => {
     if (batches != null) {
       for (let i = 0; i < batches.length; i++) {
         if (batches[i].batchNum.toString() === batchRoute) {
           setIsPageExist(true);
+          setBatchId(batches[i]._id);
           break;
         } else if (i === batches.length - 1) {
           setIsPageExist(false);
@@ -43,20 +44,20 @@ const Page = ({ params }) => {
 
   })
 
- 
+
   useEffect(() => {
     fetchActiveUser(); // use to every page to check user login status
     fetchAllBatch();
     if (loginStatus === false) {
       router.push("/login");
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginStatus]);
 
   const getBatchStudents = async () => {
     const token = localStorage.getItem("token");
-    const url = `${baseUrl}/api/batch/${batchRoute}/fetchStudents`;
+    const url = `${baseUrl}/api/batch/${batchId}/fetchStudents`; // fetch students by their batch Id
     if (isPageExist && token) {
       // ----- fetchAPi ----
       const fetchStudents = await fetch(url, {
@@ -98,14 +99,11 @@ const Page = ({ params }) => {
                   })
                   :
                   <>
-                    <StudentCard  cardType="skeleton" />
-                    <StudentCard  cardType="skeleton" />
-                    <StudentCard  cardType="skeleton" />
-                    <StudentCard  cardType="skeleton" />
-                    <StudentCard  cardType="skeleton" />
-                    <StudentCard  cardType="skeleton" />
-                    <StudentCard  cardType="skeleton" />
-                    <StudentCard  cardType="skeleton" />
+                    {Array.from({ length: 10 }, (_, index) => (
+                      <div key={index}>
+                        <StudentCard cardType="skeleton" />
+                      </div>
+                    ))}
                   </>
                 }
               </div>
