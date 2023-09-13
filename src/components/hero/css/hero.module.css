@@ -25,16 +25,23 @@
 }
 .right_section{
     position: relative;
-    z-index: -1;
+    /* z-index: -1; */
     padding: 3rem 0 0 0;
+    border: 1px solid red;
     /* border: 2px solid yellow; */
     /* display: flex;
     justify-content: center;
     align-items: center; */
 }
+.carosule_img_box{
+    width: 100%;
+    border: 1px solid blue;
+}
 .hero_section_image{
     border-radius: 10px;
+    border: 1px solid green;
     height: auto;
+    cursor:grab;
 }
 .hero_heading{
     font-size: 3.8rem;
@@ -52,6 +59,14 @@
     font-size: 0.9rem;
     color: white;
 }
+.paging_dot_container{
+    background-color: rgba(235, 235, 235, 0.479);
+    border-radius: 5px;
+    padding: 0 2.5px 0 2.5px;
+}
+.paging_dot_container > *{
+    color: red !important;
+}
 /* --------- Responsive-ness styles ------------- */
 @media only screen and (max-width: 12500px) {
     .hero_heading{
@@ -66,6 +81,7 @@
 @media only screen and (max-width: 1080px) {
     .hero_section_image{
        width: 400px;
+       width: 100% !important;
     }
     .hero_heading{
         font-size: 2.5rem;
@@ -83,7 +99,8 @@
 }
 @media only screen and (max-width: 900px) {
     .hero_section_image{
-        width: 350px;
+        width: 400px;
+        width: 100% !important;
      }
      .hero_heading{
         font-size: 2.3rem;
