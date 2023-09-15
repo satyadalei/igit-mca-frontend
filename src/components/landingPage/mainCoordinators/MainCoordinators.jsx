@@ -11,11 +11,14 @@ const MainCoordinators = () => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   // call api to fetch coordinators of the 2nd year students
-  const { batches, fetchAllBatch } = useContext(batchContext)
-
+  const { batches, fetchAllBatch, fetchBatchLists , batchLists} = useContext(batchContext)
+  // console.log(batchLists);
+  // console.log(batches);
+  
   const [batchCoordiNators, setBatchCoordiNators] = useState(null)
   const fetchCoordinators = async () => {
-    const url = `${baseUrl}/api/coordinators/${batches[1]._id}`
+    // const url = `${baseUrl}/api/coordinators/${batches[1]._id}`
+    const url = `${baseUrl}/api/coordinators/${batchLists[batchLists.length-2]._id}`
     const coordinators = await fetch(url, {
       method: "GET"
     })
@@ -26,13 +29,17 @@ const MainCoordinators = () => {
   }
   useEffect(() => {
     // when second year is fully defined then only call api
-    if (batches != null) {
+    // if (batches != null) {
+    if (batchLists != null) {
       fetchCoordinators()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [batches])
+}, [batchLists])
+// }, [batches])
+
+
   useEffect(() => {
-    fetchAllBatch()
+    fetchBatchLists()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (

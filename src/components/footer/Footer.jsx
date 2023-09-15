@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import styles from "./css/footer.module.css"
+import styles from "./footer.module.css"
 import Link from 'next/link'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 const Footer = () => {

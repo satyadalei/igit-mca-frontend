@@ -47,3 +47,7 @@ section.page_section{
   align-items: center;
   justify-content: center;
 }
+.disabled_link_text{
+  color: rgba(128, 128, 128, 0.534) !important;
+  cursor: default;
+}

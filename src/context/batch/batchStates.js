@@ -5,8 +5,22 @@ import sortArrayObject from "@/app/batch/sortBatches"
 const BatchStates = (props) => {
     // -------- STATES ----------
     const [batches, setBatches] = useState(null);
+    const [batchLists, setBatchLists] = useState(null);
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    // fetch if the user is not authenticated
+    const fetchBatchLists = async ()=>{
+        const url = `${baseUrl}/api/batch/fetchBatchLists`;
+        const fetchBatchLists = await fetch(url, {
+            method: "GET",
+        })
+        const response = await fetchBatchLists.json();
+        if (response.success) {
+            setBatchLists(sortArrayObject(response.batchLists))
+        }else{
+            console.log("Problem in loading batches");
+        }
+    }
     // fetch all batches if user is authenticated
     const fetchAllBatch = async () => {
         const token = localStorage.getItem("token");
@@ -19,6 +33,7 @@ const BatchStates = (props) => {
                 }
             })
             const response = await fetchBatches.json();
+            fetchBatchLists();
             if (response.success) {
                 const sortedBatches = sortArrayObject(response.batches)
                 setBatches(sortedBatches.reverse());
@@ -26,7 +41,7 @@ const BatchStates = (props) => {
                 console.log("Batch fetch failed!");
             }
         }else{
-            console.log("Not authorized");
+            fetchBatchLists(); //
         }
     }
     // useEffect(() => {
@@ -36,7 +51,9 @@ const BatchStates = (props) => {
 
     return (
         <batchContext.Provider value={{
-          batches, fetchAllBatch
+          batches,  // for authorized user
+          fetchAllBatch,
+          batchLists, fetchBatchLists  // for unauthorized user
         }}>
             {props.children}
         </batchContext.Provider>

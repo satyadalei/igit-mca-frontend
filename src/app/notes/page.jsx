@@ -1,6 +1,8 @@
+"use client"
 import React from 'react'
-
+import semester from '@/data/semesterData'
 const notes = () => {
+  console.log(semester);
   return (
     <>
       <section className='page_section' >
