@@ -5,6 +5,7 @@ import PageNotFound from '@/components/common/PageNotFound';
 import Loading from '@/components/common/Loading';
 import ActiveUserAndLoginStatusContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import { useRouter } from "next/navigation";
+import SemesterContent from "./SemesterContent"
 
 const Page = ({ params }) => {
 
@@ -13,8 +14,15 @@ const Page = ({ params }) => {
   );
   const router = useRouter();
   const semesterNum = params.semesterNum ;
+  
   // console.log(semester);
   const {allSemesters} = semester;
+  const {semester1, semester2, semester3, semester4} = semester;
+  // console.log(semester1);
+  // console.log(semester2);
+  // console.log(semester3);
+  // console.log(semester4);
+
   const [isPageExist, setIsPageExist] = useState(null);
   const semNum = params.semesterNum[semesterNum.length-1] // finding last digit of route
   // console.log(typeof(allSemesters[0].toString()));
@@ -49,8 +57,11 @@ const Page = ({ params }) => {
           {/* {isPageExist === false && <h1>Page not found</h1>} */}
           {isPageExist === false && <PageNotFound />}
           {isPageExist && (
-            <div className="" >
-               {semesterNum}
+            <div className={""} >
+               { semNum === "1" && <SemesterContent semData={semester1} semNum={1} />}
+               { semNum === "2" && <SemesterContent semData={semester2} semNum={2} />}
+               { semNum === "3" && <SemesterContent semData={semester3} semNum={3} />}
+               { semNum === "4" && <SemesterContent semData={semester4} semNum={4} />}
             </div>
           )}
         </section>

@@ -1,0 +1,38 @@
+.allSemContainer{
+  width: 100%;
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  padding: 1rem 1rem 2rem 1rem;
+  flex-wrap: wrap;
+}
+.semNumBox{
+    background-color: rgb(175, 171, 171);
+    color: white;
+    width: 24%;
+    max-width: 500px;
+    min-height: 250px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 0.5rem;
+}
+.semNumBox:hover{
+    background-color: rgba(175, 171, 171, 0.58);
+    transition: 0.4s all ease-in-out;
+    color: rgba(0, 0, 0, 0.872);
+}
+
+/* ------- RESPONSIVE -------- */
+@media only screen and (max-width: 1000px) {
+    .semNumBox{
+        width: 46%;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .semNumBox{
+        width: 96%;
+    }
+}
