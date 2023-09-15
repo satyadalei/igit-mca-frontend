@@ -25,7 +25,7 @@ const semester = {
                 thumbNailUrl: "",
                 // links are the google drive links
                 links : {
-                    notes : "",
+                    notes : "https://www.google.com/",
                     assignments : "",
                     question : "",
                     books : ""

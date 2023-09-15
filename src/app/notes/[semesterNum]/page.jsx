@@ -6,7 +6,7 @@ import Loading from '@/components/common/Loading';
 import ActiveUserAndLoginStatusContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import { useRouter } from "next/navigation";
 import SemesterContent from "./SemesterContent"
-
+import styles from "./page.module.css"
 const Page = ({ params }) => {
 
   const { loginStatus, fetchActiveUser } = useContext(
@@ -57,7 +57,7 @@ const Page = ({ params }) => {
           {/* {isPageExist === false && <h1>Page not found</h1>} */}
           {isPageExist === false && <PageNotFound />}
           {isPageExist && (
-            <div className={""} >
+            <div className={styles.sem_all_subjects_container} >
                { semNum === "1" && <SemesterContent semData={semester1} semNum={1} />}
                { semNum === "2" && <SemesterContent semData={semester2} semNum={2} />}
                { semNum === "3" && <SemesterContent semData={semester3} semNum={3} />}

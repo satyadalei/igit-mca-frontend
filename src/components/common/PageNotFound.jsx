@@ -17,7 +17,7 @@ const PageNotFound = () => {
             height:"auto",
             maxWidth:"500px"
          }}
-         src={PageNotFoundErrorImage} width={300} height={300} alt="Page not found" srcset="" />
+         src={PageNotFoundErrorImage} width={300} height={300} alt="Page not found" />
     </div>
   )
 }

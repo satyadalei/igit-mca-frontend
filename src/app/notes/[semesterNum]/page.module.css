@@ -1,0 +1,44 @@
+.sem_all_subjects_container {
+    padding: 1rem;
+}
+
+.subject_item_box {
+    /* border: 1px solid red; */
+    /* background-color: #a3a6f4c9; */
+    background-color: rgba(182, 178, 178, 0.61);
+    margin: 1rem 0 1.5rem 0;
+    border-radius: 1rem;
+    padding: 1rem;
+    -webkit-box-shadow: -9px 10px 13px -6px rgba(0, 0, 0, 0.58);
+    -moz-box-shadow: -9px 10px 13px -6px rgba(0, 0, 0, 0.58);
+    box-shadow: -9px 10px 13px -6px rgba(0, 0, 0, 0.58);
+}
+.subject_name{
+    margin: 0 0 0.4rem 0 ;
+}
+.paper_code{
+    color: rgba(128, 128, 128, 0.849);
+}
+.instructor{
+    color: rgba(128, 128, 128, 0.916);
+}
+.subject_btn {
+    margin: 0.2rem 0.5rem 0.2rem 0;
+}
+
+.instructor_box {
+    margin-bottom: 1rem;
+}
+
+/* ------ RESPONSIVE ---- */
+@media only screen and (min-width: 1000px) {
+    .sem_all_subjects_container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .subject_item_box {
+        width: 46%;
+        margin: 1rem;
+    }
+}
