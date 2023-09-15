@@ -15,7 +15,7 @@ const SemesterContent = (props) => {
       {subjectDetailsArray.map((subject, index) => {
         return <div key={index}>
            <div>
-                <p>Paper {index}</p>
+                <p>Paper {index + 1}</p>
                 <h3>{subject.subjectName}</h3>
            </div>
 

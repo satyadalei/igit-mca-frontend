@@ -32,6 +32,7 @@ const Notes = () => {
     <>
       {loginStatus ? (
         <section className="page_section">
+         <h1 style={{color:"#3584FC", margin:"1rem 0 0 2rem", textDecoration:"underlined"}} >Select semester for notes!</h1>
           <div className={styles.allSemContainer} >
 
           {/* --- All semesters will be populated ----- */}
