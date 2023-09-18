@@ -1,34 +1,92 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# IGIT MCA Frontend Web Application
 
-First, run the development server:
+This README describes a basic folder structure of our frontend application & also describes a little bit about API interactions 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+**Deployed on:** [vercel.com](https://vercel.com/)
+
+Check app running live @ 👉 
+[https://igit-mca-backend.onrender.com](https://igit-mca-backend.onrender.com)
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Setup](#setup)
+- [Project Structure](#project-structure)
+
+
+## Introduction
+
+This application interacts with API of [igit backend](https://github.com/satyadalei/igit-mca-backend) for performing CRUD operations on a set of things, such as users registration, login, new batch create etc.
+
+## Technologies Used
+[![](https://skillicons.dev/icons?i=react,html,css,javascript,next,materialui,firebase)](https://skillicons.dev)
+- **Next.js**: A react-based web framework
+- **Firebase**: For using google authentication
+- **HTML, CSS, javascript**
+- **React MUI:** A user interface framework that provides pre-defined and customizable React components
+
+
+## Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/satyadalei/igit-mca-frontend.git
+   cd igit-mca-frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up the environment variables:
+   Create a `.env.local` file in the root of the project and define the following variables:
+
+   ```plaintext
+    NEXT_PUBLIC_APIKEY=
+    NEXT_PUBLIC_AUTHDOMAIN=
+    NEXT_PUBLIC_PROJECTID=b
+    NEXT_PUBLIC_STORAGEBUCKET=
+    NEXT_PUBLIC_MESSAGINGSENDERID=
+    NEXT_PUBLIC_APPID=
+    NEXT_PUBLIC_MEASUREMENTID=
+
+    NEXT_PUBLIC_BASE_URL=
+   ```
+
+4. Start the server:
+   ```bash
+   npm run dev
+   ```
+
+## Project Structure
+
+The project structure follows a typical Next.js application structure:
+
+```plaintext
+project-root/
+  |-- firebase/
+      |-- firebase.js       # combines firebase api keys & exports as javascript objcet 
+  |-- public/
+      |-- images/
+          |-- semester1.jpg
+          |-- pagenotfound.jpg
+          |-- ...(other images)
+  |-- src/
+      |-- app/              # main folder for different pages
+      |-- components/       # components of home page & some common page
+      |-- context/          # All context apis
+      |-- data/             # contains semester data with subject teachers in javascript object format
+  |-- .env.local            # Environment variable configuration
+  |-- .eslintrc.json
+  |-- .gitignore            # ignores some file
+  |-- jsconfig.json
+  |-- next.config.js
+  |-- package-lock.json
+  |-- package.json
+  |-- README.md             # Project documentationentry point
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
