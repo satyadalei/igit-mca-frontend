@@ -28,6 +28,17 @@ This application interacts with API of [igit backend](https://github.com/satyada
 - **HTML, CSS, javascript**
 - **React MUI:** A user interface framework that provides pre-defined and customizable React components
 
+## Features of application
+- **User Registration**: Let's a new student create account
+    ### Three step registration
+     -  1.Choose your batch
+     -  2.Select `register via google` & choose `mail id` from google pop up 
+     -  3.Fill up form & click register
+- **User Login**: Let's a registered user Login
+    #### Two way login system 
+   - Google Login (by choosing email id)
+   - Manual Login (using email id & password)
+
 
 ## Setup
 
