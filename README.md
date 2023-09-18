@@ -12,7 +12,7 @@ Check app running live @ 👉
 
 - [Introduction](#introduction)
 - [Technologies Used](#technologies-used)
-- [Features of application](#features)
+- [Features of application](#Features-of-application)
 - [Setup](#setup)
 - [Project Structure](#project-structure)
 
