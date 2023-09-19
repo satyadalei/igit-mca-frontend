@@ -6,7 +6,7 @@ This README describes a basic folder structure of our frontend application & als
 **Deployed on:** [vercel.com](https://vercel.com/)
 
 Check app running live @ 👉 
-[https://igit-mca-backend.onrender.com](https://igit-mca-backend.onrender.com)
+[https://igit-mca-backend.onrender.com](https://igit-mca-frontend.vercel.app/)]
 
 ## Table of Contents
 
