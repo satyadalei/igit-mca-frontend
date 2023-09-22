@@ -2,11 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ActiveUserAndLoginStatusContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import Loading from "@/components/common/Loading";
-import { useRouter , usePathname} from "next/navigation";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
+import { useRouter, usePathname } from "next/navigation";
 import Box from "@mui/material/Box";
 import styles from "./layout.module.css";
 import { Button } from "@mui/material";
@@ -17,7 +13,6 @@ const AdminLayOut = ({ children }) => {
   );
   const router = useRouter();
   const currentPage = usePathname();
-  console.log(currentPage);
 
   useEffect(() => {
     fetchActiveUser(); // use to every page to check user login status
@@ -37,19 +32,43 @@ const AdminLayOut = ({ children }) => {
       activeUser != null &&
       (activeUser.isSpecialUser === "admin" ? true : false) ? (
         <section className="page_section">
-              <Box
-                sx={
-                  {
-                    width: '100%'
-                  }
-                }
+          <Box
+            sx={{
+              width: "100%",
+            }}
+          >
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Button
+                onClick={() => {
+                  router.push("/admin", undefined, { shallow: true });
+                }}
+                variant={`${
+                  currentPage === "/admin" ? "contained" : "text"
+                }`}
+              >Admin</Button>
+              <Button
+                onClick={() => {
+                  router.push("/admin/users", undefined, { shallow: true });
+                }}
+                variant={`${
+                  currentPage === "/admin/users" ? "contained" : "text"
+                }`}
               >
-                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                   <Button onClick={()=>{router.push("/admin/batch")}} variant={`${currentPage === "/admin/batch" ? "contained" : "text" }`} >Batch</Button>
-                   <Button onClick={()=>{router.push("/admin/users")}} variant={`${currentPage === "/admin/users" ? "contained" : "text" }`} >User</Button>
-                </Box>
-              </Box>
-            {children}
+                User
+              </Button>
+              <Button
+                onClick={() => {
+                  router.push("/admin/batch", undefined, { shallow: true });
+                }}
+                variant={`${
+                  currentPage === "/admin/batch" ? "contained" : "text"
+                }`}
+              >
+                Batch
+              </Button>
+            </Box>
+          </Box>
+          {children}
         </section>
       ) : (
         <section className="page_section">
