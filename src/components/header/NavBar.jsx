@@ -64,7 +64,7 @@ const NavBar = () => {
             <li>
               <Link href="/notes">Notes</Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 className="disabled_link_text"
                 onClick={disableLink}
@@ -72,7 +72,7 @@ const NavBar = () => {
               >
                 Semesters
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 className="disabled_link_text"

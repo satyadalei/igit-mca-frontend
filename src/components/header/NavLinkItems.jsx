@@ -18,12 +18,12 @@ const NavLinkItems = (props) => {
         <li onClick={props.toggleNav}>
           <Link href="/notes">Notes</Link>
         </li>
-        <li onClick={props.toggleNav}>
+        {/* <li onClick={props.toggleNav}>
           <Link
           className="disabled_link_text"
           onClick={disableLink}
            href="/semesters">Semesters</Link>
-        </li>
+        </li> */}
         
         <li onClick={props.toggleNav}>
           <Link 
