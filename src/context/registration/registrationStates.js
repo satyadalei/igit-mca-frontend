@@ -50,10 +50,12 @@ const RegistrationStates = (props) => {
                 // token of user to be sent to server
                 setLoading(true)
                 const accessToken = result.user.stsTokenManager.accessToken;
+                const user = result.user;
                 //---- call API to server --
                 const url = `${baseUrl}/api/user/loginViaGoogle`;
                 const userDetails = {
-                    uid: accessToken
+                    uid: accessToken,
+                    email : user.email,
                 }
                 const loginUser = await fetch(url, {
                     method: "POST",
