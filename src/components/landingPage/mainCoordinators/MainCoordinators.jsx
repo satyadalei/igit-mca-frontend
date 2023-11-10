@@ -19,12 +19,17 @@ const MainCoordinators = () => {
   const fetchCoordinators = async () => {
     // const url = `${baseUrl}/api/coordinators/${batches[1]._id}`
     const url = `${baseUrl}/api/coordinators/${batchLists[batchLists.length-2]._id}`
-    const coordinators = await fetch(url, {
-      method: "GET"
-    })
-    const response = await coordinators.json();
-    if (response.success) {
-      setBatchCoordiNators(response.batchCoordinators);
+    try {
+      const coordinators = await fetch(url, {
+        method: "GET"
+      })
+      const response = await coordinators.json();
+      if (response.success) {
+        setBatchCoordiNators(response.batchCoordinators);
+      }
+    } catch (error) {
+      console.log("Error in fetching the coordinator", error);
+      setBatchCoordiNators([]);
     }
   }
   useEffect(() => {

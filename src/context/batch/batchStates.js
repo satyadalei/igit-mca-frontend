@@ -11,14 +11,19 @@ const BatchStates = (props) => {
     // fetch if the user is not authenticated
     const fetchBatchLists = async ()=>{
         const url = `${baseUrl}/api/batch/fetchBatchLists`;
-        const fetchBatchLists = await fetch(url, {
-            method: "GET",
-        })
-        const response = await fetchBatchLists.json();
-        if (response.success) {
-            setBatchLists(sortArrayObject(response.batchLists))
-        }else{
-            console.log("Problem in loading batches");
+        try {
+            const fetchBatchLists = await fetch(url, {
+                method: "GET",
+            })
+            const response = await fetchBatchLists.json();
+            if (response.success) {
+                setBatchLists(sortArrayObject(response.batchLists))
+            }else{
+                console.log("Problem in loading batches");
+            }
+        } catch (error) {
+            console.log("Some error occurred fetching batches");
+            setBatchLists(null);
         }
     }
     // fetch all batches if user is authenticated
