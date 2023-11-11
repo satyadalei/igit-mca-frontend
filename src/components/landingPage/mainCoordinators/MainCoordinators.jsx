@@ -31,7 +31,6 @@ const MainCoordinators = () => {
         method: "GET",
       });
       const response = await coordinators.json();
-      console.log("Coordinator ", response);
       if (response.success) {
         setBatchCoordiNators(response.batchCoordinators);
       }
@@ -48,7 +47,6 @@ const MainCoordinators = () => {
 
   useEffect(() => {
     if (batchLists != null) {
-      console.log(batchLists.length);
       fetchCoordinators();
     }
   }, [batchLists]);
