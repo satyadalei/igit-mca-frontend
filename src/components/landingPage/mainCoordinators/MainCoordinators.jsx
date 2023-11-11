@@ -1,29 +1,37 @@
-/* eslint-disable react/no-unescaped-entities */
-"use client"
-import React, { useContext, useEffect, useState } from 'react'
-import styles from "./coordinator.module.css"
-import Coordinator from './Coordinator'
-import { Button } from '@mui/material'
-import batchContext from '@/context/batch/batchContext'
-import SkeletonCoordinators from './SkeletonCoordinators'
-const MainCoordinators = () => {
+"use client";
+import React, { useContext, useEffect, useState } from "react";
+import styles from "./coordinator.module.css";
+import Coordinator from "./Coordinator";
+import { Button } from "@mui/material";
+import batchContext from "@/context/batch/batchContext";
+import SkeletonCoordinators from "./SkeletonCoordinators";
 
+const MainCoordinators = () => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
+  const {fetchBatchLists, batchLists } =
+    useContext(batchContext);
+  const [batchCoordiNators, setBatchCoordiNators] = useState();
+
   // call api to fetch coordinators of the 2nd year students
-  const { batches, fetchAllBatch, fetchBatchLists , batchLists} = useContext(batchContext)
-  // console.log(batchLists);
-  // console.log(batches);
-  
-  const [batchCoordiNators, setBatchCoordiNators] = useState(null)
   const fetchCoordinators = async () => {
-    // const url = `${baseUrl}/api/coordinators/${batches[1]._id}`
-    const url = `${baseUrl}/api/coordinators/${batchLists[batchLists.length-2]._id}`
+    let batchId;
+    if (batchLists.length === 0) {
+      setBatchCoordiNators([]); //there will be no coordinators
+      return;
+    }
+    if (batchLists.length === 1) {
+      batchId = batchLists[0]._id;
+    } else {
+      batchId = batchLists[batchLists.length - 2]._id;
+    }
+    const url = `${baseUrl}/api/coordinators/${batchId}`;
     try {
       const coordinators = await fetch(url, {
-        method: "GET"
-      })
+        method: "GET",
+      });
       const response = await coordinators.json();
+      console.log("Coordinator ", response);
       if (response.success) {
         setBatchCoordiNators(response.batchCoordinators);
       }
@@ -31,61 +39,65 @@ const MainCoordinators = () => {
       console.log("Error in fetching the coordinator", error);
       setBatchCoordiNators([]);
     }
-  }
+  };
+
+  // Coordinators will be shown once all batch lists loads
   useEffect(() => {
-    // when second year is fully defined then only call api
-    // if (batches != null) {
+    fetchBatchLists();
+  }, []);
+
+  useEffect(() => {
     if (batchLists != null) {
-      fetchCoordinators()
+      console.log(batchLists.length);
+      fetchCoordinators();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [batchLists])
-// }, [batches])
+  }, [batchLists]);
 
-
-  useEffect(() => {
-    fetchBatchLists()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
   return (
     <>
       <hr className="divider" />
-      <div className={styles.container_section} >
-        <h1 className={styles.main_heading} >Our Coordinators</h1>
+      <div className={styles.container_section}>
+        <h1 className={styles.main_heading}>Our Coordinators</h1>
         <div className={styles.coordinators_box}>
           {/* <Coordinator name={"Sandeep Kumar Das"} tag={"Class Representative"} />
 
           <Coordinator name={"Bandana Priyadarshani Jena"} tag={"Class Representative"} /> */}
-          {batchCoordiNators != null ?
+          {batchCoordiNators != null ? (
             batchCoordiNators.map((coordiNator, index) => {
-              return (coordiNator.tag === "CR/BR" ?(<Coordinator
-                key={index}
-                name={`${coordiNator.userDetails.fName || ""}` +
-                  " " +
-                  `${coordiNator.userDetails.mName || ""}` +
-                  " " +
-                  `${coordiNator.userDetails.lName || ""}`}
-                tag={coordiNator.tag}
-                profile={coordiNator.profilePic.url}
-              />) : null )
+              return coordiNator.tag === "CR/BR" ? (
+                <Coordinator
+                  key={index}
+                  name={
+                    `${coordiNator.userDetails.fName || ""}` +
+                    " " +
+                    `${coordiNator.userDetails.mName || ""}` +
+                    " " +
+                    `${coordiNator.userDetails.lName || ""}`
+                  }
+                  tag={coordiNator.tag}
+                  profile={coordiNator.profilePic.url}
+                />
+              ) : null;
             })
-            :
+          ) : (
             <>
-            {/* creates 50 element array */}
+              {/* creates 50 element array */}
               {Array.from({ length: 2 }, (_, index) => (
                 <div key={index}>
                   <SkeletonCoordinators />
                 </div>
               ))}
             </>
-          }
+          )}
         </div>
-        <div className={styles.meet_btn_box} >
-          <Button variant="contained" className={styles.meet_btn} >Meet Other coordinators</Button>
+        <div className={styles.meet_btn_box}>
+          <Button variant="contained" className={styles.meet_btn}>
+            Meet Other coordinators
+          </Button>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default MainCoordinators
+export default MainCoordinators;
