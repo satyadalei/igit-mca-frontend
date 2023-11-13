@@ -1,8 +1,8 @@
 import React from 'react'
-
+import AdminBatch from '@/components/admin/AdminAreaBatchSection'
 const Batch = () => {
   return (
-    <div>I am Batch</div>
+    <AdminBatch />
   )
 }
 

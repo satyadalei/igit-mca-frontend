@@ -1,3 +1,8 @@
+@tailwind base; 
+/* This above line is overriding the REACT MUI styles */
+@tailwind components;
+@tailwind utilities;
+
 /* CSS Colors Combinations */
 /* 
 #7CC5FA;

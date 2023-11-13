@@ -1,8 +1,8 @@
 import React from 'react'
-
+import Users from '@/components/admin/AdminAreaUsersSection'
 const User = () => {
   return (
-    <div>I am a admin user</div>
+    <Users/>
   )
 }
 

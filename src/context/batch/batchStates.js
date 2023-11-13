@@ -41,7 +41,6 @@ const BatchStates = (props) => {
                     }
                 })
                 const response = await fetchBatches.json();
-                console.log("Batches ", response);
                 fetchBatchLists();
                 if (response.success) {
                     const sortedBatches = sortArrayObject(response.batches)

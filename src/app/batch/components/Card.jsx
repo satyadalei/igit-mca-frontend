@@ -18,15 +18,13 @@ export default function ActionAreaCard(props) {
   return (
     <Card
       className={styles.card_item}
-      sx={{ minWidth: 280, maxWidth: 345, minHeight: 200 }}
+      sx={{width: 290, height: 220 , minWidth: 280, maxWidth: 345, minHeight: 200 }}
     >
-      <CardActionArea>
+      <CardActionArea sx={{position:"relative"}} >
         <CardMedia
-          className={styles.card_item_media}
+          className={`${styles.card_item_media} h-full`}
           component="img"
-          height="200"
-          //   image="/static/images/cards/contemplative-reptile.jpg"
-          //   alt="green iguana"
+          sx={{position:"relative", height:"220px"}}
         />
         {props.cardType === "batch" ? (
           <CardContent
@@ -35,20 +33,21 @@ export default function ActionAreaCard(props) {
                 shallow: true,
               });
             }}
-            className={styles.card_item_content}
+            className={`${styles.card_item_content}`}
+            sx={{height:"220px"}}
           >
             <Typography 
             style={{color:"#088dec"}}
             variant="h5" component="div">
              Batch : {props.batch != undefined ? props.batch.batchNum  : ""}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            {/* <Typography variant="body2" color="text.secondary">
               strength : {props.batch != undefined ? props.batch.strength : ""}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Registered :{" "}
               {props.batch != undefined ? props.batch.studentLists.length : ""}
-            </Typography>
+            </Typography> */}
             <Typography variant="body2" color="text.secondary">
               Year :{" "}
               {props.batch != undefined
@@ -57,16 +56,20 @@ export default function ActionAreaCard(props) {
                   ` ${props.batch.endingYear}`
                 : ""}
             </Typography>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
           </CardContent>
         ) : (
           <CardContent
             onClick={handleOpen}
-            className={`${styles.card_item_content} ${styles.create_new_batch_card_item_content}`}
+            className="flex items-center flex-col h-full"
           >
-            {/* <Typography variant="body2" color="text.secondary">
-                hello
-              </Typography> */}
-            <div className={styles.icon_container}>
+            <div className="w-full flex justify-center items-center" >
               <AddIcon className={styles.add_new_batch_icon} />
             </div>
             <Typography
@@ -74,6 +77,7 @@ export default function ActionAreaCard(props) {
               gutterBottom
               variant="h6"
               component="div"
+              className="text-center"
             >
               Create new batch
             </Typography>

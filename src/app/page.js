@@ -8,10 +8,10 @@ import NoticeSection from '@/components/landingPage/noticeSection/NoticeSection'
 export default function Home() {
   return (
     <main>
-        <HeroSectionMain/>
-        <NoticeSection/>
-        <Notes/>
-        <MainCoordinators/>
+      <HeroSectionMain />
+      <NoticeSection />
+      <Notes />
+      <MainCoordinators />
     </main>
   )
 }

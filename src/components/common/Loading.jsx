@@ -9,13 +9,6 @@ const Loading = () => {
           <CircularProgress />
         </Box>
       </div>
-
-      {/* Initial loader */}
-      {/* <div className='page_section' >
-        <Box sx={{ display: 'flex', alignItems:"center", justifyContent:"center", height:"60vh" }}>
-           <CircularProgress />
-         </Box>
-    </div> */}
     </>
   )
 }

@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import ActiveUserAndLoginStatusContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import Loading from "@/components/common/Loading";
 import { useRouter } from "next/navigation";
-
+import Admin from "@/components/admin/AdminSection";
 const AdminHomePage = () => {
 
   // ----- Context APIs -------
@@ -14,15 +14,13 @@ const AdminHomePage = () => {
     if (loginStatus === false) {
       router.push("/login");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginStatus]);
-  // console.log(activeUser.isSpecialUser);
 
   return (
     <> 
-      {/* <section className='page_section' >
-        <div>AdminHomePage</div>
-      </section> */}
+      <section className='min-h-screen' >
+        <Admin />
+      </section>
     </>
   )
 }
