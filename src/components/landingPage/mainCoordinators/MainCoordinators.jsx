@@ -5,6 +5,7 @@ import Coordinator from "./Coordinator";
 import { Button } from "@mui/material";
 import batchContext from "@/context/batch/batchContext";
 import SkeletonCoordinators from "./SkeletonCoordinators";
+import GeneralButton from "@/components/common/GeneralButton";
 
 const MainCoordinators = () => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -89,9 +90,7 @@ const MainCoordinators = () => {
           )}
         </div>
         <div className={styles.meet_btn_box}>
-          <Button variant="contained" className={styles.meet_btn}>
-            Meet Other coordinators
-          </Button>
+          <GeneralButton className={"p-3 pl-4 pr-4 text-lg"} buttonText={"Meet Other coordinators"} />
         </div>
       </div>
     </>

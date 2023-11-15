@@ -87,7 +87,7 @@ const UserDetails = (props) => {
               </button>
             }
             {(isSpecialUser === "admin" || isSpecialUser === "superAdmin") &&
-               <button className='bg-red-500 text-white p-2 mr-5' >Delete User</button>
+               <button className='bg-red-500 outline-none outline-0 text-white p-2 mr-5' >Delete User</button>
             }
          </div>
       </div>

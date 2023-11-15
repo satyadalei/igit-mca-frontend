@@ -1,3 +1,4 @@
+"use client"
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -5,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import DescriptionIcon from '@mui/icons-material/Description';
+import GeneralButton from "@/components/common/GeneralButton";
 
 import styles from "./notes.module.css"
 const EachSemNoteCards = (props) => {
@@ -38,8 +40,13 @@ const EachSemNoteCards = (props) => {
                     </CardContent>
                 {/* </CardActionArea> */}
                 <CardActions>
-                    <Button style={{ cursor: "pointer"}} className={styles.sem_btn} variant="contained" size="small"><DescriptionIcon />Notes</Button>
-                    <Button variant="outlined" size="small">Syllabus</Button>
+                    <GeneralButton onClick={()=>{console.log("I am clicked");}} >
+                       <DescriptionIcon />Notes
+                    </GeneralButton>
+
+                    <GeneralButton  variant={"outlined"} onClick={()=>{console.log("I am clicked");}} >
+                       Syllabus
+                    </GeneralButton>
                 </CardActions>
             </Card>
         </>

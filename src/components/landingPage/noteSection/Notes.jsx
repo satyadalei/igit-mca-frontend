@@ -2,7 +2,6 @@ import React from "react";
 import EachSemNoteCards from "./EachSemNoteCards";
 import styles from "./notes.module.css";
 
-import Image from "next/image";
 const Notes = () => {
   return (
     <>

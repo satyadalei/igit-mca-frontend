@@ -5,6 +5,7 @@ import Loading from "@/components/common/Loading";
 import { useRouter, usePathname } from "next/navigation";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
+import GeneralButton from "@/components/common/GeneralButton";
 
 const AdminLayOut = ({ children }) => {
   const { loginStatus, activeUser, fetchActiveUser } = useContext(
@@ -42,38 +43,41 @@ const AdminLayOut = ({ children }) => {
         <section className="page_section pl-5 pr-3 ">
           <Box
             sx={{
-              width: "100%",
+              width: "100%",  paddingTop:"1rem", marginBottom:"2rem"
             }}
           >
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <Button
-                onClick={() => {
-                  router.push("/admin", undefined, { shallow: true });
-                }}
-                variant={`${currentPage === "/admin" ? "outlined" : "text"}`}
+              <GeneralButton
+              className={"border-0"}
+              onClick={() => {
+                router.push("/admin", undefined, { shallow: true });
+              }}
+              variant={`${currentPage === "/admin" ? "contained" : "outlined"}`}
               >
-                Admin
-              </Button>
-              <Button
+               Admin
+              </GeneralButton>
+              <GeneralButton
+                className={"border-0"}
                 onClick={() => {
                   router.push("/admin/users", undefined, { shallow: true });
                 }}
                 variant={`${
-                  currentPage === "/admin/users" ? "outlined" : "text"
+                  currentPage === "/admin/users" ? "contained" : "outlined"
                 }`}
               >
                 User
-              </Button>
-              <Button
+              </GeneralButton>
+              <GeneralButton
+              className={"border-0"}
                 onClick={() => {
                   router.push("/admin/batch", undefined, { shallow: true });
                 }}
                 variant={`${
-                  currentPage === "/admin/batch" ? "outlined" : "text"
+                  currentPage === "/admin/batch" ? "contained" : "outlined"
                 }`}
               >
                 Batch
-              </Button>
+              </GeneralButton>
             </Box>
           </Box>
           {children}

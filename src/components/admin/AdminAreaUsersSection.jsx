@@ -52,7 +52,7 @@ const Users = () => {
       stopLoading();
       if (response.success) {
         const { userAccounts } = response.data;
-        setUserAccounts(userAccounts)
+        setUserAccounts(userAccounts.reverse())
       }
     } catch (error) {
       stopLoading();
@@ -68,15 +68,15 @@ const Users = () => {
 
   return (
     <div>
-      <div className='border-2 border-sky-500 mt-1 mb-1 p-1' >
-        <h1>Entire MCA Users status </h1>
+      <div className='border-2 border-sky-500 border-solid mt-1 mb-1 p-1' >
+        <h5>Entire MCA Users status </h5>
         <ul className='flex list-none' >
           <li>Total users  </li>
         </ul>
       </div>
       <div className='flex items-center' >
-        <h1 className='text-lg font-bold mr-2' >Apply filter :</h1>
-        <ul className='flex' >
+        <h5 className='mr-2' >Apply filter :</h5>
+        <ul className='flex list-none' >
           <li className='mr-5' >
             Batch :
             <select name="batch" onChange={handleFilterChange} id="">
@@ -98,8 +98,8 @@ const Users = () => {
           </li>
         </ul>
       </div>
-      <h1>Users list</h1>
-      <div className='h-96 border-2 border-sky-500 overflow-y-scroll' >
+      <h5>Users list</h5>
+      <div className='h-96 border-2 border-sky-500 border-solid p-5 overflow-y-scroll' >
         {userAccounts != null &&
           (userAccounts.length != 0 ? <>
             {/* Here we are passing fetchUserAccounts because we want to fetchUserAccounts every time each user account get verified to update all user account status  */}
@@ -111,7 +111,7 @@ const Users = () => {
             <UserAccountAccordion userAccounts={userAccounts} /> */}
           </>
           :
-          <h1>No accounts found</h1>
+          <h4>No accounts found</h4>
           )
         }
       </div>
