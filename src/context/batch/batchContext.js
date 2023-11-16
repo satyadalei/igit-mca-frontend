@@ -1,4 +1,4 @@
 import { createContext } from "react";
-const batchStates = createContext();
+const batchContext = createContext();
 
-export default batchStates;
+export default batchContext;

@@ -24,7 +24,6 @@ const Page = () => {
   const {name, regNum, homeDist, mobile, gradCourse, socialLinks} = activeUser != null && activeUser.userDetails; 
   const {batchNum, email, rollNum} = activeUser != null && activeUser;
   
-  console.log(activeUser);
 
   // registeringUser = 42 or 41
   // user = allDetails of user --> user.email is email id of user

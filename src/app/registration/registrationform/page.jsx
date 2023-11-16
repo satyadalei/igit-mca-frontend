@@ -201,7 +201,7 @@ const RegistrationForm = () => {
                     fullWidth
                     label="Full name"
                     variant="filled"
-                    placeholder="Asutosh Jena"
+                    placeholder="Your name"
                   />
                   {/* ---PASSWORD---- */}
                   <FormControl

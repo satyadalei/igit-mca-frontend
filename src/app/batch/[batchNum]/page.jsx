@@ -67,7 +67,6 @@ const Page = ({ params }) => {
         },
       });
       const response = await fetchStudents.json();
-      console.log(response);
       if (response.success) {
         setStudents(sortStudentInRoll(response.students));
       }

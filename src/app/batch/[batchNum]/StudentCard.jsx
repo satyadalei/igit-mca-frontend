@@ -15,23 +15,17 @@ import EmailIcon from '@mui/icons-material/Email';
 
 const StudentCard = (props) => {
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   const disableLink = (e) => {
     e.preventDefault();
   };
-
+  const {email} = props.student != undefined && props.student;
+  const {name, homeDist} = props.student != undefined && props.student.userDetails;
+  const {linkedInLink, githubLink} = props.student != undefined && props.student.userDetails.socialLinks;
   return (
     <Card className={styles.card_item}>
-      {/* <CardActionArea> */}
-      {/* <CardMedia
-          className={styles.card_item_media}
-          component="img"
-          // height="200"
-          //   image="/static/images/cards/contemplative-reptile.jpg"
-          //   alt="green iguana"
-        /> */}
       {props.cardType === "student" ? (
         <CardContent className={styles.card_item_content}>
           <Avatar
@@ -54,37 +48,33 @@ const StudentCard = (props) => {
             variant="p"
             component="div"
           >
-            {`${props.student.userDetails.fName || ""}` +
-              " " +
-              `${props.student.userDetails.mName || ""}` +
-              " " +
-              `${props.student.userDetails.lName || ""}`}
+            {name}
           </Typography>
           <Typography>
-          From : {props.student.userDetails.homeDist || ""}
+          From : {homeDist}
           </Typography>
           <div className={styles.social_links_box}>
             <Link
               style={{
                 color: `${
-                  props.student.userDetails.socialLinks.linkedInLink === ""
+                  linkedInLink === ""
                     ? "#d0d0d1"
                     : "#088dec" 
                 }`
               }}
               target="_blank"
               onClick={
-                props.student.userDetails.socialLinks.linkedInLink === "" &&
+                linkedInLink === "" &&
                 disableLink
               }
-              href={props.student.userDetails.socialLinks.linkedInLink}
+              href={linkedInLink}
             >
               <LinkedInIcon className={styles.social_icon} />
             </Link>
             <Link
                style={{
                 color: `${
-                  props.student.userDetails.socialLinks.githubLink === ""
+                  githubLink === ""
                     ? "#d0d0d1"
                     : "#1F2328"
                 }`, 
@@ -92,16 +82,16 @@ const StudentCard = (props) => {
               }}
               target="_blank"
               onClick={
-                props.student.userDetails.socialLinks.githubLink === "" &&
+                githubLink === "" &&
                 disableLink
               }
-              href={props.student.userDetails.socialLinks.githubLink}
+              href={githubLink}
             >
               <GitHubIcon className={styles.social_icon} />
             </Link>
 
             <Link 
-            href={`mailto:${props.student.email}`} 
+            href={`mailto:${email}`} 
             style={{
                 color: "black" 
                 // color: "#088dec" 
