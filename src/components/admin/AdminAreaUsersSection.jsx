@@ -104,11 +104,6 @@ const Users = () => {
           (userAccounts.length != 0 ? <>
             {/* Here we are passing fetchUserAccounts because we want to fetchUserAccounts every time each user account get verified to update all user account status  */}
             <UserAccountAccordion fetchUserAccounts={fetchAccounts} userAccounts={userAccounts} />
-            {/* <UserAccountAccordion userAccounts={userAccounts} />
-            <UserAccountAccordion userAccounts={userAccounts} />
-            <UserAccountAccordion userAccounts={userAccounts} />
-            <UserAccountAccordion userAccounts={userAccounts} />
-            <UserAccountAccordion userAccounts={userAccounts} /> */}
           </>
           :
           <h4>No accounts found</h4>

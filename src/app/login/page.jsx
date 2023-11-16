@@ -9,6 +9,7 @@ import Alert from "../../components/common/Alert"
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
 import RegistrationContext from "@/context/registration/registrationContext";
 import validate from "./validate"
+import GeneralButton from '@/components/common/GeneralButton'
 
 
 
@@ -65,7 +66,7 @@ const Login = () => {
         <div className={styles.login_main_container} >
 
           <div className={styles.login_box_center}>
-            {/* <h1 className={styles.register_via_heading} >Login</h1> */}
+            <h1 className="text-3xl border-b-2 pb-3 mb-5 text-sky-500 font-bold text-center" >Login</h1>
 
             {/* google signin box */}
             <div className={styles.google_signin_box} >
@@ -113,9 +114,9 @@ const Login = () => {
               />
 
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "0.5rem" }} >
-                <Button variant="contained" onClick={handleLoginManually} >
+                <GeneralButton variant="contained" onClick={handleLoginManually} >
                   Login
-                </Button>
+                </GeneralButton>
               </div>
               <p style={{
                 marginTop: "1rem",

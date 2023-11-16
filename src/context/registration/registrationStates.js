@@ -12,13 +12,14 @@ import ActiveUserAndLoginStatusContext from "../activeUserAndLoginStatus/activeU
 const RegistrationStates = (props) => {
 
     // ---- context API ----
-    const { setLoading, setAlert } = useContext(loadingAndAlertContext);
-    const { setActiveUser, setLoginStatus } = useContext(ActiveUserAndLoginStatusContext)
+    const { setLoading, startLoading, stopLoading, setAlert, createAlert } = useContext(loadingAndAlertContext);
+    const { setActiveUser, setLoginStatus } = useContext(ActiveUserAndLoginStatusContext);
+
     const [registeringUser, setRegisteringUser] = useState(null);
     const [user, setUser] = useState(null);
 
     // const [registeringUser, setRegisteringUser] = useState(41); // for test only
-    //const [user, setUser] = useState({ email: "satya123@gmail.com" }); // for test only
+    // const [user, setUser] = useState({ email: "satya123@gmail.com" }); // for test only
 
     const updateBatch = (batch) => {
         setRegisteringUser(batch);
@@ -27,92 +28,107 @@ const RegistrationStates = (props) => {
     const router = useRouter()
     // ------- This function is for NEW user who are willing to register :: SIGN UP
     const googleSignUp = () => {
-        const provider = new GoogleAuthProvider()
-
+        const provider = new GoogleAuthProvider();
+        startLoading();
         signInWithPopup(auth, provider)
             .then((result) => {
                 // result is the source data from firebase
                 // user loged in then redirect to registration form
                 setUser(result.user);
                 router.push("/registration/registrationform", undefined, { shallow: true });
+                stopLoading();
             })
             .catch((error) => {
                 console.log("Caught error Popup closed" + error);
+                stopLoading();
+                createAlert("error", "Some error occurred try after some time")
             });
     }
 
 
     // ----- SIGN IN VIA GOOGLE ------
     const googleSignIn = () => {
+        console.log("Signin via logedin clicked ");
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
-            .then(async (result) => {
-                // token of user to be sent to server
-                setLoading(true)
-                const accessToken = result.user.stsTokenManager.accessToken;
-                const user = result.user;
-                //---- call API to server --
-                const url = `${baseUrl}/api/user/loginViaGoogle`;
-                const userDetails = {
-                    uid: accessToken,
-                    email : user.email,
-                }
-                const loginUser = await fetch(url, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(userDetails)
+        try {
+            signInWithPopup(auth, provider)
+                .then(async (result) => {
+                    // token of user to be sent to server
+                    setLoading(true)
+                    const accessToken = result.user.stsTokenManager.accessToken;
+                    const user = result.user;
+                    //---- call API to server --
+                    const url = `${baseUrl}/api/user/loginViaGoogle`;
+                    const userDetails = {
+                        uid: accessToken,
+                        email: user.email,
+                    }
+                    const loginUser = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(userDetails)
+                    })
+                    const response = await loginUser.json();
+                    if (response.success) {
+                        setAlert({
+                            alert: true,
+                            alertMessage: response.message,
+                            alertType: "success"
+                        })
+                        // save token & set user
+                        localStorage.setItem("token", response.token)
+                        localStorage.setItem("isLogIn", true)
+                        setActiveUser(response.user);
+                        setLoginStatus(true)
+                        // redirect home page
+                        setTimeout(() => {
+                            setLoading(false)
+                            router.push("/")
+                        }, 3000)
+                        return { resetDetails: true }
+                    } else {
+                        setLoading(false)
+                        if (response.message === "User with same email already exists. Please login!") {
+                            setAlert({
+                                alert: true,
+                                alertMessage: response.message,
+                                alertType: "error"
+                            })
+                            setTimeout(() => {
+                                return { resetDetails: true }
+                            }, 3000)
+                        } else {
+                            setAlert({
+                                alert: true,
+                                alertMessage: response.message,
+                                alertType: "error"
+                            })
+                            return { resetDetails: false }
+                        }
+                    }
                 })
-                const response = await loginUser.json();
-                if (response.success) {
+                .catch((error) => {
+                    console.log(error);
+                    setLoading(false)
                     setAlert({
                         alert: true,
-                        alertMessage: response.message,
-                        alertType: "success"
+                        alertMessage: "Some error occurred. Try after some time!",
+                        alertType: "error"
                     })
-                    // save token & set user
-                    localStorage.setItem("token", response.token)
-                    localStorage.setItem("isLogIn",true)
-                    setActiveUser(response.user);
-                    setLoginStatus(true)
-                    // redirect home page
-                    setTimeout(() => {
-                        setLoading(false)
-                        router.push("/")
-                    }, 3000)
-                    return { resetDetails: true }
-                } else {
-                    setLoading(false)
-                    if (response.message === "User with same email already exists. Please login!") {
-                        setAlert({
-                            alert: true,
-                            alertMessage: response.message,
-                            alertType: "error"
-                        })
-                        setTimeout(()=>{
-                           return { resetDetails: true }
-                        },3000)
-                    }else{
-                        setAlert({
-                            alert: true,
-                            alertMessage: response.message,
-                            alertType: "error"
-                        })
-                        return { resetDetails: false }
-                    }
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false)
-                setAlert({
-                    alert: true,
-                    alertMessage: "Some error occurred. Try after some time!",
-                    alertType: "error"
+                    return { resetDetails: false }
                 })
-                return { resetDetails: false }
+        } catch (error) {
+            console.log(error);
+            setLoading(false)
+            setAlert({
+                alert: true,
+                alertMessage: "Some error occurred. Try after some time!",
+                alertType: "error"
             })
+            return { resetDetails: false }
+        }
     }
 
     // -------- LOGIN USER MANUALLY -------------
@@ -120,41 +136,47 @@ const RegistrationStates = (props) => {
         const url = `${baseUrl}/api/user/loginManually`;
         setLoading(true)
         // call api 
-        const loginUser = await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(loginDetails)
-        })
-        const response = await loginUser.json();
-        if (response.success) {
-            setAlert({
-                alert: true,
-                alertMessage: response.message,
-                alertType: "success"
+        try {
+            const loginUser = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginDetails)
             })
+            const response = await loginUser.json();
+            if (response.success) {
+                setAlert({
+                    alert: true,
+                    alertMessage: response.message,
+                    alertType: "success"
+                })
 
-            // save token & set user
-            localStorage.setItem("token", response.token)
-            localStorage.setItem("isLogIn",true)
-            setActiveUser(response.user);
-            setLoginStatus(true)
+                // save token & set user
+                localStorage.setItem("token", response.token)
+                localStorage.setItem("isLogIn", true)
+                setActiveUser(response.user);
+                setLoginStatus(true)
 
-            // redirect home page
-            setTimeout(() => {
+                // redirect home page
+                setTimeout(() => {
+                    setLoading(false)
+                    router.push("/")
+                }, 3000)
+                return { resetDetails: true }
+            } else {
                 setLoading(false)
-                router.push("/")
-            }, 3000)
-            return { resetDetails: true }
-        } else {
-            setLoading(false)
-            setAlert({
-                alert: true,
-                alertMessage: response.message,
-                alertType: "error"
-            })
-            return { resetDetails: false }
+                setAlert({
+                    alert: true,
+                    alertMessage: response.message,
+                    alertType: "error"
+                })
+                return { resetDetails: false }
+            }
+        } catch (error) {
+            stopLoading()
+            console.log("some error occurred try after some time");
+            createAlert("error", "Some error ocurred. Try after some time.")
         }
     }
 
@@ -172,16 +194,14 @@ const RegistrationStates = (props) => {
     // ------- REGISTERING NEW USER STARTS ------
     const registerNewUser = async (userDetails) => {
         const url = `${baseUrl}/api/user/createUser`;
-        const imageFile = userDetails.profilePic;
         const {
-            batch, email, password, regNum, rollNum, fName, mName, lName, homeDist, mobile, fieldOfInterest, gradCourse, tag, githubLink, linkedInLink
+            batch, email, password, fullName, homeDist
         } = userDetails;
         const textData = {
-            batch, email, password, regNum, rollNum, fName, mName, lName, homeDist, mobile, fieldOfInterest, gradCourse, tag, githubLink, linkedInLink
+            batch, email, password, fullName, homeDist
         }
         let formData = new FormData;
         formData.append('textData', JSON.stringify(textData));
-        formData.append('imageFile', imageFile);
         try {
             const register = await fetch(url, {
                 method: "POST",
@@ -191,6 +211,7 @@ const RegistrationStates = (props) => {
                 body: formData
             })
             const response = await register.json();
+            setLoading(false);
             if (response.success) {
                 // user successfully created
                 setAlert({
@@ -200,21 +221,18 @@ const RegistrationStates = (props) => {
                 })
                 // save token & set user
                 localStorage.setItem("token", response.token)
-                localStorage.setItem("isLogIn",true)
+                localStorage.setItem("isLogIn", true)
                 setActiveUser(response.user);
                 setLoginStatus(true)
                 // set registration details to initial value
                 // redirect to home page after 3 sec
-                setTimeout(() => {
-                    router.push("/", undefined, { shallow: true })
-                    setRegisteringUser(null)
-                    setUser(null)
-                    setLoading(false)
-                }, 3000);
+                router.push("/", undefined, { shallow: true })
+                setRegisteringUser(null)
+                setUser(null)
+                setLoading(false)
                 // this is for detecting whether to reset form data or not
                 return { resetDetails: true }
             } else {
-                setLoading(false);
                 setAlert({
                     alert: true,
                     alertMessage: response.message,

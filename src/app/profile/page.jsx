@@ -20,10 +20,16 @@ const Page = () => {
   const { setLoading, setAlert, loading, alert } = useContext(
     loadingAndAlertContext
   );
+
+  const {name, regNum, homeDist, mobile, gradCourse, socialLinks} = activeUser != null && activeUser.userDetails; 
+  const {batchNum, email, rollNum} = activeUser != null && activeUser;
+  
+  console.log(activeUser);
+
   // registeringUser = 42 or 41
   // user = allDetails of user --> user.email is email id of user
   const router = useRouter();
-
+  console.log();
   //user will automatically redirect if not done previous two step
   useEffect(() => {
      if (loginStatus === false) {
@@ -49,13 +55,8 @@ const Page = () => {
               {/* top heading of form */}
               <div className={styles.register_top_container}>
                 <UserTypeForm
-                  mainHeading={
-                  `${activeUser.userDetails.fName}` + 
-                  " " + 
-                  `${activeUser.userDetails.mName || " "}` + 
-                  " " 
-                  + activeUser.userDetails.lName}
-                  subHeading={(activeUser.batch || "No" )+ " Batch"}
+                  mainHeading={name}
+                  subHeading={batchNum + " Batch"}
                 />
               </div>
 
@@ -73,7 +74,7 @@ const Page = () => {
                     label="Batch"
                     variant="filled"
                     placeholder="ex: 42"
-                    value={activeUser.batch}
+                    value={batchNum}
                     disabled
                   />
                   {/* ---EMAIL---- */}
@@ -84,7 +85,7 @@ const Page = () => {
                     fullWidth
                     // id="outlined-basic"
                     label="Email"
-                    value={activeUser.email}
+                    value={email}
                     variant="filled"
                     placeholder="ex: mca41@gmail.com"
                     disabled
@@ -99,7 +100,7 @@ const Page = () => {
                     label="Registration number"
                     variant="filled"
                     placeholder="ex: 2205105056"
-                    value={activeUser.userDetails.regNum || ""}
+                    value={regNum || ""}
                     disabled
                   />
 
@@ -108,7 +109,7 @@ const Page = () => {
                     className={styles.input_field}
                     style={{ margin: "0.5rem" }}
                     name="rollNum"
-                    value={activeUser.rollNum || ""}
+                    value={rollNum || ""}
                     fullWidth
                     // id="filled-error-helper-text"
                     label="Roll number"

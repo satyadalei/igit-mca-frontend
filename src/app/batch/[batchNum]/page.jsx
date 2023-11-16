@@ -67,6 +67,7 @@ const Page = ({ params }) => {
         },
       });
       const response = await fetchStudents.json();
+      console.log(response);
       if (response.success) {
         setStudents(sortStudentInRoll(response.students));
       }
@@ -90,6 +91,7 @@ const Page = ({ params }) => {
             <div className={styles.students_container_box} >
               {/* --- BATCH STUDENTS CONTAINER ---- */}
               <h1 className={styles.batch_student_heading} >{`${batchRoute} batch students`}</h1>
+              {students != null && students.length === 0 && <h1 className="text-lg" >No students registered yet</h1>}
               <div className={styles.only_students_box} >
                 {students != null ?
                   students.map((student, index) => {

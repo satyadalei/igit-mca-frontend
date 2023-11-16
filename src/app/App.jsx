@@ -8,13 +8,19 @@ import batchContext from "@/context/batch/batchContext";
 import Loading from '@/components/common/Loading'
 import Alert from '@/components/common/Alert'
 import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertContext'
+import activeUserAndLoginStatus from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext'
+
 const App = ({ children }) => {
 
-    const {fetchAllBatch } = useContext(batchContext);
+    const {fetchAllBatch, fetchBatchLists } = useContext(batchContext);
     const {loading, alert} = useContext(loadingAndAlertContext);
+    const {fetchActiveUser } = useContext(activeUserAndLoginStatus);
 
+    // Initial api calls
     useEffect(() => {
         fetchAllBatch();
+        fetchBatchLists();
+        fetchActiveUser();
     }, []);
 
     return (

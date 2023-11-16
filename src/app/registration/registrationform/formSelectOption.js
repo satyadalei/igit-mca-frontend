@@ -4,7 +4,7 @@ const districts = [
     'Kendujhar', 'Sambalpur', 'Subarnapur (Sonepur)', 'Sundargarh', 'Balasore', 'Bhadrak',
     'Cuttack', 'Jagatsinghpur', 'Jajpur', 'Kendrapada', 'Khordha', 'Mayurbhanj',
     'Nayagarh', 'Puri', 'Boudh', 'Gajapati', 'Ganjam', 'Kalahandi', 'Kandhamal',
-    'Koraput', 'Malkangiri', 'Nabarangpur', 'Nuapada', 'Rayagada', "other"
+    'Koraput', 'Malkangiri', 'Nabarangpur', 'Nuapada', 'Rayagada',
   ];
   const sortedDistricts = districts.sort();
   const bachelorCourses = [

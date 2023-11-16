@@ -1,114 +1,57 @@
 "use client"
-import React, { useContext, useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'
-import styles from "./register.module.css";
-import { Badge, Button, Typography } from "@mui/material";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { Button } from '@mui/material'
+import React, { useContext, useEffect } from 'react'
 import RegistrationContext from "@/context/registration/registrationContext";
-import sortArrayObject from "../batch/sortBatches";
-import Loading from "@/components/common/Loading";
-import Link from "next/link";
+import styles from "./register.module.css"
+import Image from 'next/image';
+import Loading from '@/components/common/Loading';
+import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertContext';
+import Link from 'next/link';
+import activeUserAndLoginStatus from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext';
+import { useRouter } from 'next/navigation';
 
 
 
+const RegisterVia = () => {
 
-const Registration = () => {
+  const { googleSignUp } = useContext(RegistrationContext);
+  const { startLoading } = useContext(loadingAndAlertContext);
+  const {loginStatus} = useContext(activeUserAndLoginStatus);
 
-  const router = useRouter()
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  // ------ STATES ------------
-  const [batchLists, setBatchLists] = useState(null);
 
-  // ------ CONTEXT APIS --------
-  const { updateBatch } = useContext(RegistrationContext);
-
-  // ------ API CALLS ---------
-  const fetchBatchLists = async () => {
-    const url = `${baseUrl}/api/batch/fetchBatchLists`;
-    const fetchBatch = await fetch(url, {
-      method: "GET"
-    })
-    const response = await fetchBatch.json();
-    if (response.success) {
-      const sortedBatches = sortArrayObject(response.batchLists);
-      setBatchLists(sortedBatches.reverse());
-    } else {
-      console.log(response);
-      // create alert
+  const router = useRouter(); 
+  const handleSignUp = async () => {
+    try {
+      await googleSignUp();
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  const handleBatch = (batch) => {
-    updateBatch(batch);
-    router.push('/registration/registervia')
-  }
-
   useEffect(() => {
-    fetchBatchLists();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+    if (loginStatus === true) {
+      router.push("/")
+    }
+  }, [loginStatus])
+  
 
   return (
-    <>
-      <section className="page_section">
-        <div className={styles.register_main_container}>
-          <div className={styles.register_box}>
-            <Typography className={styles.register_heading} variant="h4" component="h3">
-              Select Your Batch!!
-            </Typography>
-            <p style={{
-                color:"black",
-                marginTop: "1rem",
-                textAlign: "center",
-                marginBottom:"2rem"
-              }} >Already registered?  &nbsp;
-                <Link
-                  style={{
-                    textDecoration: "none", color: "#088dec",
-                  }}
-                  href={"/login"} >
-                  Login here!
-                </Link> 
-            </p>
-            {
-              batchLists != null ?
-                <>
-                  {batchLists.map((batch, index) => {
-                    if (index === 0) {
-                      return (
-                        <Badge key={index} color="error" badgeContent="New">
-                          <Button key={index} style={{ margin: "0.8rem 0 0.8rem 0", backgroundColor: `${index % 2 === 0 ? "orange" : ""}` }} onClick={() => { handleBatch(batch.batchNum) }} className={styles.second_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
-                            {batch.batchNum} Batch ({batch.startingYear} - {batch.endingYear})
-                          </Button>
-                        </Badge>
-                      )
-                    }
-                    return (
-                      <Button key={index} style={{ margin: "0.8rem 0 0.8rem 0", backgroundColor: `${index % 2 === 0 ? "orange" : ""}` }} onClick={() => { handleBatch(batch.batchNum) }} className={styles.second_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
-                        {batch.batchNum} Batch ({batch.startingYear} - {batch.endingYear})
-                      </Button>
-                    )
-                  })}
-                </>
-                :
-                <Loading />
-            }
+    <section className='page_section' >
+      <div className={styles.via_google_box} >
+        <h1 className="text-3xl border-b-2 pb-3 mb-5 text-sky-500 font-bold text-center" >Register via</h1>
+        <Button style={{ backgroundColor: "#088dec", color: "white" }} className={styles.google_sign_or_login_button} onClick={handleSignUp} >
+          <Image style={{ marginRight: "1rem" }} className={styles.signin_logo} src={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAjVBMVEVHcEz////9/f38/Pz////4+fn9/f38/P3v8PH19vb///////87q1n8wAnrSz5HifXqOijsUUMfpUYvfvQwqVhDhvRnm/bg7ur74eDykIrznpj609DI5c/uZUj/78rG2PyzzPKJyJj5zMn/++37xSf81XhqsFCa0KV1v4f0kCGvtTCCyJyXt/hyofZDj9Yia4J9AAAAC3RSTlMAojhxnKGw/RkrfoV/rhcAAAFQSURBVDiNlVPZYoMgENQYRCIgclRNNKlpm/T+/88rl3jmofPEMuPu7LpE0X+wO8RpGh9222wW5wFxtuYntJUsaATzBSCaFV/SBhMryF9dm46xrjn5cMzh8p9KRsuypJSVTgLn/o6stKAa7Gqv9r6/kadMQ/NHX8R1u7f5Dc+aGsK6CbxPYY+dLk9rd12PnYQWz6SjbEJMW03M4Y2Qj2ZjFslg4ZUQcrZXTwMug4nUHDRPXqxAFBpKKfFsovSBwGiCYFFCGKiiEKHEYPLza/T2owpRDSaRa/MmeTXwla4j7AmFQd0kxtIrYKEK9R0G5Uy0HGPM+wrC6i41L+A4avez7kYhuYbO9ess+p8VARv0RuEgue0xB/OFaaX5GEvJsTMTFsYX0ZJ3XQP3rQ8nu7+5tLO1ztZrv3w7YM6DaIUMhCwQbDw9+z4SkKYgQdvsA/wBrYgleUhdXncAAAAASUVORK5CYII="} alt='google icon' width={30} height={30} /> Google
+        </Button>
+      </div>
+      <p className='text-center text-xs mt-5 mb-5 text-gray-300' >Click on the google icon to register via google</p>
 
-            {/* <Button style={{ backgroundColor: "orange" }} onClick={() => { handleBatch(41) }} className={styles.second_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
-              41 Batch (2022-24)
-            </Button>
-            <br />
-            <Badge color="error" badgeContent="New">
-              <Button onClick={() => { handleBatch(42) }} className={styles.first_yr_btn} variant="contained" startIcon={<PersonAddIcon />}>
-                42 Batch (2023-25)
-              </Button>
-            </Badge> */}
 
-          </div>
-        </div>
-      </section>
-    </>
-  );
-};
+      <p className='text-center' >
+        Already registered? <Link className='text-sky-500' href={"/login"} >Login here!</Link>
+      </p>
 
-export default Registration;
+    </section>
+  )
+}
+
+export default RegisterVia

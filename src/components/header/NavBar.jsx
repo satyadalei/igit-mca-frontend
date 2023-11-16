@@ -23,8 +23,12 @@ const NavBar = () => {
   const { activeUser, loginStatus, fetchActiveUser } = useContext(
     ActiveUserAndLoginStatusContext
   );
-
+  
   const responsive_Nav_ref = useRef();
+  const {name} = activeUser != null && activeUser.userDetails ;
+  const {status} = activeUser != null && activeUser ;
+  const {url} = activeUser != null && activeUser.profilePic;
+
   useEffect(() => {
     fetchActiveUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,12 +124,12 @@ const NavBar = () => {
                       marginRight: "0.5rem",
                     }}
                   >
-                    <UserName userDetails={activeUser.userDetails} />
-                    <VerificationStatus status={activeUser.status} />
+                    <UserName name={name} />
+                    <VerificationStatus status={status} />
                   </div>
                   <UserAvatar
-                    userName={activeUser.userDetails.fName}
-                    profileUrl={activeUser.profilePic.url}
+                    userName={name}
+                    profileUrl={url}
                   />
                 </div>
               </>
@@ -163,12 +167,12 @@ const NavBar = () => {
                   className={styles.avatar_name_for_responsive_nav}
                 >
                   <UserAvatar
-                    userName={activeUser.userDetails.fName}
-                    profileUrl={activeUser.profilePic.url}
+                    name={name}
+                    profileUrl={url}
                   />
                   <div>
-                    <UserName userDetails={activeUser.userDetails} />
-                    <VerificationStatus status={activeUser.status} />
+                    <UserName name={name}/>
+                    <VerificationStatus status={status} />
                   </div>
                 </div>
               </>

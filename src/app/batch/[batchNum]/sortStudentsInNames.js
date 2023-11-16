@@ -1,12 +1,12 @@
 const sortStudents = (arrayOfStudents)=>{
     arrayOfStudents.sort((a, b) => {
-        const fNameA = a.userDetails.fName.toUpperCase();
-        const fNameB = b.userDetails.fName.toUpperCase();
+        const nameA = a.userDetails.name.toUpperCase();
+        const nameB = b.userDetails.name.toUpperCase();
     
-        if (fNameA < fNameB) {
+        if (nameA < nameB) {
             return -1;
         }
-        if (fNameA > fNameB) {
+        if (nameA > nameB) {
             return 1;
         }
     

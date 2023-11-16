@@ -11,6 +11,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 export default function UserAccountAccordion(props) {
+
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -50,6 +51,8 @@ export default function UserAccountAccordion(props) {
   return (
     <div>
       {userAccounts.map((user, index) => {
+        const {name} = user.userDetails;
+        const {registrationDate, status} = user;
         return (
           <Accordion
             key={index}
@@ -66,22 +69,12 @@ export default function UserAccountAccordion(props) {
               <div className="w-[5%]">
                 <Avatar
                   className=""
-                  alt={
-                    user.userDetails.fName +
-                    " " +
-                    user.userDetails.mName +
-                    " " +
-                    user.userDetails.lName
-                  }
+                  alt={name}
                   src={user.profilePic.url}
                 />
               </div>
               <p className="w-[15%] flex items-center">
-                {user.userDetails.fName +
-                  " " +
-                  user.userDetails.mName +
-                  " " +
-                  user.userDetails.lName}
+                {name}
               </p>
 
               <p className="w-[10%] flex items-center">
@@ -90,12 +83,12 @@ export default function UserAccountAccordion(props) {
 
               <p className="w-[25%] flex items-center">
                 {/* Registration At : {new Date(user.registrationDate).toISOString()} */}
-                Registered : {calculateTime(user.registrationDate)}
+                Registered : {calculateTime(registrationDate)}
               </p>
 
               <p className="w-[10%] flex items-center">
                 Status :{" "}
-                {user.status === 0 ? (
+                {status === 0 ? (
                   <CancelIcon className="text-red-500" />
                 ) : (
                   <CheckCircleIcon className="text-green-500" />
