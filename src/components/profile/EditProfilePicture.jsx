@@ -72,14 +72,14 @@ const EditProfilePicture = ({ profilePic }) => {
       <div className="h-10 mt-5 flex justify-center items-center ">
         {url === profileUrl ? (
           <GeneralButton
-            disabled={true}
-            className="bg-green-200 hover:bg-green-200 cursor-not-allowed p-2"
-            buttonText={"Save changes"}
+          disabled={true}
+          className="!bg-green-200 hover:!bg-green-200 cursor-not-allowed p-2"
+          buttonText={"Save changes"}
           />
         ) : (
           <GeneralButton
-            className="bg-green-500 hover:bg-green-600 p-2"
-            buttonText={"Save changes"}
+          className="!bg-green-500 hover:!bg-green-600 p-2"
+          buttonText={"Save changes"}
           >
             Save changes
             <input

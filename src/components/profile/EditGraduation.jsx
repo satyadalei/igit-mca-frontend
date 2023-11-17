@@ -36,12 +36,12 @@ const EditGraduation = ({ graduation }) => {
         {gradCourse === graduation ? (
           <GeneralButton
             disabled={true}
-            className="bg-green-200 hover:bg-green-200 cursor-not-allowed p-2"
+            className="!bg-green-200 hover:!bg-green-200 cursor-not-allowed p-2"
             buttonText={"Save changes"}
           />
         ) : (
           <GeneralButton
-            className="bg-green-500 hover:bg-green-600 p-2"
+            className="!bg-green-500 hover:!bg-green-600 p-2"
             buttonText={"Save changes"}
           />
         )}
