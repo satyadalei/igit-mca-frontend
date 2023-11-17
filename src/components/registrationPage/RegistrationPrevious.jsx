@@ -25,7 +25,6 @@ import {
   bachelorCourses,
   assignedTag,
 } from "./formSelectOption";
-import UserTypeForm from "./UserTypeForm";
 import validateFormData from "./verifyFormData";
 import RegistrationContext from "@/context/registration/registrationContext";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
