@@ -115,12 +115,12 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
         })
         const response = await updateProfile.json();
         stopLoading();
+        closeModal();
         // ---- call api ends ---
         // Alert message
         fetchActiveUser();
         if (response.success) {
           createAlert("success", response.message.split("#")[0])
-          closeModal();
           return
         }
 
@@ -139,9 +139,7 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
     }
   }
 
-  const handleUpload = () => {
-    handleUploadImage();
-  }
+
 
 
   return (
@@ -210,7 +208,7 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
             />
           ) : (
             <GeneralButton
-              onClick={handleUpload}
+              onClick={handleUploadImage}
               className="!bg-green-500 hover:!bg-green-600 p-2"
               buttonText={"Save changes"}
             >
