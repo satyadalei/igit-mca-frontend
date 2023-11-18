@@ -79,7 +79,7 @@ const Footer = () => {
         <div className={styles.footer_bottom}>
           <p>
             Copyrights ©{`${currentYear}`} igit MCA. All rights reserved  || Designed & developed by <span  >
-              <Link target='_blank' className={styles.link_text} href={"https://linktr.ee/satya_it"} > Satyanarayan</Link>
+              <Link target='_blank' className={styles.link_text} href={"https://linktr.ee/satya_it"} >MCA Student</Link>
             </span>
           </p>
         </div>

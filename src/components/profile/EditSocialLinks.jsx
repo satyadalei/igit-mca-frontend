@@ -1,9 +1,22 @@
 import { TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import GeneralButton from "../common/GeneralButton";
 import CommonModalBox from './CommonModalBox';
+import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
+import activeUserAndLoginStatus from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 
-const EditSocialLinks = ({ socialLinks }) => {
+
+const EditSocialLinks = ({ socialLinks, closeModal }) => {
+
+  // --- API URL ---
+  const baseApi = process.env.NEXT_PUBLIC_BASE_URL;
+  // ------ context API -----
+  const { startLoading, createAlert, stopLoading } = useContext(loadingAndAlertContext);
+  const { fetchActiveUser } = useContext(activeUserAndLoginStatus);
+
+  // ----- local storage -----
+  const token = localStorage.getItem("token");
+
   const { githubLink, linkedInLink } = socialLinks;
   const [links, setLinks] = useState({
     githubLink: githubLink,
@@ -17,6 +30,35 @@ const EditSocialLinks = ({ socialLinks }) => {
     });
   };
 
+  const updateSocialLinks = async ()=>{
+    try {
+      startLoading();
+      const url = `${baseApi}/api/user/editProfile/socialLinks`
+      const changeSocialLinks = await fetch(url,{
+        method:"PUT",
+        headers : {
+          'Content-Type': 'application/json',
+          'token': token
+        },
+        body : JSON.stringify({ socialLinks : links})
+       })
+       const response = await changeSocialLinks.json();
+       stopLoading();
+       closeModal();
+       fetchActiveUser();
+        if (response.success) {
+          createAlert("success", response.message.split("#")[0])
+          return ;
+        }
+        createAlert("error", response.message.split("#")[0])
+    } catch (error) {
+      stopLoading();
+      closeModal();
+      console.log("There is some error : ", error);
+      createAlert("error", "Some error updating user profile");
+    }
+  }
+
   return (
     <CommonModalBox >
       <TextField
@@ -26,7 +68,6 @@ const EditSocialLinks = ({ socialLinks }) => {
         value={links.githubLink}
         onChange={handleLinkChange}
         autoComplete="off"
-        // id="filled-error-helper-text"
         label="Github Profile link"
         variant="filled"
         placeholder="ex: https://github.com/..."
@@ -48,16 +89,17 @@ const EditSocialLinks = ({ socialLinks }) => {
 
       <div className="mt-5 h-10 flex justify-center items-center ">
         {githubLink === links.githubLink &&
-        linkedInLink === links.linkedInLink ? (
+          linkedInLink === links.linkedInLink ? (
           <GeneralButton
-          disabled={true}
-          className="!bg-green-200 hover:!bg-green-200 cursor-not-allowed p-2"
-          buttonText={"Save changes"}
+            disabled={true}
+            className="!bg-green-200 hover:!bg-green-200 cursor-not-allowed p-2"
+            buttonText={"Save changes"}
           />
         ) : (
           <GeneralButton
-          className="!bg-green-500 hover:!bg-green-600 p-2"
-          buttonText={"Save changes"}
+            onClick={updateSocialLinks}
+            className="!bg-green-500 hover:!bg-green-600 p-2"
+            buttonText={"Save changes"}
           />
         )}
       </div>

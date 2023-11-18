@@ -1,14 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { bachelorCourses } from "../../app/registration/registrationform/formSelectOption";
 import { MenuItem, TextField } from "@mui/material";
 import GeneralButton from "../common/GeneralButton";
 import CommonModalBox from "./CommonModalBox";
+import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
+import activeUserAndLoginStatus from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 
-const EditGraduation = ({ graduation }) => {
+
+const EditGraduation = ({ graduation, closeModal }) => {
   const [gradCourse, setGradCourse] = useState(graduation);
   const handleChange = (e) => {
     setGradCourse(e.target.value);
   };
+
+  // --- API URL ---
+  const baseApi = process.env.NEXT_PUBLIC_BASE_URL;
+  // ------ context API -----
+  const { startLoading, createAlert, stopLoading } = useContext(loadingAndAlertContext);
+  const { fetchActiveUser } = useContext(activeUserAndLoginStatus);
+
+  // ----- local storage -----
+  const token = localStorage.getItem("token");
+
+  const handleChangeGradCourse = async () => {
+    try {
+      startLoading();
+      const url = `${baseApi}/api/user/editProfile/gradCourse`
+      const changeGradCourse = await fetch(url,{
+        method:"PUT",
+        headers : {
+          'Content-Type': 'application/json',
+          'token': token
+        },
+        body : JSON.stringify({gradCourse})
+       })
+       const response = await changeGradCourse.json();
+       stopLoading();
+       closeModal();
+       fetchActiveUser();
+        if (response.success) {
+          createAlert("success", response.message.split("#")[0])
+          return ;
+        }
+        createAlert("error", response.message.split("#")[0])
+    } catch (error) {
+      stopLoading();
+      closeModal();
+      console.log("There is some error : ", error);
+      createAlert("error", "Some error updating user profile");
+    }
+  }
 
   return (
     <CommonModalBox>
@@ -24,7 +65,9 @@ const EditGraduation = ({ graduation }) => {
         variant="filled"
         required
       >
-        <MenuItem value="nothing selected"> nothing selected </MenuItem>
+        {graduation === "nothing selected" && 
+          <MenuItem value="nothing selected"> nothing selected </MenuItem>
+        }
         {bachelorCourses.map((course, index) => (
           <MenuItem style={{ zIndex: "8001" }} key={index} value={course}>
             {course}
@@ -41,6 +84,7 @@ const EditGraduation = ({ graduation }) => {
           />
         ) : (
           <GeneralButton
+            onClick={handleChangeGradCourse}
             className="!bg-green-500 hover:!bg-green-600 p-2"
             buttonText={"Save changes"}
           />
