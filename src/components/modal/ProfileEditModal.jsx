@@ -9,7 +9,7 @@ import EditProfilePicture from '../profile/EditProfilePicture';
 const ProfileEditModal = ({ closeModal, modalType, userDetails }) => {
 
     const { profilePic, fieldOfInterest } = userDetails;
-    const { gradCourse, socialLinks } = userDetails.userDetails;
+    const { gradCourse, socialLinks, name } = userDetails.userDetails;
 
     return (
         <BasicModalBackground >
@@ -27,7 +27,7 @@ const ProfileEditModal = ({ closeModal, modalType, userDetails }) => {
                 {modalType === "socialLinks" && <EditSocialLinks socialLinks={socialLinks} />}
 
                 {/* edit profile picture */}
-                {modalType === "profilePicture" && <EditProfilePicture profilePic={profilePic} />}
+                {modalType === "profilePicture" && <EditProfilePicture name={name} profilePic={profilePic} />}
             </div>
         </BasicModalBackground>
     )
