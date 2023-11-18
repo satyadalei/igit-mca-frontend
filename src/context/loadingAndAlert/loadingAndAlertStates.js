@@ -19,7 +19,6 @@ const LoadingAndAlertStates = (props)=>{
      }
     //  custom alert to pass only value; This is an short form substitution to existing setAlert function above , main purpose of creating this function is to minimize code redundancy
      const createAlert = (alertType, alertMessage)=>{
-        console.log("alert should be created");
         setAlert({
             alert:true,
             alertType,

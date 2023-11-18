@@ -16,7 +16,7 @@ const Alert = () => {
     if (alert.alert) {
       setTimeout(() => {
         hideAlertBox();
-      }, 5000)
+      }, 6000)
     }
   }, [alert.alert])
 
@@ -31,7 +31,7 @@ const Alert = () => {
                   (alert.alertType === "success") && "green"
           }} >
           <p style={{ color: "white" }} >{alert.alertMessage}</p>
-          <CloseIcon style={{ cursor: "pointer" }} onClick={hideAlertBox} />
+          <CloseIcon style={{ cursor: "pointer", color:"white" }} onClick={hideAlertBox} />
         </div>
       }
     </>

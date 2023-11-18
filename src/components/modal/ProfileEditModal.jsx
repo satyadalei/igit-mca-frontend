@@ -8,7 +8,7 @@ import EditProfilePicture from '../profile/EditProfilePicture';
 
 const ProfileEditModal = ({ closeModal, modalType, userDetails }) => {
 
-    const { profilePic, fieldOfInterest } = userDetails;
+    const { profilePic, fieldOfInterest, batchNum } = userDetails;
     const { gradCourse, socialLinks, name } = userDetails.userDetails;
 
     return (
@@ -18,16 +18,16 @@ const ProfileEditModal = ({ closeModal, modalType, userDetails }) => {
                 <CloseIcon className='absolute top-1 right-1 cursor-pointer' onClick={closeModal} />
 
                 {/* Edit graduation */}
-                {modalType === "graduation" && <EditGraduation graduation={gradCourse} />}
+                {modalType === "graduation" && <EditGraduation closeModal={closeModal} graduation={gradCourse} />}
 
                 {/* edit field of interest */}
-                {modalType === "fieldOfInterest" && <EditFieldOfInterest interest={fieldOfInterest} />}
+                {modalType === "fieldOfInterest" && <EditFieldOfInterest closeModal={closeModal} interest={fieldOfInterest} />}
 
                 {/* edit social links */}
-                {modalType === "socialLinks" && <EditSocialLinks socialLinks={socialLinks} />}
+                {modalType === "socialLinks" && <EditSocialLinks closeModal={closeModal} socialLinks={socialLinks} />}
 
                 {/* edit profile picture */}
-                {modalType === "profilePicture" && <EditProfilePicture name={name} profilePic={profilePic} />}
+                {modalType === "profilePicture" && <EditProfilePicture closeModal={closeModal} batchNum={batchNum} name={name} profilePic={profilePic} />}
             </div>
         </BasicModalBackground>
     )
