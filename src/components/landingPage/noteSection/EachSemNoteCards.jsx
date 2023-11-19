@@ -9,7 +9,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import GeneralButton from "@/components/common/GeneralButton";
 import { useRouter } from "next/navigation";
 import styles from "./notes.module.css";
-
+import Link from "next/link"
 
 
 
@@ -63,13 +63,16 @@ const EachSemNoteCards = (props) => {
             Notes
           </GeneralButton>
 
-          <GeneralButton
+          {/* <GeneralButton
             variant={"outlined"}
             className={"text-sky-500"}
             onClick={handleSyllabusRedirect}
           >
             Syllabus
-          </GeneralButton>
+          </GeneralButton> */}
+          <a target="_blank" className="border border-sky-500 p-1 pl-2 pr-2 text-sky-500 rounded-lg" href={syllabusLink} >
+          Syllabus
+          </a>
         </CardActions>
       </Card>
     </>
