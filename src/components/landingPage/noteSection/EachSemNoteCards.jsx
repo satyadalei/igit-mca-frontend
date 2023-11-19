@@ -4,12 +4,27 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { CardActions } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
 import GeneralButton from "@/components/common/GeneralButton";
-
+import { useRouter } from "next/navigation";
 import styles from "./notes.module.css";
+
+
+
+
 const EachSemNoteCards = (props) => {
+  const {semester, syllabusLink} = props;
+  const router = useRouter();
+
+  const handleNoteRedirect = ()=>{
+    router.push(`/notes/semester${semester}`, undefined, { shallow: true });
+  }
+  
+  const handleSyllabusRedirect= ()=>{
+    router.push(`${syllabusLink}`, undefined, { shallow: true });
+  }
+
   return (
     <>
       <Card className={styles.card_item}>
@@ -42,7 +57,7 @@ const EachSemNoteCards = (props) => {
         <CardActions>
           <GeneralButton
             variant={"contained"}
-            onClick={() => {}}
+            onClick={handleNoteRedirect}
           >
             <DescriptionIcon />
             Notes
@@ -51,7 +66,7 @@ const EachSemNoteCards = (props) => {
           <GeneralButton
             variant={"outlined"}
             className={"text-sky-500"}
-            onClick={() => {}}
+            onClick={handleSyllabusRedirect}
           >
             Syllabus
           </GeneralButton>

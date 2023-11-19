@@ -65,7 +65,7 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
           stopLoading();
           if (response.success) {
             createAlert("success", response.message.split("#")[0])
-            closeModal();
+            // closeModal();
             return
           }
           closeModal();

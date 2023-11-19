@@ -18,18 +18,10 @@ const Page = ({ params }) => {
   // console.log(semester);
   const {allSemesters} = semester;
   const {semester1, semester2, semester3, semester4} = semester;
-  // console.log(semester1);
-  // console.log(semester2);
-  // console.log(semester3);
-  // console.log(semester4);
 
   const [isPageExist, setIsPageExist] = useState(null);
   const semNum = params.semesterNum[semesterNum.length-1] // finding last digit of route
-  // console.log(typeof(allSemesters[0].toString()));
-  // console.log(typeof(semesterNum[semesterNum.length-1]));
-
-  // checks is page exists
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   useEffect(() => {
       for (let i = 0; i < allSemesters.length; i++) {
         if (allSemesters[i].toString() === semNum) {

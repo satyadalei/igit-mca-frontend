@@ -16,6 +16,7 @@ import UserAvatar from "./UserAvatar";
 import VerificationStatus from "./VerificationStatus";
 import UserName from "./UserName";
 import { useRouter } from "next/navigation";
+import UserProfileSkeleton from "./UserProfileSkeleton";
 
 const NavBar = () => {
   const router = useRouter();
@@ -23,11 +24,11 @@ const NavBar = () => {
   const { activeUser, loginStatus, fetchActiveUser } = useContext(
     ActiveUserAndLoginStatusContext
   );
-  
+
   const responsive_Nav_ref = useRef();
-  const {name} = activeUser != null && activeUser.userDetails ;
-  const {status} = activeUser != null && activeUser ;
-  const {url} = activeUser != null && activeUser.profilePic;
+  const { name } = activeUser != null && activeUser.userDetails;
+  const { status } = activeUser != null && activeUser;
+  const { url } = activeUser != null && activeUser.profilePic;
 
   useEffect(() => {
     fetchActiveUser();
@@ -68,15 +69,6 @@ const NavBar = () => {
             <li>
               <Link href="/notes">Notes</Link>
             </li>
-            {/* <li>
-              <Link
-                className="disabled_link_text"
-                onClick={disableLink}
-                href="/semesters"
-              >
-                Semesters
-              </Link>
-            </li> */}
             <li>
               <Link
                 className="disabled_link_text"
@@ -109,8 +101,38 @@ const NavBar = () => {
           {/* Login & registration Details starts*/}
           <div className={styles.login_credentials}>
             {/* show based on log in status*/}
+            {loginStatus === null ? (
+              <UserProfileSkeleton />
+            ) : loginStatus ? (
+              <div
+                onClick={redirectProfilePage}
+                className={styles.avatar_name_for_desktop}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "end",
+                    marginRight: "0.5rem",
+                  }}
+                >
+                  <UserName name={name} />
+                  <VerificationStatus status={status} />
+                </div>
+                <UserAvatar userName={name} profileUrl={url} />
+              </div>
+            ) : (
+              <div>
+                <Link className={styles.login_link} href="/login">
+                  Login
+                </Link>
+                <Link className={styles.registration_link} href="/registration">
+                  Registration
+                </Link>
+              </div>
+            )}
 
-            {loginStatus && activeUser != null && (
+            {/* {loginStatus && activeUser != null && (
               <>
                 <div
                   onClick={redirectProfilePage}
@@ -127,15 +149,12 @@ const NavBar = () => {
                     <UserName name={name} />
                     <VerificationStatus status={status} />
                   </div>
-                  <UserAvatar
-                    userName={name}
-                    profileUrl={url}
-                  />
+                  <UserAvatar userName={name} profileUrl={url} />
                 </div>
               </>
-            )}
+            )} */}
 
-            {loginStatus === false && (
+            {/* {loginStatus === false && (
               <div>
                 <Link className={styles.login_link} href="/login">
                   Login
@@ -144,7 +163,7 @@ const NavBar = () => {
                   Registration
                 </Link>
               </div>
-            )}
+            )} */}
           </div>
           {/* Login & registartion Details ends */}
 
@@ -160,24 +179,20 @@ const NavBar = () => {
               className={styles.cross_hamburger_menu}
             />
             {/* when a link is clicked then closes responsive navbar */}
-            {loginStatus && activeUser != null && (
-              <>
-                <div
+            {loginStatus === null ? (
+             <UserProfileSkeleton mobileMode={true} />
+            ) : loginStatus ? (
+              <div
                   onClick={redirectProfilePage}
                   className={styles.avatar_name_for_responsive_nav}
                 >
-                  <UserAvatar
-                    name={name}
-                    profileUrl={url}
-                  />
+                  <UserAvatar name={name} profileUrl={url} />
                   <div>
-                    <UserName name={name}/>
+                    <UserName name={name} />
                     <VerificationStatus status={status} />
                   </div>
                 </div>
-              </>
-            )}
-            {loginStatus === false && (
+            ) : (
               <div>
                 <Link
                   className={styles.login_link}
@@ -195,6 +210,41 @@ const NavBar = () => {
                 </Link>
               </div>
             )}
+
+            {/* {loginStatus && activeUser != null && (
+              <>
+                <div
+                  onClick={redirectProfilePage}
+                  className={styles.avatar_name_for_responsive_nav}
+                >
+                  <UserAvatar name={name} profileUrl={url} />
+                  <div>
+                    <UserName name={name} />
+                    <VerificationStatus status={status} />
+                  </div>
+                </div>
+              </>
+            )}
+
+            {loginStatus === false && (
+              <div>
+                <Link
+                  className={styles.login_link}
+                  onClick={toggleNavBar}
+                  href="/login"
+                >
+                  Login
+                </Link>
+                <Link
+                  className={styles.registration_link}
+                  onClick={toggleNavBar}
+                  href="/registration"
+                >
+                  Registration
+                </Link>
+              </div>
+            )} */}
+
             <NavLinkItems toggleNav={toggleNavBar} />
             {/* show based on log in status*/}
           </div>

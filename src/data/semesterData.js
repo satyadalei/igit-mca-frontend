@@ -25,9 +25,9 @@ const semester = {
                 thumbNailUrl: "",
                 // links are the google drive links
                 links : {
-                    notes : "https://www.google.com/",
-                    assignments : "",
-                    question : "",
+                    notes : "https://drive.google.com/drive/u/4/folders/1KdVjERPdbVckO5tzPYzsn5osJqet1ZDF",
+                    assignments : "https://drive.google.com/drive/u/4/folders/17ytYco4WpeBU-LUtaycBG403ttgcIMlx",
+                    question : "https://drive.google.com/drive/u/4/folders/1jFj7OaBDQtO7P1HwQo3my1FYyC7_484-",
                     books : ""
                 }
             },
@@ -37,9 +37,9 @@ const semester = {
                 instructor: ["Dr. Priyabrata Sahu"],
                 thumbNailUrl: "",
                 links : {
-                    notes : "",
+                    notes : "https://drive.google.com/drive/folders/1GEtPjPI7AZRK2S4T8ymxo_irw46-hUSq?usp=sharing",
                     assignments : "",
-                    question : "",
+                    question : "https://drive.google.com/drive/u/4/folders/1QXGQIxTCFqTkEjeTMdAozLOisjw69s3w",
                     books : ""
                 }
             },
@@ -49,9 +49,9 @@ const semester = {
                 instructor: ["Dr. Kailash Chandra Paul"],
                 thumbNailUrl: "",
                 links : {
-                    notes : "",
+                    notes : "https://drive.google.com/drive/folders/11P9PX6NKvnrMl7tqL1enIpjb_3GoKrSR?usp=sharing",
                     assignments : "",
-                    question : "",
+                    question : "https://drive.google.com/drive/u/4/folders/1Ir5_2CPoZysGijEEfSxvt-JpLa_HhMwL",
                     books : ""
                 }
             },
@@ -61,7 +61,7 @@ const semester = {
                 instructor: ["Dr. Debasish Nayak", "Dr. Samarpita Dash"],
                 thumbNailUrl: "",
                 links : {
-                    notes : "",
+                    notes : "https://drive.google.com/drive/u/4/folders/1fdzkID5mHlyKrTt73XT0bUffy09npP97",
                     assignments : "",
                     question : "",
                     books : ""
@@ -73,9 +73,9 @@ const semester = {
                 instructor : ["Dr. Sankar Moharana", "Dr. Madhuswapna Pattanaik"],
                 thumbNailUrl: "",
                 links : {
-                    notes : "",
+                    notes : "https://drive.google.com/drive/u/4/folders/1nnorARoCdue_mjBrOdtfP3ohw6p-Kizi",
                     assignments : "",
-                    question : "",
+                    question : "https://drive.google.com/drive/u/4/folders/1cG0qwkHuHSTpQh9h9K5bInq2ScAIxwG4",
                     books : ""
                 }
             }

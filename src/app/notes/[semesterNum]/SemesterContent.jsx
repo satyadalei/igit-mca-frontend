@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./page.module.css";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
+import GeneralButton from "@/components/common/GeneralButton";
 
 
 const SemesterContent = (props) => {
@@ -19,7 +20,7 @@ const SemesterContent = (props) => {
     <>
       {subjectDetailsArray.map((subject, index) => {
         return (
-          <div key={index} className={styles.subject_item_box}>
+          <div key={index} className={`${styles.subject_item_box} border-2 border-sky-600 `}>
             {/* --- Paper name & number */}
             <div>
               {/* <p>Paper {index + 1}</p> */}
@@ -53,37 +54,38 @@ const SemesterContent = (props) => {
 
             {/* --- Button links */}
             <div>
-              <Button
+              <GeneralButton
                 disabled={subject.links.notes === "" ? true : false}
                 className={styles.subject_btn}
                 variant="contained"
                 size="small"
+                sx={{backgroundColor:"orange"}}
                 onClick={()=> {window.open(subject.links.notes, "_blank");}} // this opens links in a new tab
               >
                 Notes
-              </Button>
+              </GeneralButton>
 
-              <Button
-                disabled={subject.links.assignments === "" ? true : false}
-                className={styles.subject_btn}
-                variant="contained"
-                size="small"
-                onClick={()=> {window.open(subject.links.assignments, "_blank");}}
-              >
-                Questions
-              </Button>
-
-              <Button
+              <GeneralButton
                 disabled={subject.links.question === "" ? true : false}
                 className={styles.subject_btn}
                 variant="contained"
                 onClick={()=> {window.open(subject.links.question, "_blank");}}
                 size="small"
               >
-                Assignments
-              </Button>
+                Questions
+              </GeneralButton>
 
-              <Button
+              <GeneralButton
+                disabled={subject.links.assignments === "" ? true : false}
+                className={styles.subject_btn}
+                variant="contained"
+                size="small"
+                onClick={()=> {window.open(subject.links.assignments, "_blank");}}
+              >
+                Assignments
+              </GeneralButton>
+
+              <GeneralButton
                 disabled={subject.links.books === "" ? true : false}
                 className={styles.subject_btn}
                 variant="contained"
@@ -91,7 +93,7 @@ const SemesterContent = (props) => {
                 onClick={()=> {window.open(subject.links.books, "_blank");}}
               >
                 Books
-              </Button>
+              </GeneralButton>
             </div>
           </div>
         );

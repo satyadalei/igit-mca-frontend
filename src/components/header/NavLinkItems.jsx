@@ -13,6 +13,9 @@ const NavLinkItems = (props) => {
           <Link href="/">Home</Link>
         </li>
         <li onClick={props.toggleNav}>
+          <Link href="/profile">Profile</Link>
+        </li>
+        <li onClick={props.toggleNav}>
           <Link href="/batch">Batch</Link>
         </li>
         <li onClick={props.toggleNav}>
