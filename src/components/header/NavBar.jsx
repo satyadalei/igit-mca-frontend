@@ -70,9 +70,7 @@ const NavBar = () => {
               <Link href="/notes">Notes</Link>
             </li>
             <li>
-              <Link href="/galleries">
-                Galleries
-              </Link>
+              <Link href="/galleries">Galleries</Link>
             </li>
             <li>
               <Link

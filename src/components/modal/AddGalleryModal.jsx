@@ -9,9 +9,14 @@ import randomString from "randomstring";
 import { getStorage, ref, uploadBytes, getDownloadURL, } from "firebase/storage";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
 import activeUserAndLoginStatus from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
+import useWindowSize from '../WindoSizeHook';
 
+import moment from 'moment-timezone';
+import { images } from "../../../next.config";
 
-const AddGalleryModal = ({ setModal }) => {
+const AddGalleryModal = ({ setModal, setImages }) => {
+
+    const {width, height} = useWindowSize();
 
   // Base API URL
   const baseApi = process.env.NEXT_PUBLIC_BASE_URL;
@@ -22,11 +27,17 @@ const AddGalleryModal = ({ setModal }) => {
   // ------ context API -----
   const { startLoading, createAlert ,stopLoading } = useContext(loadingAndAlertContext);
   const { fetchActiveUser, activeUser } = useContext(activeUserAndLoginStatus);
-  const {name} = activeUser.userDetails;
+  const {name} = activeUser != null && activeUser.userDetails;
   // ----- local storage -----
   const token = localStorage.getItem("token");
 
   const [image, setImage] = useState("");
+//   const updateImagesAfterUpload = (newImage)=>{
+//     setImage((prev)=>{
+//         console.log("Previous ", prev);
+//         return [response.data.post, ...prev]
+//     })
+//   }
   const [imageDetails, setImageDetails] = useState({
     imageTitle: "",
     imageDescription : ""
@@ -41,11 +52,16 @@ const AddGalleryModal = ({ setModal }) => {
         msg
     })
   }
+//   console.log(moment().tz("Asia/Kolkata").format()); 
+//   console.log(new Date(moment().tz("Asia/Kolkata").format()).getFullYear());
+
   useEffect(() => {
-    setTimeout(()=>{
-        setCustomAlert({alert:false,msg:""});
-    }, 3000)
-  }, [customAlert.alert])
+    if (customAlert.alert) {
+        setTimeout(()=>{
+            setCustomAlert({alert:false,msg:""});
+        }, 3000)
+    }
+  }, [customAlert.alert, images])
   
   const handleImageDetailsChange = (e)=>{
      setImageDetails((prev)=>{
@@ -80,10 +96,9 @@ const AddGalleryModal = ({ setModal }) => {
         const uploadImageRef = ref(storage, `images/gallery/${currentYear}/${docGivenName}`);
         const file = image;
         const metaData = { contentType: file.type, };
-        let localTime ;
+        let localTime = moment().tz("Asia/Kolkata").format();
         uploadBytes(uploadImageRef, file, metaData).then(async (snapshot) => {
           let postUrl = await getDownloadURL(snapshot.ref);
-          console.log(postUrl);
             // ---- call api starts ---
         
           const uploadPost = await fetch(url, {
@@ -97,7 +112,7 @@ const AddGalleryModal = ({ setModal }) => {
                postTitle : imageDetails.imageTitle,
                postDescription : imageDetails.imageDescription,
                docGivenName,
-               timeStamp : localTime || new Date(),
+               timeStamp : localTime ,
                postType : "gallery"
             })
           })
@@ -108,6 +123,9 @@ const AddGalleryModal = ({ setModal }) => {
           // Alert message
           // fetch all Existing gallery posts
           if (response.success) {
+            setImages((prev)=>{
+                return [response.data.post, ...prev]
+            })
             createAlert("success", response.message.split("#")[0])
             return
           }
@@ -135,7 +153,7 @@ const AddGalleryModal = ({ setModal }) => {
           setModal(false);
         }}
       />
-      <CommonModalBox className="pl-2 pr-2 relative border-2 border-sky-500 w-[95%] md:w-[50%] min-h-48 rounded-lg bg-white">
+      <CommonModalBox className={`overflow-y-scroll pl-2 pr-2 relative border-2 border-sky-500 w-[95%] md:w-[50%] ${height < 550 && "!min-h-full overflow-y-scroll"} rounded-lg bg-white `}>
         <CloseIcon
           className="absolute top-2 right-2 cursor-pointer"
           onClick={() => {
@@ -145,7 +163,7 @@ const AddGalleryModal = ({ setModal }) => {
         <div className="h-10 pl-2 text-white" >
            {customAlert.alert && <p className="bg-red-500 p-1" >{customAlert.msg}</p> }
         </div>
-        <div className="h-44 w-auto m-1 p-2 mb-6 border border-gray-300">
+        <div className="h-28 w-auto m-1 p-2 mb-6 border border-gray-300">
           {image === "" ? (
             <p className="text-gray-300 text-sm">Image preview will be shown here</p>
           ) : (
@@ -177,8 +195,8 @@ const AddGalleryModal = ({ setModal }) => {
           )}
         </div>
         <div className="mb-5" >
-          <div className="flex flex-col mb-3">
-            <label className="text-xs pl-1 text-gray-300" htmlFor="post title">
+          <div className="flex flex-col mb-5">
+            <label className="text-xs pl-1 text-gray-500" htmlFor="post title">
               Post Title <span className="text-red-400">(Required)</span>{" "}
             </label>
             <input
@@ -193,7 +211,7 @@ const AddGalleryModal = ({ setModal }) => {
             />
           </div>
           <div className="flex flex-col" >
-            <label className="text-xs pl-1 text-gray-300" htmlFor="Post description">Post description <span>(Optional)</span> </label>
+            <label className="text-xs pl-1 text-gray-500" htmlFor="Post description">Post description <span>(Optional)</span> </label>
             <textarea
               className="w-80 h-14 outline-none border-b-2 p-1 border-sky-500"
               type="tex"

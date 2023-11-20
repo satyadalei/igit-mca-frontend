@@ -30,8 +30,6 @@ const NavLinkItems = (props) => {
         
         <li onClick={props.toggleNav}>
           <Link 
-          className="disabled_link_text"
-          onClick={disableLink}
           href="/galleries">Galleries</Link>
         </li>
         <li onClick={props.toggleNav}>
