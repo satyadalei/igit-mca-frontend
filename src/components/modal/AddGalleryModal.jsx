@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import BasicModalBackground from "../modal/BasicModalBackground";
-import CommonModalBox from "../profile/CommonModalBox";
+import CommonModalBox from "./CommonModalBox";
 import GeneralButton from "../common/GeneralButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Button } from "@mui/material";

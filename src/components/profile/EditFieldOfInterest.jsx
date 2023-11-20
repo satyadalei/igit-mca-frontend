@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import CommonModalBox from "./CommonModalBox";
+import CommonModalBox from "../modal/CommonModalBox";
 import { MenuItem, TextField } from "@mui/material";
 import { fieldOfInterest } from "../../app/registration/registrationform/formSelectOption";
 import GeneralButton from "../common/GeneralButton";

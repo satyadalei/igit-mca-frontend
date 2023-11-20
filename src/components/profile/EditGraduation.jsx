@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { bachelorCourses } from "../../app/registration/registrationform/formSelectOption";
 import { MenuItem, TextField } from "@mui/material";
 import GeneralButton from "../common/GeneralButton";
-import CommonModalBox from "./CommonModalBox";
+import CommonModalBox from "../modal/CommonModalBox";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
 import activeUserAndLoginStatus from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 

@@ -2,7 +2,7 @@ import { Avatar, Button } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import GeneralButton from "../common/GeneralButton";
-import CommonModalBox from "./CommonModalBox";
+import CommonModalBox from "../modal/CommonModalBox";
 import randomString from "randomstring";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, deleteObject, uploadBytes, getDownloadURL, } from "firebase/storage";

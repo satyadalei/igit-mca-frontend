@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import React, { useState, useContext } from "react";
 import GeneralButton from "../common/GeneralButton";
-import CommonModalBox from './CommonModalBox';
+import CommonModalBox from '../modal/CommonModalBox';
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
 import activeUserAndLoginStatus from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 

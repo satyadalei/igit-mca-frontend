@@ -10,6 +10,7 @@ import { useState } from "react";
 import CreateAGalleryPost from "./CreateAGalleryPost";
 import { useEffect } from "react";
 import BatchSkeleton from "@/app/batch/BatchSkeleton";
+import PostLargerView from "./PostLargerView";
 
 export default function Gallery() {
   // Base API URL
@@ -26,8 +27,26 @@ export default function Gallery() {
     return 4;
   };
   const [images, setImages] = useState(null);
-  // fetch posts & then populate gallery section
+  const [imagePreview, setImagePreview] = useState({
+    preview: false, // default false
+    imageIndex: null, // will be changed when clicked
+  }); // to see larger image preview
 
+  const handleImagePreview = (imageIndex) => {
+    setImagePreview({
+      preview: true,
+      imageIndex,
+    });
+  };
+
+  const closeImagePreview = () => {
+    setImagePreview({
+      preview: false,
+      imageIndex: null,
+    });
+  };
+
+  // fetch posts & then populate gallery section
   const fetchAllGalleryImages = async () => {
     try {
       // ----- local storage -----
@@ -58,13 +77,18 @@ export default function Gallery() {
 
   return (
     <div className="p-1 pb-5">
+      {imagePreview.preview && (
+        <PostLargerView
+          currentImageIndex={imagePreview.imageIndex}
+          closeImagePreview={closeImagePreview}
+          allPosts={images}
+          setImages={setImages}
+        />
+      )}
       <h1 className="mt-3 text-3xl font-bold">Community Gallery</h1>
       <CreateAGalleryPost className="fixed" setImages={setImages} />
       <ImageList cols={detectColumns()}>
-        {/* <ImageListItem key="Subheader" cols={2}>
-        <ListSubheader component="div">December</ListSubheader>
-      </ImageListItem> */}
-        { images === null
+        {images === null
           ? Array.from({ length: 12 }, (_, index) => (
               <div key={index}>
                 <BatchSkeleton />
@@ -74,9 +98,9 @@ export default function Gallery() {
               const { authorId, postId } = image;
               const { title, url, description } = image.postDetails;
               return (
-                <ImageListItem 
-                className={`!h-48 md:!h-64 border-2 border-red-500`} 
-                key={index}
+                <ImageListItem
+                  className={`!h-48 md:!h-64 border-2 border-red-500`}
+                  key={index}
                 >
                   <img
                     srcSet={`${url}?w=248&fit=crop&auto=format&dpr=2 2x`} //
@@ -92,6 +116,9 @@ export default function Gallery() {
                       <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                         aria-label={`info about ${title}`}
+                        onClick={() => {
+                          handleImagePreview(index);
+                        }}
                       >
                         <InfoIcon />
                       </IconButton>
@@ -100,68 +127,10 @@ export default function Gallery() {
                 </ImageListItem>
               );
             })}
+        {images != null && images.length === 0 && (
+          <p>No images has been added gallery</p>
+        )}
       </ImageList>
     </div>
   );
 }
-
-const itemData = [
-  {
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    title: "Breakfast",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    title: "Burger",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-    title: "Coffee",
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-    title: "Hats",
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-    title: "Honey",
-    author: "@arwinneil",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-    title: "Basketball",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-    title: "Fern",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-    title: "Mushrooms",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-    title: "Tomato basil",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-    title: "Sea star",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-    title: "Bike",
-    cols: 2,
-  },
-];
