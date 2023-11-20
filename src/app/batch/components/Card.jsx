@@ -42,13 +42,13 @@ export default function ActionAreaCard(props) {
             variant="h5" component="div">
              Batch : {props.batch != undefined ? props.batch.batchNum  : ""}
             </Typography>
-            {/* <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               strength : {props.batch != undefined ? props.batch.strength : ""}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Registered :{" "}
-              {props.batch != undefined ? props.batch.studentLists.length : ""}
-            </Typography> */}
+              {props.batch != undefined ? props.batch.totalRegistered : ""}
+            </Typography>
             <Typography variant="body2" color="text.secondary">
               Year :{" "}
               {props.batch != undefined

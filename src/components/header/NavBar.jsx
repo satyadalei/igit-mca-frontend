@@ -70,11 +70,7 @@ const NavBar = () => {
               <Link href="/notes">Notes</Link>
             </li>
             <li>
-              <Link
-                className="disabled_link_text"
-                onClick={disableLink}
-                href="/galleries"
-              >
+              <Link href="/galleries">
                 Galleries
               </Link>
             </li>

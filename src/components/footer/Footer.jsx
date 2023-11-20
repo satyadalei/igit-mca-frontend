@@ -35,7 +35,7 @@ const Footer = () => {
                     <li><Link href={"/batch"} >Batch</Link></li>
                     {/* <li><Link href={"/semesters"} >Semesters</Link></li> */}
                     <li><Link href={"/notes"} >Notes</Link></li>
-                    <li><Link href={"/gallery"} >Gallery</Link></li>
+                    <li><Link href={"/galleries"} >Gallery</Link></li>
                  </ul>
                  {/* links - right*/}
                  <ul>

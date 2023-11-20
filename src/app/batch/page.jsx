@@ -45,7 +45,6 @@ const Batch = () => {
       router.push("/login");
     }
     fetchAllBatch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginStatus]);
 
 

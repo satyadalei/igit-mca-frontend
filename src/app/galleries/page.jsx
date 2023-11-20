@@ -1,10 +1,12 @@
 import React from 'react'
+import Gallery from '@/components/gallery/GallerySection'
+
 
 const galleries = () => {
   return (
     <>
       <section className='page_section' >
-         <h1>Galleries page</h1>
+         <Gallery />
        </section>  
     </>
   )
