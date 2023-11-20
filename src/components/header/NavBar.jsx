@@ -132,38 +132,7 @@ const NavBar = () => {
               </div>
             )}
 
-            {/* {loginStatus && activeUser != null && (
-              <>
-                <div
-                  onClick={redirectProfilePage}
-                  className={styles.avatar_name_for_desktop}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "end",
-                      marginRight: "0.5rem",
-                    }}
-                  >
-                    <UserName name={name} />
-                    <VerificationStatus status={status} />
-                  </div>
-                  <UserAvatar userName={name} profileUrl={url} />
-                </div>
-              </>
-            )} */}
-
-            {/* {loginStatus === false && (
-              <div>
-                <Link className={styles.login_link} href="/login">
-                  Login
-                </Link>
-                <Link className={styles.registration_link} href="/registration">
-                  Registration
-                </Link>
-              </div>
-            )} */}
+            
           </div>
           {/* Login & registartion Details ends */}
 
@@ -210,40 +179,6 @@ const NavBar = () => {
                 </Link>
               </div>
             )}
-
-            {/* {loginStatus && activeUser != null && (
-              <>
-                <div
-                  onClick={redirectProfilePage}
-                  className={styles.avatar_name_for_responsive_nav}
-                >
-                  <UserAvatar name={name} profileUrl={url} />
-                  <div>
-                    <UserName name={name} />
-                    <VerificationStatus status={status} />
-                  </div>
-                </div>
-              </>
-            )}
-
-            {loginStatus === false && (
-              <div>
-                <Link
-                  className={styles.login_link}
-                  onClick={toggleNavBar}
-                  href="/login"
-                >
-                  Login
-                </Link>
-                <Link
-                  className={styles.registration_link}
-                  onClick={toggleNavBar}
-                  href="/registration"
-                >
-                  Registration
-                </Link>
-              </div>
-            )} */}
 
             <NavLinkItems toggleNav={toggleNavBar} />
             {/* show based on log in status*/}

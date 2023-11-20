@@ -1,3 +1,4 @@
+"use client"
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -9,6 +10,7 @@ import verify from "./verifyCreateBatchFormData";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
 import Loading from "@/components/common/Loading";
 import verifyCreateBatchData from "./verifyCreateBatchFormData"
+import GeneralButton from "@/components/common/GeneralButton";
 
 const style = {
   position: "absolute",
@@ -180,13 +182,13 @@ export default function BasicModal(props) {
                   }}
                 />
               </div>
-              <Button
+              <GeneralButton
                 onClick={handleCreateNewBranch}
-                style={{ margin: "1rem 0 0.5rem 0", maxWidth: "200px" }}
+                style={{ margin: "1rem 0 0.5rem 0"}}
                 variant="contained"
               >
                 Create
-              </Button>
+              </GeneralButton>
             </Box>
           </>
         )}
