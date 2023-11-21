@@ -6,9 +6,6 @@ import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import NavLinkItems from "./NavLinkItems";
-import UserNameAndAvatar from "./UserNameAndAvatar";
-import UserAvatarAndNameReverse from "./UserAvatarAndNameReverse";
-import LogOutBtn from "./LogOutBtn";
 import ActiveUserAndLoginStatusContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import { useContext } from "react";
 import { useEffect } from "react";
@@ -17,6 +14,9 @@ import VerificationStatus from "./VerificationStatus";
 import UserName from "./UserName";
 import { useRouter } from "next/navigation";
 import UserProfileSkeleton from "./UserProfileSkeleton";
+
+
+
 
 const NavBar = () => {
   const router = useRouter();
@@ -53,7 +53,7 @@ const NavBar = () => {
         <div className={styles.navbar_container}>
           {/* Logo */}
           <h1 className={`${styles.logo}`}>
-            <Link href="/" className={`${styles.link_text}`}>
+            <Link shallow={true} href="/" className={`${styles.link_text}`}>
               IGIT-MCA
             </Link>
           </h1>
@@ -61,19 +61,20 @@ const NavBar = () => {
           {/* Nav Menus */}
           <ul className={`${styles.nav_item}`}>
             <li>
-              <Link href={"/"}>Home</Link>
+              <Link shallow={true} href={"/"}>Home</Link>
             </li>
             <li>
-              <Link href="/batch">Batch</Link>
+              <Link shallow={true} href="/batch">Batch</Link>
             </li>
             <li>
-              <Link href="/notes">Notes</Link>
+              <Link shallow={true} href="/notes">Notes</Link>
             </li>
             <li>
-              <Link href="/galleries">Galleries</Link>
+              <Link shallow={true} href="/galleries">Galleries</Link>
             </li>
             <li>
               <Link
+                 shallow={true}
                 className="disabled_link_text"
                 onClick={disableLink}
                 href="/about"
@@ -83,6 +84,7 @@ const NavBar = () => {
             </li>
             <li>
               <Link
+                shallow={true}
                 className="disabled_link_text"
                 onClick={disableLink}
                 href="/contacts"
@@ -117,10 +119,10 @@ const NavBar = () => {
               </div>
             ) : (
               <div>
-                <Link className={styles.login_link} href="/login">
+                <Link shallow={true} className={styles.login_link} href="/login">
                   Login
                 </Link>
-                <Link className={styles.registration_link} href="/registration">
+                <Link shallow={true} className={styles.registration_link} href="/registration">
                   Registration
                 </Link>
               </div>
@@ -158,6 +160,7 @@ const NavBar = () => {
             ) : (
               <div>
                 <Link
+                  shallow={true}
                   className={styles.login_link}
                   onClick={toggleNavBar}
                   href="/login"
@@ -165,6 +168,7 @@ const NavBar = () => {
                   Login
                 </Link>
                 <Link
+                  shallow={true}
                   className={styles.registration_link}
                   onClick={toggleNavBar}
                   href="/registration"

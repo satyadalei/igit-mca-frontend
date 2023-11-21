@@ -6,13 +6,20 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import useWindowSize from "../WindoSizeHook";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import CreateAGalleryPost from "./CreateAGalleryPost";
 import { useEffect } from "react";
 import BatchSkeleton from "@/app/batch/BatchSkeleton";
 import PostLargerView from "./PostLargerView";
+import activeUserAndLoginStatus from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
+import moment from "moment-timezone";
 
 export default function Gallery() {
+
+  // context api
+  const {activeUser} = useContext(activeUserAndLoginStatus);
+  const {isSpecialUser} = activeUser != null && activeUser ;
+
   // Base API URL
   const baseApi = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -86,7 +93,7 @@ export default function Gallery() {
         />
       )}
       <h1 className="mt-3 text-3xl font-bold">Community Gallery</h1>
-      <CreateAGalleryPost className="fixed" setImages={setImages} />
+      {(isSpecialUser === "admin" || isSpecialUser === "batchAdmin") && <CreateAGalleryPost className="fixed" setImages={setImages} />}
       <ImageList cols={detectColumns()}>
         {images === null
           ? Array.from({ length: 12 }, (_, index) => (
@@ -95,11 +102,11 @@ export default function Gallery() {
               </div>
             ))
           : images.map((image, index) => {
-              const { authorId, postId } = image;
+              const { authorId, postId, createdAt } = image;
               const { title, url, description } = image.postDetails;
               return (
                 <ImageListItem
-                  className={`!h-48 md:!h-64 border-2 border-red-500`}
+                  className={`!h-48 md:!h-64`}
                   key={index}
                 >
                   <img
@@ -111,7 +118,7 @@ export default function Gallery() {
                   />
                   <ImageListItemBar
                     title={title}
-                    subtitle={authorId}
+                    subtitle={<p>Uploaded at : {moment(createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>}
                     actionIcon={
                       <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}

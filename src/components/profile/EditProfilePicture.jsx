@@ -45,38 +45,26 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
     setProfileUrl("");
   };
 
-  const handleDeleteImage = (imageRef, imageName) => {
+  const handleDeleteImage = async (imageRef, imageName) => {
     try {
-      const deleteProfileImageRef = ref(storage, `images/profileImages/${batch}/${givenName}` // this place will be customized with imageRef & imageName
-      );
       startLoading();
-      deleteObject(deleteProfileImageRef)
-        .then(async () => {
-          // File deleted successfully :: call api to change data in database
-          const url = `${baseApi}/api/user/editProfile/profilePicture`;
-          const removeImage = await fetch(url, {
-            method: "DELETE",
-            headers: {
-              token: token
-            }
-          })
-          const response = await removeImage.json();
-          fetchActiveUser();
-          stopLoading();
-          if (response.success) {
-            createAlert("success", response.message.split("#")[0])
-            // closeModal();
-            return
-          }
-          closeModal();
-          createAlert("error", response.message.split("#")[0])
-        })
-        .catch((error) => {
-          closeModal();
-          stopLoading();
-          console.log("Error in deleting image", error);
-          createAlert("error", "Some error updating profile")
-        });
+      // File deleted successfully :: call api to change data in database
+      const url = `${baseApi}/api/user/editProfile/profilePicture`;
+      const removeImage = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          token: token
+        }
+      })
+      const response = await removeImage.json();
+      stopLoading();
+      fetchActiveUser();
+      if (response.success) {
+        createAlert("success", response.message.split("#")[0]);
+        return
+      }
+      console.log("There is some error : ", error);
+      createAlert("error", "Some error updating profile");
     } catch (error) {
       closeModal();
       stopLoading();

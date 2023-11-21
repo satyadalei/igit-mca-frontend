@@ -12,11 +12,8 @@ const CarouselComponent = () => {
     prevButtonText: React.ReactNode = <ArrowBackIosNewIcon />,
     pagingDotsStyle: {
       margin: "0 2.5px 0 2.5px",
-      // backgroundColor:"white", 
-      // color : "red!important" // not working
     },
     pagingDotsContainerClassName: `${styles.paging_dot_container}`,
-    // pagingDotsClassName : `${styles.paging_dot_container}`
   }
 
   return (

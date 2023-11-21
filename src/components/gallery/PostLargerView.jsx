@@ -42,53 +42,39 @@ const PostLargerView = ({ currentImageIndex, allPosts, closeImagePreview, setIma
     setActiveImageIndex(indexValue);
   };
   const getYear = new Date(allPosts[activeImageIndex].createdAt).getFullYear();
-  const deletePosts = (postId) => {
+  const deletePosts = async (postId) => {
     try {
-      const deleteProfileImageRef = ref(
-        storage,
-        `images/gallery/${getYear}/${docGivenName}` // this place will be customized with imageRef & imageName
-      );
       startLoading();
-      deleteObject(deleteProfileImageRef)
-        .then(async () => {
-          // File deleted successfully :: call api to change data in database
-          const url = `${baseApi}/api/post/deletePost?postId=${postId}`;
-          const removePost = await fetch(url, {
-            method: "DELETE",
-            headers: {
-              token: token,
-            },
-          });
-          const response = await removePost.json();
-          stopLoading();
-          if (response.success) {
-            createAlert("success", response.message.split("#")[0]);
-            // --- reorder posts
-            setImages((prev)=>{
-              const resultingPosts = prev.filter((item)=>{
-                 if (item._id !== postId) {
-                    return item
-                 }
-              })
-              return resultingPosts;
-            })
-            closeImagePreview();
-            return;
-          }
-          fetchActiveUser();
-          closeImagePreview();
-          createAlert("error", response.message.split("#")[0]);
+      const url = `${baseApi}/api/post/deletePost?postId=${postId}&postYear=${getYear}&givenName=${docGivenName}`;
+      const removePost = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          token: token,
+        },
+      });
+      const response = await removePost.json();
+      stopLoading();
+      if (response.success) {
+        createAlert("success", response.message.split("#")[0]);
+        // --- reorder posts
+        setImages((prev) => {
+          const resultingPosts = prev.filter((item) => {
+            if (item._id !== postId) {
+              return item
+            }
+          })
+          return resultingPosts;
         })
-        .catch((error) => {
-          closeImagePreview();
-          stopLoading();
-          console.log("Error in deleting post", error);
-          createAlert("error", "Some error updating profile");
-        });
+        closeImagePreview();
+        return;
+      }
+      fetchActiveUser();
+      closeImagePreview();
+      createAlert("error", response.message.split("#")[0]);
     } catch (error) {
-        stopLoading();
-        console.log("There is some error in deleting post: ", error);
-        createAlert("error", "Some error updating profile");
+      stopLoading();
+      console.log("There is some error in deleting post: ", error);
+      createAlert("error", "Some error updating profile");
     }
   };
 

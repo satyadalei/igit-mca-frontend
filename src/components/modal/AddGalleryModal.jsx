@@ -73,9 +73,9 @@ const AddGalleryModal = ({ setModal, setImages }) => {
     if (e.target.files[0] != undefined) {
       const selectedFile = e.target.files[0];
       const fileSize = selectedFile.size; // Size in bytes
-      const maxSize = 500 * 1024 * 2; // 1MB
+      const maxSize = 500 * 1024 * 2 * 3; // 500 * 1024 * 2 = 1MB
       if (fileSize > maxSize) {
-        createModalAlert("File size is larger than 1MB");
+        createModalAlert(`File size is larger than ${maxSize/(500 * 1024 * 2)} MB`);
         return;
       }
       setImage(e.target.files[0]);

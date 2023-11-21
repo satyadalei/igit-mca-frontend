@@ -3,8 +3,6 @@
 import React from 'react'
 import styles from "./hero.module.css"
 import Link from 'next/link'
-import Image from 'next/image'
-import classmateImage from "../../../public/images/classmates.jpg"
 import CarouselComponent from "./Carousel"
 
 const HeroSectionMain = () => {
@@ -24,7 +22,7 @@ const HeroSectionMain = () => {
                    </p>
 
                    <div>
-                       <Link className={styles.hero_btn} href={"/login"} >
+                       <Link className={styles.hero_btn} href={"/batch"} >
                           Get started
                        </Link>
                    </div>
@@ -33,21 +31,9 @@ const HeroSectionMain = () => {
              
              {/* right_section start*/}
              <div className={`${styles.right_section} ${styles.hero_main_items}`} >
-                 {/* carosule image */}
-                 {/* <div className={styles.carosule_img_box} > */}
-                       {/* <Image 
-                        className={styles.hero_section_image}
-                        src={classmateImage}
-                        width={500} 
-                        alt="41th batch students image with niroj sir"
-                       /> */}
                        <CarouselComponent/>
-                 {/* </div> */}
              </div>
              {/* right_section ends*/}
-             
-
-
           </div>
        </div>   
        {/* hero section ends */}

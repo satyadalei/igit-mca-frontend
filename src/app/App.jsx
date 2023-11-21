@@ -9,14 +9,13 @@ import Loading from '@/components/common/Loading'
 import Alert from '@/components/common/Alert'
 import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertContext'
 import activeUserAndLoginStatus from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext'
-
 import useWindowSize from '@/components/WindoSizeHook'
 
 const App = ({ children }) => {
 
-    const {fetchAllBatch, fetchBatchLists } = useContext(batchContext);
-    const {loading, alert} = useContext(loadingAndAlertContext);
-    const {fetchActiveUser } = useContext(activeUserAndLoginStatus);
+    const { fetchAllBatch, fetchBatchLists } = useContext(batchContext);
+    const { loading, alert } = useContext(loadingAndAlertContext);
+    const { fetchActiveUser } = useContext(activeUserAndLoginStatus);
 
     const { width, height } = useWindowSize();
 
@@ -31,7 +30,7 @@ const App = ({ children }) => {
         <>
             <Provider store={store} >
                 <NavBar />
-                {loading && <Loading /> }
+                {loading && <Loading />}
                 {alert.alert && <Alert />}
                 {children}
                 <Footer />

@@ -10,16 +10,16 @@ const NavLinkItems = (props) => {
     <>
       <ul>
         <li onClick={props.toggleNav}>
-          <Link href="/">Home</Link>
+          <Link shallow={true} href="/">Home</Link>
         </li>
         <li onClick={props.toggleNav}>
-          <Link href="/profile">Profile</Link>
+          <Link shallow={true} href="/profile">Profile</Link>
         </li>
         <li onClick={props.toggleNav}>
-          <Link href="/batch">Batch</Link>
+          <Link shallow={true} href="/batch">Batch</Link>
         </li>
         <li onClick={props.toggleNav}>
-          <Link href="/notes">Notes</Link>
+          <Link shallow={true} href="/notes">Notes</Link>
         </li>
         {/* <li onClick={props.toggleNav}>
           <Link
@@ -29,17 +29,19 @@ const NavLinkItems = (props) => {
         </li> */}
         
         <li onClick={props.toggleNav}>
-          <Link 
+          <Link shallow={true}
           href="/galleries">Galleries</Link>
         </li>
         <li onClick={props.toggleNav}>
-          <Link 
+          <Link  
+          shallow={true}
           className="disabled_link_text"
           onClick={disableLink}
           href="/about">About</Link>
         </li>
         <li onClick={props.toggleNav}>
           <Link 
+          shallow={true}
           className="disabled_link_text"
           onClick={disableLink}
           href="/contacts">Contacts</Link>

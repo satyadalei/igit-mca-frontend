@@ -1,7 +1,5 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
-
-
 const inter = Inter({ subsets: ['latin'] })
 import "./globals.css"
 // -------- context apis --------
@@ -11,6 +9,8 @@ import LoadingAndAlertStates from '@/context/loadingAndAlert/loadingAndAlertStat
 import ActiveUserAndLoginStatusStates from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusStates'
 import BatchStates from "../context/batch/batchStates"
 import App from './App'
+
+
 
 export const metadata = {
   title: 'igit mca website 2023',

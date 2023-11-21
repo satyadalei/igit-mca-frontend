@@ -53,7 +53,7 @@ const SemesterContent = (props) => {
             </div>
 
             {/* --- Button links */}
-            <div>
+            <div className="flex  flex-wrap" >
               <GeneralButton
                 disabled={subject.links.notes === "" ? true : false}
                 className={styles.subject_btn}
