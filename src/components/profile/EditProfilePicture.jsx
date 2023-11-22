@@ -63,7 +63,6 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
         createAlert("success", response.message.split("#")[0]);
         return
       }
-      console.log("There is some error : ", error);
       createAlert("error", "Some error updating profile");
     } catch (error) {
       closeModal();
