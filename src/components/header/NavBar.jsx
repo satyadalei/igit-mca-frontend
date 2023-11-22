@@ -40,7 +40,6 @@ const NavBar = () => {
   };
 
   const redirectProfilePage = () => {
-    router.push("/profile");
     toggleNavBar();
   };
   const disableLink = (event) => {
@@ -74,7 +73,7 @@ const NavBar = () => {
             </li>
             <li>
               <Link
-                 shallow={true}
+                shallow={true}
                 className="disabled_link_text"
                 onClick={disableLink}
                 href="/about"
@@ -100,23 +99,25 @@ const NavBar = () => {
             {loginStatus === null ? (
               <UserProfileSkeleton />
             ) : loginStatus ? (
-              <div
-                onClick={redirectProfilePage}
-                className={styles.avatar_name_for_desktop}
-              >
+              <Link href={"/profile"} >
                 <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "end",
-                    marginRight: "0.5rem",
-                  }}
+                  onClick={redirectProfilePage}
+                  className={styles.avatar_name_for_desktop}
                 >
-                  <UserName name={name} />
-                  <VerificationStatus status={status} />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "end",
+                      marginRight: "0.5rem",
+                    }}
+                  >
+                    <UserName name={name} />
+                    <VerificationStatus status={status} />
+                  </div>
+                  <UserAvatar userName={name} profileUrl={url} />
                 </div>
-                <UserAvatar userName={name} profileUrl={url} />
-              </div>
+              </Link>
             ) : (
               <div>
                 <Link shallow={true} className={styles.login_link} href="/login">
@@ -128,7 +129,7 @@ const NavBar = () => {
               </div>
             )}
 
-            
+
           </div>
           {/* Login & registartion Details ends */}
 
@@ -145,9 +146,10 @@ const NavBar = () => {
             />
             {/* when a link is clicked then closes responsive navbar */}
             {loginStatus === null ? (
-             <UserProfileSkeleton mobileMode={true} />
+              <UserProfileSkeleton mobileMode={true} />
             ) : loginStatus ? (
-              <div
+              <Link href="/profile" >
+                <div
                   onClick={redirectProfilePage}
                   className={styles.avatar_name_for_responsive_nav}
                 >
@@ -157,6 +159,7 @@ const NavBar = () => {
                     <VerificationStatus status={status} />
                   </div>
                 </div>
+              </Link>
             ) : (
               <div>
                 <Link

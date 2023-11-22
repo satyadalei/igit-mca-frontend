@@ -5,7 +5,7 @@
     backdrop-filter: blur(0.7rem);
     /* backdrop-filter: blur(0.6rem); */
     width: 100%;
-    max-width: 1400px;
+    /* max-width: 1400px; */
     height: 10vh;
     max-height: 60px;
     display: flex;

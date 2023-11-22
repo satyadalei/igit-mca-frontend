@@ -9,13 +9,12 @@ const NoticeSection = () => {
            <h1 className={styles.notice_heading} >
               Notices
            </h1>
-           <div className={styles.allNotices_box} >
-              <NoticeCard notice_name={"Course Fee"} />
-              <NoticeCard notice_name={"Syllabus"} />
-              <NoticeCard notice_name={"Wifis"} />
-              <NoticeCard notice_name={"42 Batch students List"} />
-              <NoticeCard notice_name={"Academic Callender"} />
-              <NoticeCard notice_name={"Semester registration form"} />
+           <div className="flex flex-wrap justify-between" >
+              {/* <NoticeCard noticeLink={""} notice_name={"Course Fee"} /> */}
+              <NoticeCard noticeLink={"https://drive.google.com/file/d/1pify8jp4V9syDMuY-cVh0jnf7cDClDT3/view?usp=sharing"} notice_name={"Syllabus"} />
+              <NoticeCard noticeLink={"https://drive.google.com/file/d/17FsH5umQsmLr9uMEy3gxWGM0-BAeBHyT/view?usp=sharing"} notice_name={"Wifis"} />
+              <NoticeCard noticeLink={"https://drive.google.com/file/d/1YQ831xsPOr0WJbdA8yLCHEm0YRmAvNCU/view?usp=sharing"} notice_name={"Academic Callender 2023-24 "} />
+              <NoticeCard noticeLink={"https://drive.google.com/file/d/1D4TylWHHNh47xSz9D5erau2XT2ykRbHp/view?usp=sharing"} notice_name={"Semester registration form"} />
            </div>
         </div>
     </>
