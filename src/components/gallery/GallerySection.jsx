@@ -13,6 +13,9 @@ import BatchSkeleton from "@/app/batch/BatchSkeleton";
 import PostLargerView from "./PostLargerView";
 import activeUserAndLoginStatus from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import moment from "moment-timezone";
+import CloudIcon from '@mui/icons-material/Cloud';
+
+
 
 export default function Gallery() {
 
@@ -117,8 +120,9 @@ export default function Gallery() {
                     className="inline-block !h-full"
                   />
                   <ImageListItemBar
-                    title={title}
-                    subtitle={<p>Uploaded at : {moment(createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>}
+                    title={<p className="text-sm" >{title}</p>}
+                    // subtitle={<p>Uploaded at : {moment(createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>}
+                    subtitle={<p><CloudIcon className="text-sm" />  {moment(createdAt).format('LLLL')}</p>}
                     actionIcon={
                       <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}

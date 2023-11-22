@@ -8,12 +8,15 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import GeneralButton from "../common/GeneralButton";
 import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertContext";
 import activeUserAndLoginStatus from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
+import CloudIcon from '@mui/icons-material/Cloud';
+
 import { app } from "../../../firebase/firebase";
 import {
   getStorage,
   ref,
   deleteObject,
 } from "firebase/storage";
+import moment from "moment-timezone";
 
 const PostLargerView = ({ currentImageIndex, allPosts, closeImagePreview, setImages }) => {
   // --- API URL ---
@@ -33,6 +36,7 @@ const PostLargerView = ({ currentImageIndex, allPosts, closeImagePreview, setIma
   const [activeImageIndex, setActiveImageIndex] = useState(currentImageIndex);
   const { docGivenName, url, title, description } =
     allPosts[activeImageIndex].postDetails;
+  const {createdAt} = allPosts[activeImageIndex];
   const { activeUser } = useContext(activeUserAndLoginStatus);
 
   const handlePrevNext = (indexValue) => {
@@ -127,11 +131,14 @@ const PostLargerView = ({ currentImageIndex, allPosts, closeImagePreview, setIma
             "Loading"
           )}
           <h3 className="text-md font-semibold mt-2 mb-1">{title}</h3>
-          <p className="text-gray-300 mb-3">
-            {description === ""
-              ? "There is no description to the post. "
-              : description}
+          <p className="text-gray-300 mb-3" >
+            <CloudIcon /> {moment(createdAt).format("LLLL")}
           </p>
+          <div className="mb-2" >
+            {description === ""
+              ? <p className="text-gray-300 mb-3" >There is no description to the post. </p>
+              : description}
+          </div>
           {activeUser.isSpecialUser === "admin" && (
             <GeneralButton
               buttonText="Delete Post"
