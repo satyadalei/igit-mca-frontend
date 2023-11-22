@@ -41,11 +41,6 @@ const MainCoordinators = () => {
     }
   };
 
-  // Coordinators will be shown once all batch lists loads
-  useEffect(() => {
-    fetchBatchLists();
-  }, []);
-
   useEffect(() => {
     if (batchLists != null) {
       fetchCoordinators();
