@@ -9,7 +9,7 @@ import LoadingAndAlertStates from '@/context/loadingAndAlert/loadingAndAlertStat
 import ActiveUserAndLoginStatusStates from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusStates'
 import BatchStates from "../context/batch/batchStates"
 import App from './App'
-
+import NextTopLoader from 'nextjs-toploader';
 
 
 export const metadata = {
@@ -28,6 +28,7 @@ export default function RootLayout({ children }) {
             <BatchStates>
               <ActiveUserAndLoginStatusStates>
                 <RegistrationStates>
+                  <NextTopLoader showSpinner={false} />
                   <App>
                     {children}
                   </App>
