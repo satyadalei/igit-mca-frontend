@@ -16,17 +16,17 @@ const MainCoordinators = () => {
 
   // call api to fetch coordinators of the 2nd year students
   const fetchCoordinators = async () => {
-    let batchId;
+    let batchId2ndYr;
     if (batchLists.length === 0) {
       setBatchCoordiNators([]); //there will be no coordinators
       return;
     }
     if (batchLists.length === 1) {
-      batchId = batchLists[0]._id;
+      batchId2ndYr = batchLists[0]._id;
     } else {
-      batchId = batchLists[batchLists.length - 2]._id;
+      batchId2ndYr = batchLists[batchLists.length - 2]._id;
     }
-    const url = `${baseUrl}/api/coordinators/${batchId}`;
+    const url = `${baseUrl}/api/coordinators/${batchId2ndYr}`;
     try {
       const coordinators = await fetch(url, {
         method: "GET",
@@ -56,7 +56,7 @@ const MainCoordinators = () => {
     <>
       <hr className="divider" />
       <div className={styles.container_section}>
-        <h1 className={styles.main_heading}>Our Coordinators</h1>
+        <h1 className={styles.main_heading}>Class Representatives</h1>
         <div className={styles.coordinators_box}>
           {/* <Coordinator name={"Sandeep Kumar Das"} tag={"Class Representative"} />
 
@@ -66,15 +66,11 @@ const MainCoordinators = () => {
               return coordiNator.tag === "CR/BR" ? (
                 <Coordinator
                   key={index}
-                  name={
-                    `${coordiNator.userDetails.fName || ""}` +
-                    " " +
-                    `${coordiNator.userDetails.mName || ""}` +
-                    " " +
-                    `${coordiNator.userDetails.lName || ""}`
-                  }
-                  tag={coordiNator.tag}
+                  name={coordiNator.userDetails.name}
+                  batch={coordiNator.batchNum}
                   profile={coordiNator.profilePic.url}
+                  email={coordiNator.email}
+                  links={coordiNator.userDetails.socialLinks}
                 />
               ) : null;
             })
@@ -89,9 +85,9 @@ const MainCoordinators = () => {
             </>
           )}
         </div>
-        <div className={styles.meet_btn_box}>
+        {/* <div className={styles.meet_btn_box}>
           <GeneralButton className={"p-3 pl-4 pr-4 text-lg"} buttonText={"Meet Other coordinators"} />
-        </div>
+        </div> */}
       </div>
     </>
   );
