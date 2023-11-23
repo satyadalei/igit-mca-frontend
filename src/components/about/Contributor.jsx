@@ -50,7 +50,7 @@ const Contributor = ({ contributorId, className }) => {
         <>
           <UserAvatar
             profileUrl={contributor.profilePic.url}
-            className="w-24 h-24"
+            className="!w-24 !h-24"
           />
           <p>{name}</p>
           <div>
