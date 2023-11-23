@@ -89,17 +89,6 @@ const StudentCard = (props) => {
             >
               <GitHubIcon className={styles.social_icon} />
             </Link>
-
-            <Link 
-            href={`mailto:${email}`} 
-            style={{
-                color: "black" 
-                // color: "#088dec" 
-                }
-              }
-            >
-              <EmailIcon />
-            </Link>
           </div>
         </CardContent>
       ) : (

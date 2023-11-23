@@ -2,10 +2,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./coordinator.module.css";
 import Coordinator from "./Coordinator";
-import { Button } from "@mui/material";
 import batchContext from "@/context/batch/batchContext";
 import SkeletonCoordinators from "./SkeletonCoordinators";
-import GeneralButton from "@/components/common/GeneralButton";
 
 const MainCoordinators = () => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -53,9 +51,7 @@ const MainCoordinators = () => {
       <div className={styles.container_section}>
         <h1 className={styles.main_heading}>Class Representatives</h1>
         <div className={styles.coordinators_box}>
-          {/* <Coordinator name={"Sandeep Kumar Das"} tag={"Class Representative"} />
 
-          <Coordinator name={"Bandana Priyadarshani Jena"} tag={"Class Representative"} /> */}
           {batchCoordiNators != null ? (
             batchCoordiNators.map((coordiNator, index) => {
               return coordiNator.tag === "CR/BR" ? (
@@ -71,7 +67,6 @@ const MainCoordinators = () => {
             })
           ) : (
             <>
-              {/* creates 50 element array */}
               {Array.from({ length: 2 }, (_, index) => (
                 <div key={index}>
                   <SkeletonCoordinators />
@@ -80,9 +75,6 @@ const MainCoordinators = () => {
             </>
           )}
         </div>
-        {/* <div className={styles.meet_btn_box}>
-          <GeneralButton className={"p-3 pl-4 pr-4 text-lg"} buttonText={"Meet Other coordinators"} />
-        </div> */}
       </div>
     </>
   );

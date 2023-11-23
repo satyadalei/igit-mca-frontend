@@ -69,19 +69,14 @@ const NavBar = () => {
               <Link shallow={true} href="/notes">Notes</Link>
             </li>
             <li>
-              <Link shallow={true} href="/galleries">Galleries</Link>
+              <Link shallow={true} href="/gallery">Gallery</Link>
             </li>
             <li>
-              <Link
-                shallow={true}
-                className="disabled_link_text"
-                onClick={disableLink}
-                href="/about"
-              >
-                About
-              </Link>
+              <Link shallow={true} href="/about">About</Link>
             </li>
-            <li>
+
+            {/* --- Not required ---- */}
+            {/* <li>
               <Link
                 shallow={true}
                 className="disabled_link_text"
@@ -90,7 +85,8 @@ const NavBar = () => {
               >
                 Contacts
               </Link>
-            </li>
+            </li> */}
+
           </ul>
 
           {/* Login & registration Details starts*/}
