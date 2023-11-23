@@ -3,11 +3,9 @@ import { Avatar } from '@mui/material'
 import React from 'react'
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import styles from "./coordinator.module.css"
-import EmailIcon from '@mui/icons-material/Email';
 import Link from "next/link";
 
 const Coordinator = (props) => {
-    const email = props.email
     const { linkedInLink } = props.links;
     console.log(linkedInLink);
     return (
@@ -21,9 +19,6 @@ const Coordinator = (props) => {
                 <p>
                    <Link href={linkedInLink} className='cursor-pointer text-blue-500 mr-1' target='_blank'  >
                      <LinkedInIcon />
-                   </Link>
-                   <Link className='text-gray-500' href={`mailto:${email}`}>
-                     <EmailIcon />
                    </Link>
                 </p>
             </div>

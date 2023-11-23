@@ -1,12 +1,10 @@
 import React from 'react'
-import styles from "./navbar.module.css"
 import { Avatar } from '@mui/material'
 
 const UserAvatar = (props) => {
+  const {className} = props;
   return (
-    <>
-      <Avatar className={styles.avatar} alt={props.userName} src={props.profileUrl} />
-    </>
+      <Avatar className={`mr-0.5 ${className}`} alt={props.userName} src={props.profileUrl} />
   )
 }
 
