@@ -35,8 +35,8 @@ const Notes = () => {
             {/* --- All semesters will be populated ----- */}
             {allSemesters.map((semester, index) => {
               return (
-                <Link className={styles.semNumBox} href={`/notes/semester${semester}`}  >
-                  <div key={index} >
+                <Link key={index} className={styles.semNumBox} href={`/notes/semester${semester}`}  >
+                  <div >
                     <h1>semester {semester}</h1>
                   </div>
                 </Link>

@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import UserAvatar from "./UserAvatar";
 import VerificationStatus from "./VerificationStatus";
 import UserName from "./UserName";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import UserProfileSkeleton from "./UserProfileSkeleton";
 
 
@@ -20,6 +20,9 @@ import UserProfileSkeleton from "./UserProfileSkeleton";
 
 const NavBar = () => {
   const router = useRouter();
+  const currentUrlPath = usePathname();
+
+
   // ----- Context -----
   const { activeUser, loginStatus, fetchActiveUser } = useContext(
     ActiveUserAndLoginStatusContext
@@ -29,6 +32,7 @@ const NavBar = () => {
   const { name } = activeUser != null && activeUser.userDetails;
   const { status } = activeUser != null && activeUser;
   const { url } = activeUser != null && activeUser.profilePic;
+  const {isSpecialUser} = activeUser != null && activeUser;
 
   useEffect(() => {
     fetchActiveUser();
@@ -41,9 +45,6 @@ const NavBar = () => {
 
   const redirectProfilePage = () => {
     toggleNavBar();
-  };
-  const disableLink = (event) => {
-    event.preventDefault();
   };
 
   return (
@@ -60,32 +61,38 @@ const NavBar = () => {
           {/* Nav Menus */}
           <ul className={`${styles.nav_item}`}>
             <li>
-              <Link shallow={true} href={"/"}>Home</Link>
+              <Link  
+              className={`${currentUrlPath === "/" && 'text-sky-500'}`} 
+              shallow={true} href={"/"}>Home</Link>
             </li>
             <li>
-              <Link shallow={true} href="/batch">Batch</Link>
+              <Link 
+              className={`${currentUrlPath === "/batch" && 'text-sky-500'}`}
+              shallow={true} href="/batch">Batch</Link>
             </li>
             <li>
-              <Link shallow={true} href="/notes">Notes</Link>
+              <Link 
+              className={`${currentUrlPath === "/notes" && 'text-sky-500'}`}
+              shallow={true} href="/notes">Notes</Link>
             </li>
             <li>
-              <Link shallow={true} href="/gallery">Gallery</Link>
+              <Link 
+              className={`${currentUrlPath === "/gallery" && 'text-sky-500'}`}
+              shallow={true} href="/gallery">Gallery</Link>
             </li>
             <li>
-              <Link shallow={true} href="/about">About</Link>
+              <Link 
+              className={`${currentUrlPath === "/about" && 'text-sky-500'}`}
+              shallow={true} href="/about">About</Link>
             </li>
 
-            {/* --- Not required ---- */}
-            {/* <li>
-              <Link
-                shallow={true}
-                className="disabled_link_text"
-                onClick={disableLink}
-                href="/contacts"
-              >
-                Contacts
+            {loginStatus != null && loginStatus && (isSpecialUser === "admin" || isSpecialUser === "batchAdmin" || isSpecialUser === "superAdmin") && (
+              <Link 
+              className={`${currentUrlPath === "/admin/users" && 'text-sky-500'}`}
+              href={"/admin/users"} >
+               ManageUsers
               </Link>
-            </li> */}
+            ) }            
 
           </ul>
 
