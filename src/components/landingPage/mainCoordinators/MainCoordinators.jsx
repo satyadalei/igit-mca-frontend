@@ -4,12 +4,27 @@ import styles from "./coordinator.module.css";
 import Coordinator from "./Coordinator";
 import batchContext from "@/context/batch/batchContext";
 import SkeletonCoordinators from "./SkeletonCoordinators";
+import { motion } from "framer-motion";
+
+// Define the variants for the title animation
+const titleVariants = {
+  hide: {
+    y: 100,
+    opacity: 0,
+  },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+    },
+  },
+};
 
 const MainCoordinators = () => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-  const {fetchBatchLists, batchLists } =
-    useContext(batchContext);
+  const { fetchBatchLists, batchLists } = useContext(batchContext);
   const [batchCoordiNators, setBatchCoordiNators] = useState();
 
   // call api to fetch coordinators of the 2nd year students
@@ -51,18 +66,25 @@ const MainCoordinators = () => {
       <div className={styles.container_section}>
         <h1 className={styles.main_heading}>Class Representatives</h1>
         <div className={styles.coordinators_box}>
-
           {batchCoordiNators != null ? (
             batchCoordiNators.map((coordiNator, index) => {
               return coordiNator.tag === "CR/BR" ? (
-                <Coordinator
+                <motion.div
+                  className="title"
+                  variants={titleVariants}
+                  initial="hide"
+                  whileInView="show"
+                  whileOut="hide"
                   key={index}
-                  name={coordiNator.userDetails.name}
-                  batch={coordiNator.batchNum}
-                  profile={coordiNator.profilePic.url}
-                  email={coordiNator.email}
-                  links={coordiNator.userDetails.socialLinks}
-                />
+                >
+                  <Coordinator
+                    name={coordiNator.userDetails.name}
+                    batch={coordiNator.batchNum}
+                    profile={coordiNator.profilePic.url}
+                    email={coordiNator.email}
+                    links={coordiNator.userDetails.socialLinks}
+                  />
+                </motion.div>
               ) : null;
             })
           ) : (
