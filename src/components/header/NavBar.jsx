@@ -99,7 +99,7 @@ const NavBar = () => {
           {/* Login & registration Details starts*/}
           <div className={styles.login_credentials}>
             {/* show based on log in status*/}
-            {loginStatus === null ? (
+            {activeUser === null ? (
               <UserProfileSkeleton />
             ) : loginStatus ? (
               <Link href={"/profile"} >
