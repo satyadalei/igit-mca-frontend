@@ -15,13 +15,9 @@ import UserName from "./UserName";
 import { useRouter, usePathname } from "next/navigation";
 import UserProfileSkeleton from "./UserProfileSkeleton";
 
-
-
-
 const NavBar = () => {
   const router = useRouter();
   const currentUrlPath = usePathname();
-
 
   // ----- Context -----
   const { activeUser, loginStatus, fetchActiveUser } = useContext(
@@ -32,7 +28,7 @@ const NavBar = () => {
   const { name } = activeUser != null && activeUser.userDetails;
   const { status } = activeUser != null && activeUser;
   const { url } = activeUser != null && activeUser.profilePic;
-  const {isSpecialUser} = activeUser != null && activeUser;
+  const { isSpecialUser } = activeUser != null && activeUser;
 
   useEffect(() => {
     fetchActiveUser();
@@ -61,48 +57,79 @@ const NavBar = () => {
           {/* Nav Menus */}
           <ul className={`${styles.nav_item}`}>
             <li>
-              <Link  
-              className={`${currentUrlPath === "/" && 'text-sky-500'}`} 
-              shallow={true} href={"/"}>Home</Link>
-            </li>
-            <li>
-              <Link 
-              className={`${currentUrlPath === "/batch" && 'text-sky-500'}`}
-              shallow={true} href="/batch">Batch</Link>
-            </li>
-            <li>
-              <Link 
-              className={`${currentUrlPath === "/notes" && 'text-sky-500'}`}
-              shallow={true} href="/notes">Notes</Link>
-            </li>
-            <li>
-              <Link 
-              className={`${currentUrlPath === "/gallery" && 'text-sky-500'}`}
-              shallow={true} href="/gallery">Gallery</Link>
-            </li>
-            <li>
-              <Link 
-              className={`${currentUrlPath === "/about" && 'text-sky-500'}`}
-              shallow={true} href="/about">About</Link>
-            </li>
-
-            {loginStatus != null && loginStatus && (isSpecialUser === "admin" || isSpecialUser === "batchAdmin" || isSpecialUser === "superAdmin") && (
-              <Link 
-              className={`${currentUrlPath === "/admin/users" && 'text-sky-500'}`}
-              href={"/admin/users"} >
-               ManageUsers
+              <Link
+                className={`${currentUrlPath === "/" && "text-sky-500"}`}
+                // className={`${currentUrlPath.startsWith("/") === "/" && 'text-sky-500'}`}
+                shallow={true}
+                href={"/"}
+              >
+                Home
               </Link>
-            ) }            
+            </li>
+            <li>
+              <Link
+                className={`${currentUrlPath === "/batch" && "text-sky-500"}`}
+                shallow={true}
+                href="/batch"
+              >
+                Batch
+              </Link>
+            </li>
+            <li>
+              <Link
+                // className={`${currentUrlPath === "/notes" && 'text-sky-500'}`}
+                className={`${
+                  currentUrlPath.startsWith("/notes") && "text-sky-500"
+                }`}
+                shallow={true}
+                href="/notes"
+              >
+                Notes
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={`${currentUrlPath === "/gallery" && "text-sky-500"}`}
+                shallow={true}
+                href="/gallery"
+              >
+                Gallery
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={`${currentUrlPath === "/about" && "text-sky-500"}`}
+                shallow={true}
+                href="/about"
+              >
+                About
+              </Link>
+            </li>
 
+            {loginStatus != null &&
+              loginStatus &&
+              (isSpecialUser === "admin" ||
+                isSpecialUser === "batchAdmin" ||
+                isSpecialUser === "superAdmin") && (
+                <Link
+                  className={`${
+                    currentUrlPath === "/admin/users" && "text-sky-500"
+                  }`}
+                  href={"/admin/users"}
+                >
+                  ManageUsers
+                </Link>
+              )}
           </ul>
 
           {/* Login & registration Details starts*/}
           <div className={styles.login_credentials}>
             {/* show based on log in status*/}
-            {activeUser === null ? (
+            {loginStatus === null ? (
               <UserProfileSkeleton />
             ) : loginStatus ? (
-              <Link href={"/profile"} >
+               (activeUser === null ) ? <UserProfileSkeleton /> :
+               <Link href={"/profile"}>
                 <div
                   onClick={redirectProfilePage}
                   className={styles.avatar_name_for_desktop}
@@ -123,16 +150,22 @@ const NavBar = () => {
               </Link>
             ) : (
               <div>
-                <Link shallow={true} className={styles.login_link} href="/login">
+                <Link
+                  shallow={true}
+                  className={styles.login_link}
+                  href="/login"
+                >
                   Login
                 </Link>
-                <Link shallow={true} className={styles.registration_link} href="/registration">
+                <Link
+                  shallow={true}
+                  className={styles.registration_link}
+                  href="/registration"
+                >
                   Registration
                 </Link>
               </div>
             )}
-
-
           </div>
           {/* Login & registartion Details ends */}
 
@@ -148,21 +181,25 @@ const NavBar = () => {
               className={styles.cross_hamburger_menu}
             />
             {/* when a link is clicked then closes responsive navbar */}
-            {activeUser === null ? (
+            {loginStatus === null ? (
               <UserProfileSkeleton mobileMode={true} />
             ) : loginStatus ? (
-              <Link href="/profile" >
-                <div
-                  onClick={redirectProfilePage}
-                  className={styles.avatar_name_for_responsive_nav}
-                >
-                  <UserAvatar name={name} profileUrl={url} />
-                  <div>
-                    <UserName name={name} />
-                    <VerificationStatus status={status} />
+              (activeUser === null) ? (
+                <UserProfileSkeleton mobileMode={true} />
+              ) : (
+                <Link href="/profile">
+                  <div
+                    onClick={redirectProfilePage}
+                    className={styles.avatar_name_for_responsive_nav}
+                  >
+                    <UserAvatar name={name} profileUrl={url} />
+                    <div>
+                      <UserName name={name} />
+                      <VerificationStatus status={status} />
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              )
             ) : (
               <div>
                 <Link

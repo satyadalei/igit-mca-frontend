@@ -1,9 +1,12 @@
-/* eslint-disable react/no-unescaped-entities */
-
+"use client"
 import React from 'react'
 import styles from "./hero.module.css"
 import Link from 'next/link'
-import CarouselComponent from "./Carousel"
+import TypeWriter from '../TypeWriter'
+import welComeImage from "../../../public/images/welcome_icons.png"
+import Image from "next/image"
+import CarouselComponent from './Carousel'
+
 
 const HeroSectionMain = () => {
   return (
@@ -12,13 +15,14 @@ const HeroSectionMain = () => {
           <div className={styles.container_box} >
           {/* left_section */}
              <div className={`${styles.left_section} ${styles.hero_main_items}`} >
-                  <h1 className={styles.hero_heading} >
+                  <h1 className={`${styles.hero_heading} font-bold`} >
                       Welcome to IGIT <br />
-                      MCA student <br />
+                      <span className='text-sky-500' >MCA</span> student <br />
                       website.
                    </h1>
+                  <TypeWriter />
                    <p className={styles.hero_text} >
-                   This page is developed by MCA 41th in view of helping the juniors.This page will help to connect their seniors and juniors.It includes. all the semester notes, questions and assignments. It lets you to contact your senior throught their instagram and linkedin profile.
+                   This website is developed to keep all MCA students at one place. It includes all the semester notes, questions and assignments. This website will help to connect their seniors, juniors & classmates.
                    </p>
 
                    <div>
@@ -31,7 +35,8 @@ const HeroSectionMain = () => {
              
              {/* right_section start*/}
              <div className={`${styles.right_section} ${styles.hero_main_items}`} >
-                       <CarouselComponent/>
+                  {/* <CarouselComponent/> */}
+                  <Image className="!w-[100%] !h-fit" alt='Welcome image' src={welComeImage}  />
              </div>
              {/* right_section ends*/}
           </div>
