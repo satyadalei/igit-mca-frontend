@@ -1,43 +1,47 @@
 import Link from "next/link";
 import React from "react";
+import { useRouter, usePathname } from "next/navigation";
 
-const NavLinkItems = (props) => {
-  const disableLink = (event) => {
-    event.preventDefault();
-  };
+
+const NavLinkItems = ({toggleNav, navItemType}) => {
+  const currentUrlPath = usePathname();
+  // navItemType -> vertical or horizontal
 
   return (
       <ul>
-        <li onClick={props.toggleNav}>
-          <Link shallow={true} href="/">Home</Link>
+        <li onClick={toggleNav}>
+          <Link 
+          className={`${currentUrlPath === "/" && 'text-sky-500'}`} 
+          shallow={true} href="/">Home</Link>
         </li>
-        <li onClick={props.toggleNav}>
-          <Link shallow={true} href="/profile">Profile</Link>
+        <li onClick={toggleNav}>
+          <Link 
+          className={`${currentUrlPath === "/profile" && 'text-sky-500'}`} 
+          shallow={true} href="/profile">Profile</Link>
         </li>
-        <li onClick={props.toggleNav}>
-          <Link shallow={true} href="/batch">Batch</Link>
+        <li onClick={toggleNav}>
+          <Link 
+          className={`${currentUrlPath === "/batch" && 'text-sky-500'}`} 
+          shallow={true} href="/batch">Batch</Link>
         </li>
-        <li onClick={props.toggleNav}>
-          <Link shallow={true} href="/notes">Notes</Link>
+        <li onClick={toggleNav}>
+          <Link 
+          className={`${currentUrlPath === "/notes" && 'text-sky-500'}`} 
+          shallow={true} href="/notes">Notes</Link>
         </li>
         
-        <li onClick={props.toggleNav}>
-          <Link shallow={true}
+        <li onClick={toggleNav}>
+          <Link 
+          className={`${currentUrlPath === "/gallery" && 'text-sky-500'}`} 
+          shallow={true}
           href="/gallery">Gallery</Link>
         </li>
-        <li onClick={props.toggleNav}>
+        <li onClick={toggleNav}>
           <Link  
+          className={`${currentUrlPath === "/about" && 'text-sky-500'}`} 
           shallow={true}
           href="/about">About</Link>
         </li>
-        {/* Not required */}
-        {/* <li onClick={props.toggleNav}>
-          <Link 
-          shallow={true}
-          className="disabled_link_text"
-          onClick={disableLink}
-          href="/contacts">Contacts</Link>
-        </li> */}
       </ul>
   );
 };

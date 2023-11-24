@@ -48,6 +48,13 @@ const Footer = () => {
                   <Link href={"/about"}>About </Link>
                 </li>
                 <li>
+                  <Link
+                    href={"https://firebasestorage.googleapis.com/v0/b/mca-community.appspot.com/o/documents%2Fhowto%2Fdocument.pdf?alt=media&token=9bdc2dc2-04c1-4273-8fb9-0479b077b490"}
+                  >
+                    Docs
+                  </Link>
+                </li>
+                <li>
                   <p
                   // after this link is done remove p & add Link
                     href={"/blogs"}
@@ -57,16 +64,7 @@ const Footer = () => {
                     Blogs
                   </p>
                 </li>
-                <li>
-                  <p 
-                    // after this link is done remove p & add Link
-                    className={styles.disabled_link_text}
-                    href={"/docs"}
-                    onClick={disableLink}
-                  >
-                    Docs
-                  </p>
-                </li>
+
               </ul>
             </div>
           </div>
