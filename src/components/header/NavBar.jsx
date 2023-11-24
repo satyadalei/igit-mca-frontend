@@ -148,7 +148,7 @@ const NavBar = () => {
               className={styles.cross_hamburger_menu}
             />
             {/* when a link is clicked then closes responsive navbar */}
-            {loginStatus === null ? (
+            {activeUser === null ? (
               <UserProfileSkeleton mobileMode={true} />
             ) : loginStatus ? (
               <Link href="/profile" >
