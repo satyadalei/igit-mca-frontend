@@ -95,7 +95,7 @@ const Page = ({ params }) => {
                 {students != null ?
                   students.map((student, index) => {
                     return (
-                      <StudentCard student={student} cardType="student" key={index} />
+                      <StudentCard  student={student} cardType="student" key={index} />
                     )
                   })
                   :

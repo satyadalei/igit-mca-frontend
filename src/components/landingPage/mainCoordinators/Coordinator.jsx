@@ -7,7 +7,6 @@ import Link from "next/link";
 
 const Coordinator = (props) => {
     const { linkedInLink } = props.links;
-    console.log(linkedInLink);
     return (
             <div className={styles.coordinator_item}  >
                 <Avatar className={styles.avatar} sx={{ width: 100, height: 100 }} src={props.profile} />

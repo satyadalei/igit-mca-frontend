@@ -12,6 +12,8 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "next/link";
 import EmailIcon from '@mui/icons-material/Email';
+import VerificationStatus from "@/components/header/VerificationStatus";
+
 
 const StudentCard = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -21,13 +23,17 @@ const StudentCard = (props) => {
   const disableLink = (e) => {
     e.preventDefault();
   };
-  const {email} = props.student != undefined && props.student;
+  const {email, status} = props.student != undefined && props.student;
   const {name, homeDist} = props.student != undefined && props.student.userDetails;
   const {linkedInLink, githubLink} = props.student != undefined && props.student.userDetails.socialLinks;
+
   return (
     <Card className={styles.card_item}>
       {props.cardType === "student" ? (
         <CardContent className={styles.card_item_content}>
+          <span className="absolute top-0 left-2" >
+            <VerificationStatus status={status} />
+          </span>
           <Avatar
             style={{
               width: "150px",

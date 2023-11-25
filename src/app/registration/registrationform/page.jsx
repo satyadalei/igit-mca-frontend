@@ -278,7 +278,7 @@ const RegistrationForm = () => {
                   label="I agree!"
                 />
                 <Typography>
-                 I am aware that I am registering to th IGIT-MCA community website which is completely managed by only MCA students. It is not linked to IGIT College or CSE department officially.
+                 I am aware that I am registering to the IGIT-MCA community website which is completely managed by only MCA students. It is not linked to IGIT College or CSEA department officially.
                 </Typography>
                 <br />
                 <Button
