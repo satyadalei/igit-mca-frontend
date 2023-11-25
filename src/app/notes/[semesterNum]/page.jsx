@@ -37,7 +37,7 @@ const Page = ({ params }) => {
   // redirects user if user is not log in
    // redirects user if user is not log in
   useEffect(() => {
-    // fetchActiveUser(); // use to every page to check user login status
+    fetchActiveUser(); // use to every page to check user login status
     if (loginStatus === false) {
       router.push("/login", undefined, {shallow: true});
       return;

@@ -48,7 +48,6 @@ const RegistrationStates = (props) => {
 
     // ----- SIGN IN VIA GOOGLE ------
     const googleSignIn = () => {
-        console.log("Signin via logedin clicked ");
         const provider = new GoogleAuthProvider();
         try {
             signInWithPopup(auth, provider)

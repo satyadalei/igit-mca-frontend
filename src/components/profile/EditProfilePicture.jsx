@@ -19,6 +19,24 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
   const batch = batchNum;
   const baseApi = process.env.NEXT_PUBLIC_BASE_URL;
 
+  // this alert is for Modal
+  const [customAlert, setCustomAlert] = useState({
+    alert:false,
+    msg:""
+  })
+  const createModalAlert = (msg)=>{
+    setCustomAlert({
+        alert:true,
+        msg
+    })
+  }
+  useEffect(() => {
+    if (customAlert.alert) {
+        setTimeout(()=>{
+            setCustomAlert({alert:false,msg:""});
+        }, 3000)
+    }
+  }, [customAlert.alert, profileUrl])
   // ------ context API -----
   const { startLoading, createAlert, stopLoading } = useContext(loadingAndAlertContext);
   const { fetchActiveUser } = useContext(activeUserAndLoginStatus);
@@ -35,7 +53,12 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
     if (e.target.files[0] != undefined) {
       const selectedFile = e.target.files[0];
       const fileSize = selectedFile.size; // Size in bytes
-      const maxSize = 500 * 1024; // 500KB
+      // const maxSize = 500 * 1024; // 500KB
+      const maxSize = 500 * 1024 * 2 * 1; // 500 * 1024 * 2 = 1MB
+      if (fileSize > maxSize) {
+        createModalAlert(`File size is larger than ${maxSize/(500 * 1024 * 2)} MB`);
+        return;
+      }
       setProfileUrl(e.target.files[0]);
     }
   };
@@ -142,7 +165,7 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
       )}
 
       <div className="h-8 mt-5">
-        {/*  */}
+      {customAlert.alert && <p className="bg-red-500 p-1" >{customAlert.msg}</p> }
         {profileUrl !== "" && (
           <p onClick={handleRemovePic} className="cursor-pointer">
             <CloseIcon
