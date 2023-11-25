@@ -49,6 +49,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    target="_blank"
                     href={"https://firebasestorage.googleapis.com/v0/b/mca-community.appspot.com/o/documents%2Fhowto%2Fdocument.pdf?alt=media&token=9bdc2dc2-04c1-4273-8fb9-0479b077b490"}
                   >
                     Docs
@@ -113,10 +114,6 @@ const Footer = () => {
           <div className={`${styles.footer_item} ${styles.footer_item4} `}>
             <h4 className={styles.footer_link_heading}>Contact Us</h4>
             <ul>
-              {/* <li>
-                {" "}
-                <p>+91-8144XXXXXX</p>{" "}
-              </li> */}
               <li>
                 {" "}
                 <p>igitmcacommunity@gmail.com</p>{" "}

@@ -68,7 +68,9 @@ const NavBar = () => {
             </li>
             <li>
               <Link
-                className={`${currentUrlPath === "/batch" && "text-sky-500"}`}
+                 className={`${
+                  currentUrlPath.startsWith("/batch") && "text-sky-500"
+                }`}
                 shallow={true}
                 href="/batch"
               >
