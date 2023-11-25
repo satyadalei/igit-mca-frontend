@@ -1,8 +1,10 @@
+"use client"
+
 import { Avatar } from '@mui/material'
 import React, { useContext } from 'react'
 import ActiveUserAndLoginStatusContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertContext';
-
+import Link from "next/link"
 const UserDetails = (props) => {
    const { activeUser, logOutUser } = useContext(ActiveUserAndLoginStatusContext);
    const { setLoading, createAlert, stopLoading } = useContext(loadingAndAlertContext);
@@ -95,8 +97,8 @@ const UserDetails = (props) => {
                <p>Graduation: {gradCourse} </p>
                <p>Field of interest: {fieldOfInterest} </p>
                <p>Tag: {tag} </p>
-               <p>Linkedin: <a href={linkedInLink} >{linkedInLink}</a> </p>
-               <p>Github: <a href={githubLink}>{githubLink}</a> </p>
+               <p>Linkedin: <Link target='_blank' href={linkedInLink} >{linkedInLink}</Link> </p>
+               <p>Github: <Link target='_blank' href={githubLink}>{githubLink}</Link> </p>
             </div>
             <div className='w-[33%]' >
                <Avatar sx={{ width: "150px", height: "150px" }} src={url} alt={name} />
