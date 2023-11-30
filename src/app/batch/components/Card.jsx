@@ -16,24 +16,12 @@ export default function ActionAreaCard(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
-    <Card
-      className={styles.card_item}
-      sx={{ width: 290, height: 150, minWidth: 280, maxWidth: 345, }}
-    >
-      <CardActionArea sx={{ position: "relative" }} >
-        <CardMedia
-          className={`m-3 relative text-white !bg-sky-500 h-full`}
-          component="img"
-          sx={{ position: "relative", height: "220px" }}
-        />
+    <div className="bg-gradient-to-r from-sky-500 to-indigo-500 text-white w-[90%] sm:w-64 h-48 mr-3 border  relative rounded m-2" >
+      <div className="p-2 w-full h-full" >
         {props.cardType === "batch" ? (
-          <Link href={`/batch/${props.batch.batchNum}`} >
-            <CardContent
-              className={`${styles.card_item_content} `}
-              sx={{ height: "220px" }}
-            >
-              <div className="text-white" >
-                <p>Batch : {props.batch != undefined ? props.batch.batchNum : ""}</p>
+          <Link className="h-full w-full flex justify-center items-center " href={`/batch/${props.batch.batchNum}`} >
+              <div>
+                <p className="text-3xl mb-3 font-bold" >Batch : {props.batch != undefined ? props.batch.batchNum : ""}</p>
                 <p>strength : {props.batch != undefined ? props.batch.strength : ""}</p>
                 <p>Registered :{" "}
                   {props.batch != undefined ? props.batch.totalRegistered : ""}
@@ -47,28 +35,26 @@ export default function ActionAreaCard(props) {
                     : ""}
                 </p>
               </div>
-            </CardContent>
           </Link>
         ) : (
-          <>
-          <CardContent
+          <div
             onClick={handleOpen}
-            className="flex items-center flex-col !h-64"
+            className="h-full w-full flex  items-center justify-center cursor-pointer text-white"
           >
             <h3
               className="text-center"
             >
-             +  Create new batch
+             <AddIcon className="text-5xl" /> Create new batch
             </h3>
-          </CardContent>
-          </>
+          </div>
         )}
-      </CardActionArea>
+      </div>
       <BasicModal
+        className="absolute top-0 left-0"
         open={open}
         handleClose={handleClose}
         fetchAllBatch={props.fetchAllBatch}
       />
-    </Card>
+    </div>
   );
 }
