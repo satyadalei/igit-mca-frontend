@@ -44,7 +44,7 @@ const Notes = () => {
               return (
                 <Link key={index} className={styles.semNumBox} href={`/notes/semester${semester}`}  >
                   <div >
-                    <h1>semester {semester}</h1>
+                    <h1 className='text-xl font-bold' >semester {semester}</h1>
                   </div>
                 </Link>
               )

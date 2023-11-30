@@ -8,7 +8,7 @@ import { CardActionArea } from "@mui/material";
 import styles from "./Card.module.css";
 import AddIcon from "@mui/icons-material/Add";
 import BasicModal from "../components/CreateBatchModal";
-import Link  from "next/link";
+import Link from "next/link";
 
 export default function ActionAreaCard(props) {
 
@@ -18,67 +18,50 @@ export default function ActionAreaCard(props) {
   return (
     <Card
       className={styles.card_item}
-      sx={{ width: 290, height: 220, minWidth: 280, maxWidth: 345, minHeight: 200 }}
+      sx={{ width: 290, height: 150, minWidth: 280, maxWidth: 345, }}
     >
       <CardActionArea sx={{ position: "relative" }} >
         <CardMedia
-          className={`${styles.card_item_media} h-full`}
+          className={`m-3 relative text-white !bg-sky-500 h-full`}
           component="img"
           sx={{ position: "relative", height: "220px" }}
         />
         {props.cardType === "batch" ? (
           <Link href={`/batch/${props.batch.batchNum}`} >
             <CardContent
-              className={`${styles.card_item_content}`}
+              className={`${styles.card_item_content} `}
               sx={{ height: "220px" }}
             >
-              <Typography
-                style={{ color: "#088dec" }}
-                variant="h5" component="div">
-                Batch : {props.batch != undefined ? props.batch.batchNum : ""}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                strength : {props.batch != undefined ? props.batch.strength : ""}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Registered :{" "}
-                {props.batch != undefined ? props.batch.totalRegistered : ""}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Year :{" "}
-                {props.batch != undefined
-                  ? `${props.batch.startingYear} ` +
-                  "-" +
-                  ` ${props.batch.endingYear}`
-                  : ""}
-              </Typography>
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
+              <div className="text-white" >
+                <p>Batch : {props.batch != undefined ? props.batch.batchNum : ""}</p>
+                <p>strength : {props.batch != undefined ? props.batch.strength : ""}</p>
+                <p>Registered :{" "}
+                  {props.batch != undefined ? props.batch.totalRegistered : ""}
+                </p>
+                <p>
+                  Year :{" "}
+                  {props.batch != undefined
+                    ? `${props.batch.startingYear} ` +
+                    "-" +
+                    ` ${props.batch.endingYear}`
+                    : ""}
+                </p>
+              </div>
             </CardContent>
           </Link>
         ) : (
+          <>
           <CardContent
             onClick={handleOpen}
-            className="flex items-center flex-col h-full"
+            className="flex items-center flex-col !h-64"
           >
-            <div className="w-full flex justify-center items-center" >
-              <AddIcon className={styles.add_new_batch_icon} />
-            </div>
-            <Typography
-              style={{ fontSize: "14px", color: "grey" }}
-              gutterBottom
-              variant="h6"
-              component="div"
+            <h3
               className="text-center"
             >
-              Create new batch
-            </Typography>
+             +  Create new batch
+            </h3>
           </CardContent>
+          </>
         )}
       </CardActionArea>
       <BasicModal

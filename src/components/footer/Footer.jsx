@@ -112,19 +112,24 @@ const Footer = () => {
 
           {/* 4th div */}
           <div className={`${styles.footer_item} ${styles.footer_item4} `}>
-            <h4 className={styles.footer_link_heading}>Contact Us</h4>
+            <h4 className={`${styles.footer_link_heading} !mb-0`}>Contact Us</h4>
             <ul>
               <li>
-                {" "}
-                <p>igitmcacommunity@gmail.com</p>{" "}
+                <p>igitmcacommunity@gmail.com</p>
               </li>
-              <li style={{ marginTop: "1rem" }}>
+              <li>
                 <p className={styles.technical_issue_text}>
-                  For any technical issues contact{" "}
+                  For any technical issues contact
                   <span>satyaprofessional99@gmail.com</span>
                 </p>
               </li>
             </ul>
+            <div>
+              <h3 className="text-sky-500 text-sm mt-5" >Illustration Credits</h3>
+              <p className="text-xs" >
+              <a rel="noopener noreferrer"  target="_blank" href="https://www.freepik.com/free-vector/pair-programming-concept-illustration_10838789.htm#fromView=search&term=coding&page=1&position=30&track=sph&regularType=vector&uuid=6131a9aa-835a-40e4-85dc-9c74b3a5c372">Image by storyset</a> on Freepik
+              </p>
+            </div>
           </div>
         </div>
 

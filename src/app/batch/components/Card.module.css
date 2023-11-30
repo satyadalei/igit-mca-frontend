@@ -1,7 +1,8 @@
  .card_item {
      margin: 0 0.5rem 0.5rem 0;
+     padding: 0;
      position: relative;
-     background-color: rgb(224, 224, 224) !important;
+     background-color: rgb(14 165 233) !important;
  }
 
  .card_item_content {
