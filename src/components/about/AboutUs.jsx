@@ -1,7 +1,5 @@
 "use client"
 import React from 'react'
-import Backend from './Backend'
-import FrontEnd from './FrontEnd'
 import ProjectContributor from './ProjectContributor'
 
 
