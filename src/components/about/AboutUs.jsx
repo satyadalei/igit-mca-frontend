@@ -2,7 +2,7 @@
 import React from 'react'
 import Backend from './Backend'
 import FrontEnd from './FrontEnd'
-import TesterContributor from './TesterContributor'
+import ProjectContributor from './ProjectContributor'
 
 
 const AboutUs = () => {
@@ -23,17 +23,18 @@ const AboutUs = () => {
                     <li className='list-decimal mt-1 mb-1' >Maintaining the reputations of MCA branch in the whole department.</li>
                 </ul>
             </div>
-
+            
             <div className='mb-3' >
                 <h1 className='text-sky-500 text-3xl underline font-bold mb-3 mt-3 after:min-w-fit after:bg-red-500' >Our Contributors</h1>
                 <p>Thanks to our students who has been continuously putting their efforts & time to make this website possible.</p>
                 <div className='flex flex-wrap' >
-                    {/* --- backend ---- */}
-                    <Backend className={"lg:mr-10 mt-5 mb-5 border-l-2 border-sky-400 pl-5"} />
-                    {/* --- frontend ---- */}
-                    <FrontEnd className={"lg:mr-10 border-l-2 border-sky-400 pl-5"} />
+
+                    {/* --- Frontend & backend ---- */}
+                    <ProjectContributor contributeField={"Frontend & Backend"} contributorIds={["655669bc41a72f015539174d",]} className={"lg:mr-10 mt-5 mb-5 border-l-2 border-sky-400 pl-1 md:pl-5"} />
+
                     {/* ---- Tester ---- */}
-                    <TesterContributor className={"lg:mr-10 border-l-2 border-sky-400 pl-5"} />
+                    <ProjectContributor contributeField={"Testing"} contributorIds={["655f583df6ec28a385eafcc8",]} className={"lg:mr-10 mt-5 mb-5 border-l-2 border-sky-400 pl-1 md:pl-5"} />
+
                 </div>
             </div>
         </div>

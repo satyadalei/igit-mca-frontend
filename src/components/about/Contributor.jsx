@@ -52,7 +52,7 @@ const Contributor = ({ contributorId, className }) => {
             profileUrl={contributor.profilePic.url}
             className="!w-24 !h-24"
           />
-          <p>{name}</p>
+          <p className="text-center mb-2 sm:lg" >{name}</p>
           <div>
             <Link
               href={linkedInLink}
