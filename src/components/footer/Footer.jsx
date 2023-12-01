@@ -119,7 +119,7 @@ const Footer = () => {
               </li>
               <li>
                 <p className={styles.technical_issue_text}>
-                  For any technical issues contact
+                  For any technical issues contact {" "}
                   <span>satyaprofessional99@gmail.com</span>
                 </p>
               </li>
