@@ -1,11 +1,8 @@
 import React from 'react'
 import Contributor from './Contributor';
-import TechDetailsWithContributor from './TechDetailsWithContributor';
 
 const ProjectContributor = ({ className, contributeField, contributorIds }) => {
-
-    const testerUserId = "655f583df6ec28a385eafcc8"; // Rakesh Kumar Sarangi Batch : 41
-    // const allContributorIds = [...contributorIds, testerUserId];
+    
     return (
         <>
             <div className={`${className} m-1`} >
