@@ -215,7 +215,7 @@ const RegistrationStates = (props) => {
                 // user successfully created
                 setAlert({
                     alert: true,
-                    alertMessage: response.message,
+                    alertMessage: response.message + " 👨‍💻 Update your profile details to get verified.",
                     alertType: "success"
                 })
                 // save token & set user
@@ -225,10 +225,9 @@ const RegistrationStates = (props) => {
                 setLoginStatus(true)
                 // set registration details to initial value
                 // redirect to home page after 3 sec
-                router.push("/", undefined, { shallow: true })
+                router.push("/profile", undefined, { shallow: true })
                 setRegisteringUser(null)
                 setUser(null)
-                setLoading(false)
                 // this is for detecting whether to reset form data or not
                 return { resetDetails: true }
             } else {

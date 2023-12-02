@@ -6,6 +6,7 @@ const districts = [
     'Nayagarh', 'Puri', 'Boudh', 'Gajapati', 'Ganjam', 'Kalahandi', 'Kandhamal',
     'Koraput', 'Malkangiri', 'Nabarangpur', 'Nuapada', 'Rayagada',
   ];
+
   const sortedDistricts = districts.sort();
   const bachelorCourses = [
     "B.Sc(Physics)",
@@ -16,9 +17,14 @@ const districts = [
     "B.Sc(Geology)",
     "B.Sc(Zoology)",
     "B.Sc(Botany)",
+    "B.Sc(Information Technology Management)",
+    "B.Sc(Information Science & Telecommunication )",
+    "B.Arts",
     "BCA",
     "other"
   ].sort();
+
+  
   const fieldOfInterest = [
     "Data Analytics",
     "Advanced Business Application Programming",
@@ -33,7 +39,9 @@ const districts = [
     "Internet of Things",
     "Cyber Security",
     "UI/UX Designer",
+    "other"
   ].sort()
+
   const assignedTag = [
     "CR/BR",
     "Student Secretary",

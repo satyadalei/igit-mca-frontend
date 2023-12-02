@@ -23,7 +23,7 @@ const StudentCard = (props) => {
   const disableLink = (e) => {
     e.preventDefault();
   };
-  const {email, status} = props.student != undefined && props.student;
+  const {email, status, fieldOfInterest} = props.student != undefined && props.student;
   const {name, homeDist} = props.student != undefined && props.student.userDetails;
   const {linkedInLink, githubLink} = props.student != undefined && props.student.userDetails.socialLinks;
 
@@ -47,18 +47,27 @@ const StudentCard = (props) => {
               color: "black",
               fontSize: "1rem",
               fontWeight: "500",
-              marginBottom: "0.5rem",
-              marginTop: "0.8rem",
             }}
+            className="text-center"
             gutterBottom
             variant="p"
             component="div"
           >
             {name}
           </Typography>
-          <Typography>
+          <Typography className="text-xs" >
           From : {homeDist}
           </Typography>
+          <div className="h-16 mt-2" >
+            {fieldOfInterest === "nothing selected" ? 
+              <></>
+            :
+              <p className="flex flex-col mb-2" >
+                <span className="block text-xs text-sky-400 text-center" >field of Interest</span>
+                <span className="block text-sm text-center" >{fieldOfInterest}</span>
+              </p>
+            }
+          </div>
           <div className={styles.social_links_box}>
             <Link
               style={{

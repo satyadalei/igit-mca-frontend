@@ -59,7 +59,7 @@ const Page = ({ params }) => {
       createAlert("warning", "You can access students page only after your account get verified!");
       router.push("/" , undefined, {shallow: true});
     }
-  }, [loginStatus, activeUser]);
+  }, []);
 
   const getBatchStudents = async () => {
     const token = localStorage.getItem("token");
@@ -83,7 +83,6 @@ const Page = ({ params }) => {
 
   useEffect(() => {
     getBatchStudents();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPageExist]);
 
   return (
