@@ -206,42 +206,6 @@ const Profile = () => {
                       <h4 className="text-sm text-gray-400 mr-3">Social Links</h4> <EditOption onClick={() => { showModal("socialLinks") }} editText={"Edit"} />
                     </div>
 
-                    {/* --- GITHUB --- */}
-                    <div className="flex items-center" >
-                      <TextField
-                        className={styles.input_field}
-                        fullWidth
-                        name="githubLink"
-                        style={{ margin: "0.5rem", marginLeft: "0" }}
-                        value={
-                          activeUser.userDetails.socialLinks.githubLink || ""
-                        }
-                        autoComplete="off"
-                        label="Github Profile link"
-                        variant="filled"
-                        placeholder="ex: https://github.com/..."
-                        disabled
-                      />
-
-                      {githubLink === "" ?
-                        <span
-                          className={`text-gray-300/30`}
-                        >
-                          <GitHubIcon />
-                        </span>
-                        :
-                        <Link
-                          className={`text-black mr-1 text-lg`}
-                          target="_blank"
-                          href={githubLink}
-                        >
-                           <GitHubIcon />
-                        </Link>
-                      }
-                    </div>
-
-
-
                     {/* --- Linked In ---- */}
                     <div className="flex items-center" >
                       <TextField
@@ -277,6 +241,39 @@ const Profile = () => {
 
                     </div>
 
+                    {/* --- GITHUB --- */}
+                    <div className="flex items-center" >
+                      <TextField
+                        className={styles.input_field}
+                        fullWidth
+                        name="githubLink"
+                        style={{ margin: "0.5rem", marginLeft: "0" }}
+                        value={
+                          activeUser.userDetails.socialLinks.githubLink || ""
+                        }
+                        autoComplete="off"
+                        label="Github Profile link"
+                        variant="filled"
+                        placeholder="ex: https://github.com/..."
+                        disabled
+                      />
+
+                      {githubLink === "" ?
+                        <span
+                          className={`text-gray-300/30`}
+                        >
+                          <GitHubIcon />
+                        </span>
+                        :
+                        <Link
+                          className={`text-black mr-1 text-lg`}
+                          target="_blank"
+                          href={githubLink}
+                        >
+                          <GitHubIcon />
+                        </Link>
+                      }
+                    </div>
 
 
                   </div>

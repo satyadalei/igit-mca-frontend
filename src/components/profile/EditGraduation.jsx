@@ -106,6 +106,7 @@ const EditGraduation = ({ graduation, closeModal }) => {
               name="otherGrad"
               value={otherGrad}
               onChange={handleOtherGrad}
+              autoFocus={true}
               required
               fullWidth
               label="Write your Graduation here"
@@ -116,7 +117,7 @@ const EditGraduation = ({ graduation, closeModal }) => {
         }
       </div>
       <div className="h-10 mt-5 flex justify-center items-center ">
-        {( (gradCourse === "other" && otherGrad === "") || gradCourse === graduation)  ? (
+        {( (gradCourse === "other" && otherGrad === "") || (gradCourse === graduation && gradCourse != "other" ))  ? (
           <GeneralButton
             disabled={true}
             className="!bg-green-200 hover:!bg-green-200 cursor-not-allowed p-2"

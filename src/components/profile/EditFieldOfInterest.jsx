@@ -22,6 +22,7 @@ const EditFieldOfInterest = ({ interest, closeModal }) => {
 
   const handleChange = (e) => {
     setInterestField(e.target.value);
+    setOtherInterest("");
   };
   const handleOtherInterest = (e)=>{
     setOtherInterest(e.target.value);
@@ -114,7 +115,7 @@ const EditFieldOfInterest = ({ interest, closeModal }) => {
         }
       </div>
       <div className="h-10 flex justify-center items-center ">
-        {(interest === interestField) || (interestField === "other" && otherInterest === "") ? (
+        {(interest === interestField && interest !== "other") || (interestField === "other" && otherInterest === "") ? (
           <GeneralButton
             disabled={true}
             className="!bg-green-200 hover:!bg-green-200 cursor-not-allowed p-2"
