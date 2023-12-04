@@ -101,7 +101,7 @@ const Profile = () => {
                 <div className={`${styles.input_box} ${styles.input_box1}`}>
                   {/* ---BATCH--- */}
                   <TextField
-                    className={styles.input_field}
+                    className={`${styles.input_field}`}
                     style={{ margin: "0.5rem", marginLeft: "0" }}
                     name="batch"
                     fullWidth
@@ -115,7 +115,7 @@ const Profile = () => {
                   {/* ---EMAIL---- */}
                   <TextField
                     style={{ margin: "0.5rem", marginLeft: "0" }}
-                    className={styles.input_field}
+                    className={`${styles.input_field}`}
                     name="email"
                     fullWidth
                     // id="outlined-basic"
@@ -154,9 +154,9 @@ const Profile = () => {
                   ></TextField>
 
                   {/* --- Graduation --- */}
-                  <div className="flex" >
+                  <div className="relative" >
                     <TextField
-                      className={`${styles.input_field} w-[95%]`}
+                      className={`${styles.input_field}`}
                       name="gradCourse"
                       value={activeUser.userDetails.gradCourse}
                       style={{ margin: "0.5rem", marginLeft: "0" }}
@@ -165,7 +165,7 @@ const Profile = () => {
                       variant="filled"
                       disabled
                     />
-                    <EditOption onClick={() => { showModal("graduation") }} editText={"Edit"} />
+                    <EditOption className={"absolute right-1 top-7"} onClick={() => { showModal("graduation") }} editText={"Edit"} />
                   </div>
 
                 </div>
@@ -174,10 +174,10 @@ const Profile = () => {
                 <div className={`${styles.input_box} ${styles.input_box2}`}>
 
                   {/* ---Field of Interest ---- */}
-                  <div className="flex" >
+                  <div className="relative w-full" >
                     <TextField
-                      className={`${styles.input_field} w-[95%]`}
-                      style={{ margin: "0.5rem", marginLeft: "0" }}
+                      className={`${styles.input_field}`}
+                      style={{ margin: "0.5rem", marginRight:"0", marginLeft: "0" }}
                       name="fieldOfInterest"
                       value={activeUser.fieldOfInterest || ""}
                       label="Field of interest"
@@ -185,7 +185,7 @@ const Profile = () => {
                       disabled
                       fullWidth
                     />
-                    <EditOption onClick={() => { showModal("fieldOfInterest") }} editText={"Edit"} />
+                    <EditOption className={"absolute top-7 right-1"} onClick={() => { showModal("fieldOfInterest") }} editText={"Edit"} />
                   </div>
 
                   {/* --- ANY TAG PROVIDED ---*/}
@@ -197,6 +197,7 @@ const Profile = () => {
                     value={activeUser.tag || ""}
                     label="Any tag provided"
                     variant="filled"
+                    helperText="Tags will be assigned by seniors/admin."
                     disabled
                   ></TextField>
 
@@ -283,7 +284,7 @@ const Profile = () => {
               </div>
 
               {/* actual form inputs ends */}
-              <div style={{ margin: "0.5rem", marginTop: "5rem" }}>
+              <div className="flex items-center justify-center" style={{ margin: "0.5rem", marginTop: "5rem" }}>
                 <Button
                   onClick={() => {
                     logOutUser()

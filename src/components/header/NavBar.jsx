@@ -112,7 +112,7 @@ const NavBar = () => {
               loginStatus &&
               (isSpecialUser === "admin" ||
                 isSpecialUser === "batchAdmin" ||
-                isSpecialUser === "superAdmin") && (
+                isSpecialUser === "superAdmin") && activeUser !== null && activeUser.status === 1 && (
                 <Link
                   className={`${
                     currentUrlPath === "/admin/users" && "text-sky-500"
