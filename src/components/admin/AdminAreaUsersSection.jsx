@@ -9,8 +9,8 @@ import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertCon
 
 const Users = () => {
   const { batches } = useContext(batchContext);
-  const {logOutUser, activeUser} = useContext(activeUserAndLoginStatus);
-  const {startLoading,stopLoading, createAlert} = useContext(loadingAndAlertContext);
+  const { logOutUser, activeUser } = useContext(activeUserAndLoginStatus);
+  const { startLoading, stopLoading, createAlert } = useContext(loadingAndAlertContext);
 
   const baseApi = process.env.NEXT_PUBLIC_BASE_URL;
   const [userAccounts, setUserAccounts] = useState(null);
@@ -32,15 +32,15 @@ const Users = () => {
       const token = localStorage.getItem("token");
       if (!token) {
         logOutUser();
-        return ;
+        return;
       }
       startLoading();
       const { batch, unverified } = filterParams;
       const url = `${baseApi}/api/accounts/fetchAccounts?batch=${batch}&unverified=${unverified}`
       const fetchUserAccounts = await fetch(url, {
         method: "GET",
-        headers : {
-          "token" : token 
+        headers: {
+          "token": token
         }
       })
       const response = await fetchUserAccounts.json();
@@ -55,7 +55,7 @@ const Users = () => {
     } catch (error) {
       stopLoading();
       setUserAccounts([]);
-      createAlert("error", "Some error occurred during fetching users!" )
+      createAlert("error", "Some error occurred during fetching users!")
       console.log("Some error occurred fetching user accounts ", error);
     }
   }
@@ -78,14 +78,19 @@ const Users = () => {
         <ul className='flex list-none' >
           <li className='mr-5' >
             Batch :
-            <select name="batch" defaultValue={filterParams.batch} onChange={handleFilterChange} id="">
-              <option value="All">All</option>
-              {batches != null &&
-                batches.map((batch,index) => {
-                  return <option key={index} value={batch.batchNum}>{batch.batchNum}</option>
-                })
-              }
-            </select>
+            {activeUser.isSpecialUser === "admin" || activeUser.isSpecialUser === "superAdmin" ?
+              <select name="batch" defaultValue={filterParams.batch} onChange={handleFilterChange} id="">
+                <option value="All">All</option>
+                {batches != null &&
+                  batches.map((batch, index) => {
+                    return <option key={index} value={batch.batchNum}>{batch.batchNum}</option>
+                  })
+                }
+              </select>
+              :
+              <span>{activeUser.batchNum}</span>
+            }
+
           </li>
           <li className='mr-5' >
             <input type="radio" onChange={handleFilterChange} defaultChecked name="unverified" value={true} id="" />
@@ -104,8 +109,8 @@ const Users = () => {
             {/* Here we are passing fetchUserAccounts because we want to fetchUserAccounts every time each user account get verified to update all user account status  */}
             <UserAccountAccordion fetchUserAccounts={fetchAccounts} userAccounts={userAccounts} />
           </>
-          :
-          <h4>No accounts found</h4>
+            :
+            <h4>No accounts found</h4>
           )
         }
       </div>
