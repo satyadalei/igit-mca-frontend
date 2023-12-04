@@ -12,14 +12,13 @@ import { useEffect } from "react";
 import UserAvatar from "./UserAvatar";
 import VerificationStatus from "./VerificationStatus";
 import UserName from "./UserName";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import UserProfileSkeleton from "./UserProfileSkeleton";
-
-
-
 
 const NavBar = () => {
   const router = useRouter();
+  const currentUrlPath = usePathname();
+
   // ----- Context -----
   const { activeUser, loginStatus, fetchActiveUser } = useContext(
     ActiveUserAndLoginStatusContext
@@ -29,6 +28,7 @@ const NavBar = () => {
   const { name } = activeUser != null && activeUser.userDetails;
   const { status } = activeUser != null && activeUser;
   const { url } = activeUser != null && activeUser.profilePic;
+  const { isSpecialUser } = activeUser != null && activeUser;
 
   useEffect(() => {
     fetchActiveUser();
@@ -40,11 +40,7 @@ const NavBar = () => {
   };
 
   const redirectProfilePage = () => {
-    router.push("/profile");
     toggleNavBar();
-  };
-  const disableLink = (event) => {
-    event.preventDefault();
   };
 
   return (
@@ -61,37 +57,71 @@ const NavBar = () => {
           {/* Nav Menus */}
           <ul className={`${styles.nav_item}`}>
             <li>
-              <Link shallow={true} href={"/"}>Home</Link>
-            </li>
-            <li>
-              <Link shallow={true} href="/batch">Batch</Link>
-            </li>
-            <li>
-              <Link shallow={true} href="/notes">Notes</Link>
-            </li>
-            <li>
-              <Link shallow={true} href="/galleries">Galleries</Link>
+              <Link
+                className={`${currentUrlPath === "/" && "text-sky-500"}`}
+                // className={`${currentUrlPath.startsWith("/") === "/" && 'text-sky-500'}`}
+                shallow={true}
+                href={"/"}
+              >
+                Home
+              </Link>
             </li>
             <li>
               <Link
-                 shallow={true}
-                className="disabled_link_text"
-                onClick={disableLink}
+                 className={`${
+                  currentUrlPath.startsWith("/batch") && "text-sky-500"
+                }`}
+                shallow={true}
+                href="/batch"
+              >
+                Batch
+              </Link>
+            </li>
+            <li>
+              <Link
+                // className={`${currentUrlPath === "/notes" && 'text-sky-500'}`}
+                className={`${
+                  currentUrlPath.startsWith("/notes") && "text-sky-500"
+                }`}
+                shallow={true}
+                href="/notes"
+              >
+                Notes
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={`${currentUrlPath === "/gallery" && "text-sky-500"}`}
+                shallow={true}
+                href="/gallery"
+              >
+                Gallery
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={`${currentUrlPath === "/about" && "text-sky-500"}`}
+                shallow={true}
                 href="/about"
               >
                 About
               </Link>
             </li>
-            <li>
-              <Link
-                shallow={true}
-                className="disabled_link_text"
-                onClick={disableLink}
-                href="/contacts"
-              >
-                Contacts
-              </Link>
-            </li>
+
+            {loginStatus != null &&
+              loginStatus &&
+              (isSpecialUser === "admin" ||
+                isSpecialUser === "batchAdmin" ||
+                isSpecialUser === "superAdmin") && (
+                <Link
+                  className={`${
+                    currentUrlPath === "/admin/users" && "text-sky-500"
+                  }`}
+                  href={"/admin/users"}
+                >
+                  ManageUsers
+                </Link>
+              )}
           </ul>
 
           {/* Login & registration Details starts*/}
@@ -100,35 +130,44 @@ const NavBar = () => {
             {loginStatus === null ? (
               <UserProfileSkeleton />
             ) : loginStatus ? (
-              <div
-                onClick={redirectProfilePage}
-                className={styles.avatar_name_for_desktop}
-              >
+               (activeUser === null ) ? <UserProfileSkeleton /> :
+               <Link href={"/profile"}>
                 <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "end",
-                    marginRight: "0.5rem",
-                  }}
+                  onClick={redirectProfilePage}
+                  className={styles.avatar_name_for_desktop}
                 >
-                  <UserName name={name} />
-                  <VerificationStatus status={status} />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "end",
+                      marginRight: "0.5rem",
+                    }}
+                  >
+                    <UserName name={name} />
+                    <VerificationStatus status={status} />
+                  </div>
+                  <UserAvatar userName={name} profileUrl={url} />
                 </div>
-                <UserAvatar userName={name} profileUrl={url} />
-              </div>
+              </Link>
             ) : (
               <div>
-                <Link shallow={true} className={styles.login_link} href="/login">
+                <Link
+                  shallow={true}
+                  className={styles.login_link}
+                  href="/login"
+                >
                   Login
                 </Link>
-                <Link shallow={true} className={styles.registration_link} href="/registration">
+                <Link
+                  shallow={true}
+                  className={styles.registration_link}
+                  href="/registration"
+                >
                   Registration
                 </Link>
               </div>
             )}
-
-            
           </div>
           {/* Login & registartion Details ends */}
 
@@ -145,18 +184,24 @@ const NavBar = () => {
             />
             {/* when a link is clicked then closes responsive navbar */}
             {loginStatus === null ? (
-             <UserProfileSkeleton mobileMode={true} />
+              <UserProfileSkeleton mobileMode={true} />
             ) : loginStatus ? (
-              <div
-                  onClick={redirectProfilePage}
-                  className={styles.avatar_name_for_responsive_nav}
-                >
-                  <UserAvatar name={name} profileUrl={url} />
-                  <div>
-                    <UserName name={name} />
-                    <VerificationStatus status={status} />
+              (activeUser === null) ? (
+                <UserProfileSkeleton mobileMode={true} />
+              ) : (
+                <Link href="/profile">
+                  <div
+                    onClick={redirectProfilePage}
+                    className={styles.avatar_name_for_responsive_nav}
+                  >
+                    <UserAvatar name={name} profileUrl={url} />
+                    <div>
+                      <UserName name={name} />
+                      <VerificationStatus status={status} />
+                    </div>
                   </div>
-                </div>
+                </Link>
+              )
             ) : (
               <div>
                 <Link

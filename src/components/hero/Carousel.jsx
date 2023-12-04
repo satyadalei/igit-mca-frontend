@@ -5,7 +5,7 @@ import Image from 'next/image'
 import styles from "./hero.module.css"
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-const CarouselComponent = () => {
+const CarouselComponent = ({className}) => {
 
   const defaultControlsConfig = {
     nextButtonText: React.ReactNode = <NavigateNextIcon />,
@@ -17,9 +17,8 @@ const CarouselComponent = () => {
   }
 
   return (
-    <div>
+    <div className={`${className}`} >
       <Carousel
-        className={styles.carosule_img_box}
         autoplay
         wrapAround
         defaultControlsConfig={defaultControlsConfig}

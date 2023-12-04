@@ -3,25 +3,21 @@ import React, { useContext, useState } from 'react'
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import UserAccountAccordion from '../common/UserAccountAccordin';
-import fakeResponse from '@/data/fakeUserData';
 import batchContext from "@/context/batch/batchContext";
 import activeUserAndLoginStatus from '@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext';
 import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertContext';
 
 const Users = () => {
   const { batches } = useContext(batchContext);
-  const {logOutUser} = useContext(activeUserAndLoginStatus);
+  const {logOutUser, activeUser} = useContext(activeUserAndLoginStatus);
   const {startLoading,stopLoading, createAlert} = useContext(loadingAndAlertContext);
-
-  const user = useSelector(state => state.user);
-  const batch = "all"; // or 41 42 43
 
   const baseApi = process.env.NEXT_PUBLIC_BASE_URL;
   const [userAccounts, setUserAccounts] = useState(null);
   // const [queryUri, setQueryUri] = useState(`${baseApi}/api/accounts/fetchAccounts?batch=all&unverified=true`);
 
   const [filterParams, setFilterParams] = useState({
-    batch: "all",
+    batch: (activeUser.isSpecialUser === "admin" ? "all" : activeUser.batchNum),
     unverified: true,
   })
 
@@ -30,7 +26,6 @@ const Users = () => {
       return { ...prev, [e.target.name]: e.target.value }
     })
   }
-  // console.log(fakeResponse);
 
   const fetchAccounts = async () => {
     try {
@@ -53,10 +48,14 @@ const Users = () => {
       if (response.success) {
         const { userAccounts } = response.data;
         setUserAccounts(userAccounts.reverse())
+        return
       }
+
+      createAlert("error", response.message.split("#"));
     } catch (error) {
       stopLoading();
       setUserAccounts([]);
+      createAlert("error", "Some error occurred during fetching users!" )
       console.log("Some error occurred fetching user accounts ", error);
     }
   }
@@ -79,7 +78,7 @@ const Users = () => {
         <ul className='flex list-none' >
           <li className='mr-5' >
             Batch :
-            <select name="batch" onChange={handleFilterChange} id="">
+            <select name="batch" defaultValue={filterParams.batch} onChange={handleFilterChange} id="">
               <option value="All">All</option>
               {batches != null &&
                 batches.map((batch,index) => {

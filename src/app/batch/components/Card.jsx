@@ -8,88 +8,53 @@ import { CardActionArea } from "@mui/material";
 import styles from "./Card.module.css";
 import AddIcon from "@mui/icons-material/Add";
 import BasicModal from "../components/CreateBatchModal";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function ActionAreaCard(props) {
-  const router = useRouter();
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
-    <Card
-      className={styles.card_item}
-      sx={{width: 290, height: 220 , minWidth: 280, maxWidth: 345, minHeight: 200 }}
-    >
-      <CardActionArea sx={{position:"relative"}} >
-        <CardMedia
-          className={`${styles.card_item_media} h-full`}
-          component="img"
-          sx={{position:"relative", height:"220px"}}
-        />
+    <div className="bg-gradient-to-r from-sky-500 to-indigo-500 text-white w-[90%] sm:w-64 h-48 mr-3 border  relative rounded m-2" >
+      <div className="p-2 w-full h-full" >
         {props.cardType === "batch" ? (
-          <CardContent
-            onClick={() => {
-              router.push(`/batch/${props.batch.batchNum}`, undefined, {
-                shallow: true,
-              });
-            }}
-            className={`${styles.card_item_content}`}
-            sx={{height:"220px"}}
-          >
-            <Typography 
-            style={{color:"#088dec"}}
-            variant="h5" component="div">
-             Batch : {props.batch != undefined ? props.batch.batchNum  : ""}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              strength : {props.batch != undefined ? props.batch.strength : ""}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Registered :{" "}
-              {props.batch != undefined ? props.batch.totalRegistered : ""}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Year :{" "}
-              {props.batch != undefined
-                ? `${props.batch.startingYear} ` +
-                  "-" +
-                  ` ${props.batch.endingYear}`
-                : ""}
-            </Typography>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-          </CardContent>
+          <Link className="h-full w-full flex justify-center items-center " href={`/batch/${props.batch.batchNum}`} >
+              <div>
+                <p className="text-3xl mb-3 font-bold" >Batch : {props.batch != undefined ? props.batch.batchNum : ""}</p>
+                <p>strength : {props.batch != undefined ? props.batch.strength : ""}</p>
+                <p>Registered :{" "}
+                  {props.batch != undefined ? props.batch.totalRegistered : ""}
+                </p>
+                <p>
+                  Year :{" "}
+                  {props.batch != undefined
+                    ? `${props.batch.startingYear} ` +
+                    "-" +
+                    ` ${props.batch.endingYear}`
+                    : ""}
+                </p>
+              </div>
+          </Link>
         ) : (
-          <CardContent
+          <div
             onClick={handleOpen}
-            className="flex items-center flex-col h-full"
+            className="h-full w-full flex  items-center justify-center cursor-pointer text-white"
           >
-            <div className="w-full flex justify-center items-center" >
-              <AddIcon className={styles.add_new_batch_icon} />
-            </div>
-            <Typography
-              style={{ fontSize: "14px", color: "grey" }}
-              gutterBottom
-              variant="h6"
-              component="div"
+            <h3
               className="text-center"
             >
-              Create new batch
-            </Typography>
-          </CardContent>
+             <AddIcon className="text-5xl" /> Create new batch
+            </h3>
+          </div>
         )}
-      </CardActionArea>
+      </div>
       <BasicModal
+        className="absolute top-0 left-0"
         open={open}
         handleClose={handleClose}
         fetchAllBatch={props.fetchAllBatch}
       />
-    </Card>
+    </div>
   );
 }

@@ -2,31 +2,44 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./coordinator.module.css";
 import Coordinator from "./Coordinator";
-import { Button } from "@mui/material";
 import batchContext from "@/context/batch/batchContext";
 import SkeletonCoordinators from "./SkeletonCoordinators";
-import GeneralButton from "@/components/common/GeneralButton";
+import { motion } from "framer-motion";
+
+// Define the variants for the title animation
+const titleVariants = {
+  hide: {
+    y: 100,
+    opacity: 0,
+  },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+    },
+  },
+};
 
 const MainCoordinators = () => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-  const {fetchBatchLists, batchLists } =
-    useContext(batchContext);
+  const { fetchBatchLists, batchLists } = useContext(batchContext);
   const [batchCoordiNators, setBatchCoordiNators] = useState();
 
   // call api to fetch coordinators of the 2nd year students
   const fetchCoordinators = async () => {
-    let batchId;
+    let batchId2ndYr;
     if (batchLists.length === 0) {
       setBatchCoordiNators([]); //there will be no coordinators
       return;
     }
     if (batchLists.length === 1) {
-      batchId = batchLists[0]._id;
+      batchId2ndYr = batchLists[0]._id;
     } else {
-      batchId = batchLists[batchLists.length - 2]._id;
+      batchId2ndYr = batchLists[batchLists.length - 2]._id;
     }
-    const url = `${baseUrl}/api/coordinators/${batchId}`;
+    const url = `${baseUrl}/api/coordinators/${batchId2ndYr}`;
     try {
       const coordinators = await fetch(url, {
         method: "GET",
@@ -41,11 +54,6 @@ const MainCoordinators = () => {
     }
   };
 
-  // Coordinators will be shown once all batch lists loads
-  useEffect(() => {
-    fetchBatchLists();
-  }, []);
-
   useEffect(() => {
     if (batchLists != null) {
       fetchCoordinators();
@@ -56,31 +64,31 @@ const MainCoordinators = () => {
     <>
       <hr className="divider" />
       <div className={styles.container_section}>
-        <h1 className={styles.main_heading}>Our Coordinators</h1>
+        <h1 className={styles.main_heading}>Class Representatives</h1>
         <div className={styles.coordinators_box}>
-          {/* <Coordinator name={"Sandeep Kumar Das"} tag={"Class Representative"} />
-
-          <Coordinator name={"Bandana Priyadarshani Jena"} tag={"Class Representative"} /> */}
           {batchCoordiNators != null ? (
             batchCoordiNators.map((coordiNator, index) => {
               return coordiNator.tag === "CR/BR" ? (
-                <Coordinator
+                <motion.div
+                  className="title"
+                  variants={titleVariants}
+                  initial="hide"
+                  whileInView="show"
+                  whileOut="hide"
                   key={index}
-                  name={
-                    `${coordiNator.userDetails.fName || ""}` +
-                    " " +
-                    `${coordiNator.userDetails.mName || ""}` +
-                    " " +
-                    `${coordiNator.userDetails.lName || ""}`
-                  }
-                  tag={coordiNator.tag}
-                  profile={coordiNator.profilePic.url}
-                />
+                >
+                  <Coordinator
+                    name={coordiNator.userDetails.name}
+                    batch={coordiNator.batchNum}
+                    profile={coordiNator.profilePic.url}
+                    email={coordiNator.email}
+                    links={coordiNator.userDetails.socialLinks}
+                  />
+                </motion.div>
               ) : null;
             })
           ) : (
             <>
-              {/* creates 50 element array */}
               {Array.from({ length: 2 }, (_, index) => (
                 <div key={index}>
                   <SkeletonCoordinators />
@@ -88,9 +96,6 @@ const MainCoordinators = () => {
               ))}
             </>
           )}
-        </div>
-        <div className={styles.meet_btn_box}>
-          <GeneralButton className={"p-3 pl-4 pr-4 text-lg"} buttonText={"Meet Other coordinators"} />
         </div>
       </div>
     </>

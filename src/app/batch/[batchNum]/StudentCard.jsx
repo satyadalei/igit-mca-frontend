@@ -12,6 +12,8 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Link from "next/link";
 import EmailIcon from '@mui/icons-material/Email';
+import VerificationStatus from "@/components/header/VerificationStatus";
+
 
 const StudentCard = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -21,13 +23,17 @@ const StudentCard = (props) => {
   const disableLink = (e) => {
     e.preventDefault();
   };
-  const {email} = props.student != undefined && props.student;
+  const {email, status, fieldOfInterest} = props.student != undefined && props.student;
   const {name, homeDist} = props.student != undefined && props.student.userDetails;
   const {linkedInLink, githubLink} = props.student != undefined && props.student.userDetails.socialLinks;
+
   return (
     <Card className={styles.card_item}>
       {props.cardType === "student" ? (
         <CardContent className={styles.card_item_content}>
+          <span className="absolute top-0 left-2" >
+            <VerificationStatus status={status} />
+          </span>
           <Avatar
             style={{
               width: "150px",
@@ -41,18 +47,27 @@ const StudentCard = (props) => {
               color: "black",
               fontSize: "1rem",
               fontWeight: "500",
-              marginBottom: "0.5rem",
-              marginTop: "0.8rem",
             }}
+            className="text-center"
             gutterBottom
             variant="p"
             component="div"
           >
             {name}
           </Typography>
-          <Typography>
+          <Typography className="text-xs" >
           From : {homeDist}
           </Typography>
+          <div className="h-16 mt-2" >
+            {fieldOfInterest === "nothing selected" ? 
+              <></>
+            :
+              <p className="flex flex-col mb-2" >
+                <span className="block text-xs text-sky-400 text-center" >field of Interest</span>
+                <span className="block text-sm text-center" >{fieldOfInterest}</span>
+              </p>
+            }
+          </div>
           <div className={styles.social_links_box}>
             <Link
               style={{
@@ -88,17 +103,6 @@ const StudentCard = (props) => {
               href={githubLink}
             >
               <GitHubIcon className={styles.social_icon} />
-            </Link>
-
-            <Link 
-            href={`mailto:${email}`} 
-            style={{
-                color: "black" 
-                // color: "#088dec" 
-                }
-              }
-            >
-              <EmailIcon />
             </Link>
           </div>
         </CardContent>

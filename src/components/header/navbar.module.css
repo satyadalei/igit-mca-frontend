@@ -5,10 +5,11 @@
     backdrop-filter: blur(0.7rem);
     /* backdrop-filter: blur(0.6rem); */
     width: 100%;
-    max-width: 1400px;
+    /* max-width: 1400px; */
     height: 10vh;
     max-height: 60px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: sticky;
@@ -43,18 +44,16 @@
   list-style-type: none;
   margin-right: 1rem;
 }
-.navbar ul.nav_item li :link{
+/* .navbar ul.nav_item li :link{
     text-decoration: none;
     color: rgb(255, 255, 255) ;
-    /* color: black; */
 }
 .navbar ul.nav_item li :link:visited{
     color: inherit;
 }
 .navbar a{
-    /* color: black; */
     color: rgb(255, 255, 255) ;
-}
+} */
 .avatar_name_for_responsive_nav{
     margin-bottom: 2rem;
 }

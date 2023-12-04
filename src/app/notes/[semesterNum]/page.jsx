@@ -4,14 +4,15 @@ import semester from '@/data/semesterData';
 import PageNotFound from '@/components/common/PageNotFound';
 import Loading from '@/components/common/Loading';
 import ActiveUserAndLoginStatusContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
+import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertContext';
 import { useRouter } from "next/navigation";
 import SemesterContent from "./SemesterContent"
 import styles from "./page.module.css"
 const Page = ({ params }) => {
 
-  const { loginStatus, fetchActiveUser } = useContext(
-    ActiveUserAndLoginStatusContext
-  );
+  const { loginStatus, fetchActiveUser, activeUser } = useContext(ActiveUserAndLoginStatusContext);
+  const {createAlert} = useContext(loadingAndAlertContext);
+
   const router = useRouter();
   const semesterNum = params.semesterNum ;
   
@@ -34,17 +35,23 @@ const Page = ({ params }) => {
   })
 
   // redirects user if user is not log in
+   // redirects user if user is not log in
   useEffect(() => {
     fetchActiveUser(); // use to every page to check user login status
     if (loginStatus === false) {
-      router.push("/login");
+      router.push("/login", undefined, {shallow: true});
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginStatus]);
+    if (loginStatus === true && activeUser !== null && activeUser.status === 0 ) {
+      // user registered but not verified.
+      createAlert("warning", "You can access notes page only after your account get verified!");
+      router.push("/" , undefined, {shallow: true});
+    }
+  }, [loginStatus, activeUser]);
 
   return (
    <>
-    {loginStatus ? (
+    {(loginStatus) && (activeUser !== null) && (activeUser.status === 1) ? (
         <section className="page_section">
           {/* {isPageExist === false && <h1>Page not found</h1>} */}
           {isPageExist === false && <PageNotFound />}

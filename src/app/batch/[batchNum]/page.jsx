@@ -9,6 +9,7 @@ import StudentCard from "./StudentCard";
 import styles from "./page.module.css"
 import sortStudentInRoll from "./sortStudentsInNames";
 import PageNotFound from "@/components/common/PageNotFound"
+import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertContext';
 
 const Page = ({ params }) => {
   const router = useRouter();
@@ -21,6 +22,7 @@ const Page = ({ params }) => {
     ActiveUserAndLoginStatusContext
   );
   const { batches, fetchAllBatch } = useContext(batchContext);
+  const {createAlert} = useContext(loadingAndAlertContext);
 
   // ---- STATES -------
   const [isPageExist, setIsPageExist] = useState(null);
@@ -52,8 +54,12 @@ const Page = ({ params }) => {
       router.push("/login");
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginStatus]);
+    if (loginStatus === true && activeUser !== null && activeUser.status === 0 ) {
+      // user registered but not verified.
+      createAlert("warning", "You can access students page only after your account get verified!");
+      router.push("/" , undefined, {shallow: true});
+    }
+  }, []);
 
   const getBatchStudents = async () => {
     const token = localStorage.getItem("token");
@@ -77,7 +83,6 @@ const Page = ({ params }) => {
 
   useEffect(() => {
     getBatchStudents();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPageExist]);
 
   return (
@@ -95,7 +100,7 @@ const Page = ({ params }) => {
                 {students != null ?
                   students.map((student, index) => {
                     return (
-                      <StudentCard student={student} cardType="student" key={index} />
+                      <StudentCard  student={student} cardType="student" key={index} />
                     )
                   })
                   :

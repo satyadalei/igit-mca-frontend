@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import { CardActions } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
 import GeneralButton from "@/components/common/GeneralButton";
-import { useRouter } from "next/navigation";
 import styles from "./notes.module.css";
 import Link from "next/link"
 
@@ -15,15 +14,6 @@ import Link from "next/link"
 
 const EachSemNoteCards = (props) => {
   const {semester, syllabusLink} = props;
-  const router = useRouter();
-
-  const handleNoteRedirect = ()=>{
-    router.push(`/notes/semester${semester}`, undefined, { shallow: true });
-  }
-  
-  const handleSyllabusRedirect= ()=>{
-    router.push(`${syllabusLink}`, undefined, { shallow: true });
-  }
 
   return (
     <>
@@ -55,21 +45,15 @@ const EachSemNoteCards = (props) => {
         </CardContent>
         {/* </CardActionArea> */}
         <CardActions>
-          <GeneralButton
-            variant={"contained"}
-            onClick={handleNoteRedirect}
-          >
-            <DescriptionIcon />
-            Notes
-          </GeneralButton>
+          <Link href={`/notes/semester${semester}`} >
+            <GeneralButton
+              variant={"contained"}
+            >
+              <DescriptionIcon />
+              Notes
+            </GeneralButton>
+          </Link>
 
-          {/* <GeneralButton
-            variant={"outlined"}
-            className={"text-sky-500"}
-            onClick={handleSyllabusRedirect}
-          >
-            Syllabus
-          </GeneralButton> */}
           <a target="_blank" className="border border-sky-500 p-1 pl-2 pr-2 text-sky-500 rounded-lg" href={syllabusLink} >
           Syllabus
           </a>

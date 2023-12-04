@@ -1,8 +1,10 @@
+"use client"
+
 import { Avatar } from '@mui/material'
 import React, { useContext } from 'react'
 import ActiveUserAndLoginStatusContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertContext';
-
+import Link from "next/link"
 const UserDetails = (props) => {
    const { activeUser, logOutUser } = useContext(ActiveUserAndLoginStatusContext);
    const { setLoading, createAlert, stopLoading } = useContext(loadingAndAlertContext);
@@ -13,19 +15,15 @@ const UserDetails = (props) => {
    const user = props.user;
    const { _id, email, status, batchNum, batchId, rollNum, fieldOfInterest, tag } = user;
    const { url } = user.profilePic;
-   const { regNum, fName, lName, mName, homeDist, mobile, gradCourse } = user.userDetails;
+   const { regNum, homeDist, mobile, gradCourse, name } = user.userDetails;
    const { linkedInLink, githubLink } = user.userDetails.socialLinks;
 
 
+   const token = localStorage.getItem("token");
+
    const handleVerifyUser = async (userId) => {
       try {
-         console.log(userId);
          // call api to set user as verify
-         const token = localStorage.getItem("token")
-         if (!token) {
-            logOutUser();
-            return;
-         }
          setLoading(true);
          const url = `${baseApi}/api/accounts/admin/verifyUser?userId=${userId}`
          const verifyUser = await fetch(url, {
@@ -46,9 +44,44 @@ const UserDetails = (props) => {
       } catch (error) {
          stopLoading();
          console.log("Some error occurred verifying user accounts ", error);
-         createAlert("error", response.message.split("#")[0])
+         createAlert("error", "Error in verifying user.")
       }
    }
+
+   const handleDeleteUser = async (userId)=>{
+      try {
+         const dangerAlert = window.confirm("Warning!! ⚠️⚠️⚠️💀💀💀 !! Delete Operation !!  ");
+         if (dangerAlert === false) {
+            return ;
+         }
+         const isConfirm = window.confirm(`This user will be permanently delete. Do you want to proceed.`);
+         if (isConfirm === false) {
+            return;
+         }
+         const passKey = window.prompt("Enter pass key to delete!");
+         setLoading(true);
+         const url = `${baseApi}/api/accounts/admin/deleteUser?deleteUserId=${userId}&passKey=${passKey}`
+         const verifyUser = await fetch(url, {
+            method: "DELETE",
+            headers: {
+               "token": token
+            }
+         })
+         const response = await verifyUser.json();
+         stopLoading();
+         if (response.success) {
+            createAlert("success", response.message.split("#")[0]);
+            fetchUserAccounts();
+            return;
+         }
+         createAlert("error", response.message.split("#")[0])
+      } catch (error) {
+         stopLoading();
+         console.log("Some error occurred deleting user account ", error);
+         createAlert("error", "Error in deleting user account!")
+      }
+   }
+
    return (
       <div className='' >
          <div className='flex justify-around w-full' >
@@ -64,11 +97,11 @@ const UserDetails = (props) => {
                <p>Graduation: {gradCourse} </p>
                <p>Field of interest: {fieldOfInterest} </p>
                <p>Tag: {tag} </p>
-               <p>Linkedin: <a href={linkedInLink} >{linkedInLink}</a> </p>
-               <p>Github: <a href={githubLink}>{githubLink}</a> </p>
+               <p>Linkedin: <Link target='_blank' href={linkedInLink} >{linkedInLink}</Link> </p>
+               <p>Github: <Link target='_blank' href={githubLink}>{githubLink}</Link> </p>
             </div>
             <div className='w-[33%]' >
-               <Avatar sx={{ width: "150px", height: "150px" }} src={url} alt={fName + mName + lName} />
+               <Avatar sx={{ width: "150px", height: "150px" }} src={url} alt={name} />
             </div>
          </div>
          {/* --- Action buttons ----- */}
@@ -87,7 +120,7 @@ const UserDetails = (props) => {
               </button>
             }
             {(isSpecialUser === "admin" || isSpecialUser === "superAdmin") &&
-               <button className='bg-red-500 outline-none outline-0 text-white p-2 mr-5' >Delete User</button>
+               <button onClick={()=>{handleDeleteUser(_id)}} className='bg-red-500 outline-none outline-0 text-white p-2 mr-5' >Delete User</button>
             }
          </div>
       </div>

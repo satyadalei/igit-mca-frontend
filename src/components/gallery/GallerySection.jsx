@@ -109,8 +109,11 @@ export default function Gallery() {
               const { title, url, description } = image.postDetails;
               return (
                 <ImageListItem
-                  className={`!h-48 md:!h-64`}
+                  className={`!h-48 md:!h-64 cursor-pointer`}
                   key={index}
+                  onClick={() => {
+                    handleImagePreview(index);
+                  }}
                 >
                   <img
                     srcSet={`${url}?w=248&fit=crop&auto=format&dpr=2 2x`} //
@@ -122,7 +125,7 @@ export default function Gallery() {
                   <ImageListItemBar
                     title={<p className="text-sm" >{title}</p>}
                     // subtitle={<p>Uploaded at : {moment(createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>}
-                    subtitle={<p><CloudIcon className="text-sm" />  {moment(createdAt).format('LLLL')}</p>}
+                    subtitle={<p><CloudIcon className="text-sm" />  {moment(createdAt).format('llll')}</p>}
                     actionIcon={
                       <IconButton
                         sx={{ color: "rgba(255, 255, 255, 0.54)" }}

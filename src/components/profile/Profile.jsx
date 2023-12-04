@@ -15,7 +15,9 @@ import Alert from "@/components/common/Alert";
 import Loading from "@/components/common/Loading";
 import EditOption from "./EditOption";
 import ProfileEditModal from "../modal/ProfileEditModal";
-
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import Link from "next/link";
 
 const Profile = () => {
   const { activeUser, loginStatus, logOutUser, fetchActiveUser, setLoginStatus } = useContext(activeUserAndLoginContext);
@@ -23,10 +25,9 @@ const Profile = () => {
     loadingAndAlertContext
   );
 
-  const { name, regNum, homeDist, mobile, gradCourse, socialLinks } = activeUser != null && activeUser.userDetails;
+  const { name, regNum, homeDist, mobile, gradCourse, } = activeUser != null && activeUser.userDetails;
   const { batchNum, email, rollNum } = activeUser != null && activeUser;
-
-
+  const { linkedInLink, githubLink } = activeUser != null && activeUser.userDetails.socialLinks;
   // registeringUser = 42 or 41
   // user = allDetails of user --> user.email is email id of user
   const router = useRouter();
@@ -41,14 +42,15 @@ const Profile = () => {
   const [modal, setModal] = useState(false); // to open & close modal
   const [modalType, setModalType] = useState(null);
 
-  const closeModal = ()=>{
+  const closeModal = () => {
     setModal(false);
-  } 
-  const showModal = (modalType)=>{
+  }
+  const showModal = (modalType) => {
     setModal(true);
     setModalType(modalType);
   }
- 
+
+
   return (
     <>
       <section className="page_section min-h-screen">
@@ -62,7 +64,7 @@ const Profile = () => {
 
             <div className={styles.registration_main_container}>
 
-              {modal && <ProfileEditModal userDetails={activeUser} closeModal={closeModal} modalType={modalType} /> }
+              {modal && <ProfileEditModal userDetails={activeUser} closeModal={closeModal} modalType={modalType} />}
 
               {/* top heading of form */}
               <div className={styles.register_top_container}>
@@ -91,7 +93,7 @@ const Profile = () => {
                       />
                     </div>
                   </div>
-                    <EditOption className="flex justify-center mt-5" onClick={()=>{showModal("profilePicture")}} editText={"Profile picture"} />
+                  <EditOption className="flex justify-center mt-5" onClick={() => { showModal("profilePicture") }} editText={"Edit Profile picture"} />
                 </div>
 
 
@@ -100,7 +102,7 @@ const Profile = () => {
                   {/* ---BATCH--- */}
                   <TextField
                     className={styles.input_field}
-                    style={{ margin: "0.5rem", marginLeft:"0" }}
+                    style={{ margin: "0.5rem", marginLeft: "0" }}
                     name="batch"
                     fullWidth
                     // id="outlined-basic"
@@ -112,7 +114,7 @@ const Profile = () => {
                   />
                   {/* ---EMAIL---- */}
                   <TextField
-                    style={{ margin: "0.5rem", marginLeft:"0" }}
+                    style={{ margin: "0.5rem", marginLeft: "0" }}
                     className={styles.input_field}
                     name="email"
                     fullWidth
@@ -128,7 +130,7 @@ const Profile = () => {
                   {/* --- name --- */}
                   <TextField
                     className={styles.input_field}
-                    style={{ margin: "0.5rem", marginLeft:"0" }}
+                    style={{ margin: "0.5rem", marginLeft: "0" }}
                     name="fName"
                     value={name}
                     required
@@ -139,94 +141,57 @@ const Profile = () => {
                     disabled
                   />
 
-                  {/* --- Registration number --- */}
-                  {/* <TextField
-                    className={styles.input_field}
-                    style={{ margin: "0.5rem" }}
-                    name="regNum"
-                    fullWidth
-                    label="Registration number"
-                    variant="filled"
-                    placeholder="ex: 2205105056"
-                    value={regNum || ""}
-                    disabled
-                  /> */}
-
-                  {/* --- Roll number --- */}
-                  {/* <TextField
-                    className={styles.input_field}
-                    style={{ margin: "0.5rem" }}
-                    name="rollNum"
-                    value={rollNum || ""}
-                    fullWidth
-                    // id="filled-error-helper-text"
-                    label="Roll number"
-                    variant="filled"
-                    placeholder="ex: 50"
-                    disabled
-                  /> */}
-
                   {/* --- Home district --- */}
                   <TextField
                     className={styles.input_field}
-                    style={{ margin: "0.5rem", marginLeft:"0" }}
+                    style={{ margin: "0.5rem", marginLeft: "0" }}
                     name="homeDist"
                     value={activeUser.userDetails.homeDist || ""}
                     fullWidth
                     label="Home district"
-                    // defaultValue="no district"
                     variant="filled"
                     disabled
                   ></TextField>
 
                   {/* --- Graduation --- */}
-                  <TextField
-                    className={styles.input_field}
-                    name="gradCourse"
-                    value={activeUser.userDetails.gradCourse}
-                    style={{ margin: "0.5rem", marginLeft:"0" }}
-                    fullWidth
-                    label="Graduation course"
-                    variant="filled"
-                    disabled
-                  ></TextField>
-                  <EditOption onClick={()=>{showModal("graduation")}} editText={"graduation"} />
+                  <div className="flex" >
+                    <TextField
+                      className={`${styles.input_field} w-[95%]`}
+                      name="gradCourse"
+                      value={activeUser.userDetails.gradCourse}
+                      style={{ margin: "0.5rem", marginLeft: "0" }}
+                      fullWidth
+                      label="Graduation course"
+                      variant="filled"
+                      disabled
+                    />
+                    <EditOption onClick={() => { showModal("graduation") }} editText={"Edit"} />
+                  </div>
 
                 </div>
 
                 {/* BOX 2 */}
                 <div className={`${styles.input_box} ${styles.input_box2}`}>
-                  {/* ---Mobile number ---- */}
-                  {/* <TextField
-                    className={styles.input_field}
-                    style={{ margin: "0.5rem" }}
-                    fullWidth
-                    name="mobile"
-                    value={activeUser.userDetails.mobile || ""}
-                    label="Mobile number"
-                    variant="filled"
-                    placeholder="ex: 814457XXXX"
-                    disabled
-                  /> */}
-
 
                   {/* ---Field of Interest ---- */}
-                  <TextField
-                    className={styles.input_field}
-                    style={{ margin: "0.5rem", marginLeft:"0" }}
-                    name="fieldOfInterest"
-                    value={activeUser.fieldOfInterest || ""}
-                    label="Field of interest"
-                    variant="filled"
-                    disabled
-                    fullWidth
-                  ></TextField>
-                  <EditOption onClick={()=>{showModal("fieldOfInterest")}} editText={"Field of interest"} />
+                  <div className="flex" >
+                    <TextField
+                      className={`${styles.input_field} w-[95%]`}
+                      style={{ margin: "0.5rem", marginLeft: "0" }}
+                      name="fieldOfInterest"
+                      value={activeUser.fieldOfInterest || ""}
+                      label="Field of interest"
+                      variant="filled"
+                      disabled
+                      fullWidth
+                    />
+                    <EditOption onClick={() => { showModal("fieldOfInterest") }} editText={"Edit"} />
+                  </div>
 
                   {/* --- ANY TAG PROVIDED ---*/}
                   <TextField
                     className={styles.input_field}
-                    style={{ margin: "0.5rem", marginLeft:"0" }}
+                    style={{ margin: "0.5rem", marginLeft: "0" }}
                     fullWidth
                     name="tag"
                     value={activeUser.tag || ""}
@@ -234,59 +199,82 @@ const Profile = () => {
                     variant="filled"
                     disabled
                   ></TextField>
-                  
+
                   {/* ------- SOCIAL LINKS -------- */}
-                  <div>
-                    <h4 className="text-sm text-gray-400">Social Links</h4>
-                    {/* --- GITHUB --- */}
-                    <TextField
-                      className={styles.input_field}
-                      fullWidth
-                      name="githubLink"
-                      style={{ margin: "0.5rem", marginLeft:"0" }}
-                      value={
-                        activeUser.userDetails.socialLinks.githubLink || ""
-                      }
-                      autoComplete="off"
-                      // id="filled-error-helper-text"
-                      label="Github Profile link"
-                      variant="filled"
-                      placeholder="ex: https://github.com/..."
-                      disabled
-                    />
+                  <div className="mt-5" >
+                    <div className="flex items-center" >
+                      <h4 className="text-sm text-gray-400 mr-3">Social Links</h4> <EditOption onClick={() => { showModal("socialLinks") }} editText={"Edit"} />
+                    </div>
 
                     {/* --- Linked In ---- */}
-                    <TextField
-                      className={styles.input_field}
-                      fullWidth
-                      style={{ margin: "0.5rem", marginLeft:"0" }}
-                      name="linkedInLink"
-                      value={
-                        activeUser.userDetails.socialLinks.linkedInLink || ""
+                    <div className="flex items-center" >
+                      <TextField
+                        className={styles.input_field}
+                        fullWidth
+                        style={{ margin: "0.5rem", marginLeft: "0" }}
+                        name="linkedInLink"
+                        value={
+                          activeUser.userDetails.socialLinks.linkedInLink || ""
+                        }
+                        autoComplete="off"
+                        label="LinkedIn Profile link"
+                        variant="filled"
+                        placeholder="ex: https://www.linkedin.com/in/..."
+                        disabled
+                      />
+
+                      {linkedInLink === "" ?
+                        <span
+                          className={`${linkedInLink === "" ? "text-gray-300/30" : "text-sky-500"} mr-1 text-lg`}
+                        >
+                          <LinkedInIcon />
+                        </span>
+                        :
+                        <Link
+                          className={`${linkedInLink === "" ? "text-gray-300/30" : "text-sky-500"} mr-1 text-lg`}
+                          target="_blank"
+                          href={linkedInLink}
+                        >
+                          <LinkedInIcon />
+                        </Link>
                       }
-                      autoComplete="off"
-                      // id="filled-error-helper-text"
-                      label="LinkedIn Profile link"
-                      variant="filled"
-                      placeholder="ex: https://www.linkedin.com/in/..."
-                      disabled
-                    />
-                    <EditOption onClick={()=>{showModal("socialLinks")}} editText={"social links"} />
-                    {/* <Button
-                      onClick={() => {
-                        // logout option
-                      }}
-                      className={styles.submit_button}
-                      variant="contained"
-                      component="label"
-                      style={{
-                        backgroundColor: "green",
-                        width: "auto",
-                        height: "3rem",
-                      }}
-                    >
-                      Save Profile Changes
-                    </Button> */}
+
+                    </div>
+
+                    {/* --- GITHUB --- */}
+                    <div className="flex items-center" >
+                      <TextField
+                        className={styles.input_field}
+                        fullWidth
+                        name="githubLink"
+                        style={{ margin: "0.5rem", marginLeft: "0" }}
+                        value={
+                          activeUser.userDetails.socialLinks.githubLink || ""
+                        }
+                        autoComplete="off"
+                        label="Github Profile link"
+                        variant="filled"
+                        placeholder="ex: https://github.com/..."
+                        disabled
+                      />
+
+                      {githubLink === "" ?
+                        <span
+                          className={`text-gray-300/30`}
+                        >
+                          <GitHubIcon />
+                        </span>
+                        :
+                        <Link
+                          className={`text-black mr-1 text-lg`}
+                          target="_blank"
+                          href={githubLink}
+                        >
+                          <GitHubIcon />
+                        </Link>
+                      }
+                    </div>
+
 
                   </div>
                 </div>
@@ -295,10 +283,9 @@ const Profile = () => {
               </div>
 
               {/* actual form inputs ends */}
-              <div style={{ margin: "0.5rem", marginTop:"5rem" }}>
+              <div style={{ margin: "0.5rem", marginTop: "5rem" }}>
                 <Button
                   onClick={() => {
-                    // logout option
                     logOutUser()
                   }}
                   className={styles.submit_button}

@@ -3,7 +3,7 @@
     width: 100%;
     /* max-width: 1200px; */
     min-height: fit-content;
-    max-width: 1400px;
+    /* max-width: 1400px; */
     padding: 2rem ;
     display: flex;
     flex-direction: column;
