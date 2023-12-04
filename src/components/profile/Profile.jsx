@@ -56,9 +56,6 @@ const Profile = () => {
       <section className="page_section min-h-screen">
         {activeUser != null && loginStatus === true ? (
           <>
-            {/* ---- <Alert/> -----  */}
-            {alert.alert && <Alert />}
-
             {/* ---- Loading -----  */}
             {loading && <Loading />}
 
