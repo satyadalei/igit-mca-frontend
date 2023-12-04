@@ -3,10 +3,16 @@
 
 This README describes a basic folder structure of our frontend application & also describes a little bit about API interactions 
 
-**Deployed on:** [vercel.com](https://vercel.com/)
+**Deployed on:** [vercel.com](https://vercel.com)
 
 Check app running live @ 👉 
-[https://igit-mca-frontend.vercel.app](https://igit-mca-frontend.vercel.app)
+[https://igit-mca.vercel.app](https://igit-mca.vercel.app)
+
+## Server 
+
+Server 1  👉https://igit-mca-server.cyclic.app
+
+Server 2  👉https://igit-community.onrender.com
 
 ## Table of Contents
 
