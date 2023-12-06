@@ -24,6 +24,10 @@ const UserDetails = (props) => {
    const handleVerifyUser = async (userId) => {
       try {
          // call api to set user as verify
+         const verifyAlert = window.confirm("Are sure you want to mark this user as verified user.");
+         if (verifyAlert === false) {
+            return ;
+         }
          setLoading(true);
          const url = `${baseApi}/api/accounts/admin/verifyUser?userId=${userId}`
          const verifyUser = await fetch(url, {
