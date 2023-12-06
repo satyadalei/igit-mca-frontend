@@ -58,9 +58,6 @@ const Login = () => {
     <>
       <section className='page_section' >
 
-        {/* ---- <Alert/> -----  */}
-        {alert.alert && <Alert />}
-
         {/* ---- Loading -----  */}
         {loading && <Loading />}
         <div className={styles.login_main_container} >
