@@ -40,7 +40,7 @@ const Notes = () => {
           >
             <EachSemNoteCards
               img_url={
-                "https://firebasestorage.googleapis.com/v0/b/mca-community.appspot.com/o/images%2Fthumbnails%2Fsemesters%2Fsemester%201.jpg?alt=media&token=1446beca-296d-42c1-a856-c88e10bfe3f9"
+                "https://firebasestorage.googleapis.com/v0/b/community-common-images.appspot.com/o/images%2Fcommon-images%2Fhome-page%2Fsemester%2Fsemester%201.jpg?alt=media&token=407e7650-4091-41f4-acaf-66f063aecfbb"
               }
               syllabusLink={
                 "https://drive.google.com/file/d/1N-dBfA94U_VlM7HKQoD0U7uc-V_E06n3/view"
@@ -66,7 +66,7 @@ const Notes = () => {
           >
             <EachSemNoteCards
               img_url={
-                "https://firebasestorage.googleapis.com/v0/b/mca-community.appspot.com/o/images%2Fthumbnails%2Fsemesters%2Fsemester2.jpg?alt=media&token=c760ab12-6c87-45bc-a665-e5e77ffb6398"
+                "https://firebasestorage.googleapis.com/v0/b/community-common-images.appspot.com/o/images%2Fcommon-images%2Fhome-page%2Fsemester%2Fsemester2.jpg?alt=media&token=1fcaf41d-0154-4d1b-9255-8dc6118abd6b"
               }
               syllabusLink={
                 "https://drive.google.com/file/d/1mEW4TXcKva5RFF-IBz-eoU9FuE_itaXS/view"
@@ -92,7 +92,7 @@ const Notes = () => {
           >
             <EachSemNoteCards
               img_url={
-                "https://firebasestorage.googleapis.com/v0/b/mca-community.appspot.com/o/images%2Fthumbnails%2Fsemesters%2Fsemester3.jpg?alt=media&token=db1e28e9-cc39-40d2-ba4c-dc3078817040"
+                "https://firebasestorage.googleapis.com/v0/b/community-common-images.appspot.com/o/images%2Fcommon-images%2Fhome-page%2Fsemester%2Fsemester3.jpg?alt=media&token=e084c973-a380-4be1-8724-fc63a838d6f4"
               }
               syllabusLink={
                 "https://drive.google.com/file/d/1CyP1bluv_XIOl6k9fTqmF_81BvBJfNKU/view"
@@ -117,7 +117,7 @@ const Notes = () => {
           >
             <EachSemNoteCards
               img_url={
-                "https://firebasestorage.googleapis.com/v0/b/mca-community.appspot.com/o/images%2Fthumbnails%2Fsemesters%2Fsemester4.jpg?alt=media&token=5624c416-1304-4369-aa1f-a82e54007784"
+                "https://firebasestorage.googleapis.com/v0/b/community-common-images.appspot.com/o/images%2Fcommon-images%2Fhome-page%2Fsemester%2Fsemester4.jpg?alt=media&token=87e3fa24-0628-4da7-a1b9-b056ecce65dc"
               }
               syllabusLink={
                 "https://drive.google.com/file/d/1k3X_K2j_BIdkfFyZNpXhwmiv9lw0UFBj/view"
