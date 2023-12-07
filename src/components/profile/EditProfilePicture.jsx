@@ -53,9 +53,9 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
       const selectedFile = e.target.files[0];
       const fileSize = selectedFile.size; // Size in bytes
       // const maxSize = 500 * 1024; // 500KB
-      const maxSize = (500 * 1024)/2; // 500 * 1024 = 500kb ;
+      const maxSize = (500 * 1024)/5; // value in bytes 500 * 1024 = 500kb ;
       if (fileSize > maxSize) {
-        createModalAlert(`File size is larger than 250KB`);
+        createModalAlert(`File size is larger than 100KB`);
         return;
       }
       setProfileUrl(e.target.files[0]);
