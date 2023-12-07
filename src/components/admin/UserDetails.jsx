@@ -1,10 +1,13 @@
 "use client"
 
 import { Avatar } from '@mui/material'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import ActiveUserAndLoginStatusContext from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 import loadingAndAlertContext from '@/context/loadingAndAlert/loadingAndAlertContext';
 import Link from "next/link"
+import ProfileEditModal from '../modal/ProfileEditModal';
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+
 const UserDetails = (props) => {
    const { activeUser, logOutUser } = useContext(ActiveUserAndLoginStatusContext);
    const { setLoading, createAlert, stopLoading } = useContext(loadingAndAlertContext);
@@ -19,6 +22,16 @@ const UserDetails = (props) => {
    const { linkedInLink, githubLink } = user.userDetails.socialLinks;
 
 
+   const [modal, setModal] = useState(false); // to open & close modal
+   const [modalType, setModalType] = useState(null);
+
+   const closeModal = () => {
+      setModal(false);
+   }
+   const showModal = (modalType) => {
+      setModal(true);
+      setModalType(modalType);
+   }
    const token = localStorage.getItem("token");
 
    const handleVerifyUser = async (userId) => {
@@ -87,7 +100,18 @@ const UserDetails = (props) => {
    }
 
    return (
-      <div className='' >
+      <div className='relative' >
+         {modal && 
+           <ProfileEditModal 
+               userDetails={user} 
+               closeModal={closeModal} 
+               modalType={modalType} 
+               sameUser={false}
+               editingUserId={_id}  // user who's details will be edited
+               fetchUserAccounts={fetchUserAccounts} // This will help refreshing user accounts when admin edits other user details in Admin panel
+           />
+         }
+
          <div className='flex justify-around w-full' >
             <div className='w-[33%]' >
                <p>Email: {email} </p>
@@ -101,11 +125,58 @@ const UserDetails = (props) => {
                <p>Graduation: {gradCourse} </p>
                <p>Field of interest: {fieldOfInterest} </p>
                <p>Tag: {tag} </p>
-               <p>Linkedin: <Link target='_blank' href={linkedInLink} >{linkedInLink}</Link> </p>
-               <p>Github: <Link target='_blank' href={githubLink}>{githubLink}</Link> </p>
+               {/* --- LinkedIn link ---- */}
+               <p className='flex items-center' >Linkedin: 
+                  <Link 
+                   style={{
+                     display: 'inline-block',
+                     whiteSpace: 'nowrap',
+                     overflow: 'hidden',
+                     textOverflow: 'ellipsis',
+                     maxWidth: '25ch',
+                   }}
+                  className='text-sky-500 underline ml-2' 
+                  target='_blank' href={linkedInLink} >
+                     {linkedInLink}
+                  </Link> 
+               </p>
+
+               {/* --- GithubLink --- */}
+               <p className='flex items-center' >
+                  Github: 
+                  <Link 
+                  style={{
+                     display: 'inline-block',
+                     whiteSpace: 'nowrap',
+                     overflow: 'hidden',
+                     textOverflow: 'ellipsis',
+                     maxWidth: '25ch',
+                   }}
+                    className='text-sky-500 underline ml-2' 
+                    target='_blank' 
+                    href={githubLink}> 
+                     {githubLink}
+                  </Link> 
+               </p>
             </div>
-            <div className='w-[33%]' >
-               <Avatar sx={{ width: "150px", height: "150px" }} src={url} alt={name} />
+            
+            <div className='w-[33%] flex flex-col items-center p-3' >
+               <Avatar className='mb-3' sx={{ width: "150px", height: "150px" }} src={url} alt={name} />
+               { (isSpecialUser === "admin" || isSpecialUser === "superAdmin") &&
+                  <>
+                    <button onClick={() => { showModal("profilePicture") }} className='bg-sky-700 text-white p-1 rounded' >Edit user profile</button>
+                  </>
+               }
+               {url !== "" &&
+                  <Link
+                  className='mt-3 underline'
+                  target="_blank"
+                  href={url}
+                  >
+                    See full image in new tab{" "}
+                    <OpenInNewIcon/>{" "}
+                  </Link>
+               }
             </div>
          </div>
          {/* --- Action buttons ----- */}
@@ -124,7 +195,9 @@ const UserDetails = (props) => {
               </button>
             }
             {(isSpecialUser === "admin" || isSpecialUser === "superAdmin") &&
-               <button onClick={()=>{handleDeleteUser(_id)}} className='bg-red-500 outline-none outline-0 text-white p-2 mr-5' >Delete User</button>
+               <>
+                  <button onClick={()=>{handleDeleteUser(_id)}} className='bg-red-500 outline-none outline-0 text-white p-2 mr-5' >Delete User</button>
+               </>
             }
          </div>
       </div>
