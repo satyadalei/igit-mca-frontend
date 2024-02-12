@@ -11,9 +11,10 @@ import BatchStates from "../context/batch/batchStates"
 import App from './App'
 import NextTopLoader from 'nextjs-toploader';
 
+const getYear = new Date().getFullYear()
 
 export const metadata = {
-  title: 'igit mca website 2023',
+  title: `igit mca website ${getYear}`,
   description: 'This website is designed for junior students of IGIT MCA ',
 }
 
