@@ -97,9 +97,9 @@ const semester = {
                 instructor : ["Mr. Bapuji Rao"],
                 thumbNailUrl: "",
                 links : {
-                    notes : "",
+                    notes : "https://drive.google.com/drive/u/4/folders/1RKpYUvnhfArV3ja88e84sVqSKp8RdL66",
                     assignments : "",
-                    question : "",
+                    question : "https://drive.google.com/drive/folders/1SEfT9lK9XbBFKlpsNcbEAWkQuvRRYI2g",
                     books : ""
                 }
             },
@@ -109,9 +109,9 @@ const semester = {
                 instructor : [" Dr. Dillip Ku. Swain"],
                 thumbNailUrl : "",
                 links : {
-                    notes : "",
+                    notes : "https://drive.google.com/drive/u/4/folders/1qdxSmd8FahLfViMC9LRCRAgnscGgfqV6",
                     assignments : "",
-                    question : "",
+                    question : "https://drive.google.com/drive/u/4/folders/1w7F5CRrYSQvnXZeCv5GiMfgA7VwyK1Wj",
                     books : ""
                 }
             },
@@ -121,9 +121,9 @@ const semester = {
                 instructor : ["Dr. (Mrs.) Sasmita Mishra"],
                 thumbNailUrl : "",
                 links : {
-                    notes : "",
+                    notes : "https://drive.google.com/drive/u/4/folders/1dgCJwRN1TlDuoT-NiGy7Cj-DlY1qQDbO",
                     assignments : "",
-                    question : "",
+                    question : "https://drive.google.com/drive/u/4/folders/1Qy5W22teq6lDVQH4BgyesyjjZnUjPNEN",
                     books : ""
                 }
             },
@@ -133,9 +133,9 @@ const semester = {
                 instructor : ["Dr. Sarojananda Mishra"],
                 thumbNailUrl : "",
                 links : {
-                    notes : "",
+                    notes : "https://drive.google.com/drive/u/4/folders/1UwrIF44kKdONjxnq4JrhNEy0eZv2-RUo",
                     assignments : "",
-                    question : "",
+                    question : "https://drive.google.com/drive/u/4/folders/1OiG103POHShu0kYBJdusIYoEMgZZql7R",
                     books : ""
                 }
             },
@@ -145,9 +145,9 @@ const semester = {
                 instructor : ["Mrs. Anupama Sahu"],
                 thumbNailUrl : "",
                 links : {
-                    notes : "",
+                    notes : "https://drive.google.com/drive/u/4/folders/1yvKVOWo1gNk1lMZ-mUk-Eul2afOXxOHS",
                     assignments : "",
-                    question : "",
+                    question : "https://drive.google.com/drive/u/4/folders/156jwlUnnIvDEkQ90kzrQXVFMMdSf2DD5",
                     books : ""
                 }
             },
