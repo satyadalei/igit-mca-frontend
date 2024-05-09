@@ -128,9 +128,6 @@ const RegistrationForm = () => {
       <section className="page_section">
         {user != null ? (
           <>
-            {/* ---- <Alert/> -----  */}
-            {alert.alert && <Alert />}
-
             {/* ---- Loading -----  */}
             {loading && <Loading />}
 

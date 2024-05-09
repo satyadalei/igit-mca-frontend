@@ -13,7 +13,7 @@ const AdminLayOut = ({ children }) => {
   );
   const router = useRouter();
   const currentPage = usePathname();
-
+  
   useEffect(() => {
     fetchActiveUser(); // use to every page to check user login status
     if (loginStatus === false) {
@@ -21,6 +21,9 @@ const AdminLayOut = ({ children }) => {
     }
     if (activeUser != null) {
       const { isSpecialUser } = activeUser;
+      if (activeUser.status !== 1) {
+        router.push("/", undefined, { shallow: true });
+      }
       if (
         isSpecialUser !== "admin" &&
         isSpecialUser !== "batchAdmin" &&
@@ -34,7 +37,7 @@ const AdminLayOut = ({ children }) => {
   return (
     <>
       {loginStatus === true &&
-      activeUser != null &&
+      activeUser != null && activeUser.status === 1 &&
       (activeUser.isSpecialUser === "admin" ||
       activeUser.isSpecialUser === "batchAdmin" ||
       activeUser.isSpecialUser === "superAdmin"

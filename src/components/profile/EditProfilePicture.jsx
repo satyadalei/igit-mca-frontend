@@ -11,7 +11,7 @@ import loadingAndAlertContext from "@/context/loadingAndAlert/loadingAndAlertCon
 import activeUserAndLoginStatus from "@/context/activeUserAndLoginStatus/activeUserAndLoginStatusContext";
 
 
-const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
+const EditProfilePicture = ({ profilePic, name, batchNum, closeModal, sameUser, editingUserId , fetchUserAccounts}) => {
   const { url, givenName } = profilePic;
 
   const [profileUrl, setProfileUrl] = useState("");
@@ -53,9 +53,9 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
       const selectedFile = e.target.files[0];
       const fileSize = selectedFile.size; // Size in bytes
       // const maxSize = 500 * 1024; // 500KB
-      const maxSize = 500 * 1024 * 2 * 1; // 500 * 1024 * 2 = 1MB
+      const maxSize = ((500 * 1024)/5)*2; // value in bytes 500 * 1024 = 500kb ;
       if (fileSize > maxSize) {
-        createModalAlert(`File size is larger than ${maxSize/(500 * 1024 * 2)} MB`);
+        createModalAlert(`File size is larger than 200KB`);
         return;
       }
       setProfileUrl(e.target.files[0]);
@@ -68,19 +68,26 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
   };
 
   const handleDeleteImage = async (deleteDirect,imageRef, imageName) => {
+    // deleteDirect argument -> true or false , 
+    // deleteDirect true -> user have directly clicked deleted button 
+    // deleteDirect false -> user uploaded new image over existing one
+
     if (deleteDirect === undefined) {
       deleteDirect = true;
     }
-    // deleteDirect argument -> true or false , 
-    // deleteDirect true -> user uploaded new image over existing one
-    // deleteDirect false -> user have directly clicked deleted button 
+
+    if (deleteDirect) {
+      const alertUser = window.confirm("Are you sure to delete profile picture?") ;
+      if (alertUser === false) {
+        return;
+      } 
+    }
 
     try {
       if (deleteDirect) {
         startLoading();
       }
-      // File deleted successfully :: call api to change data in database
-      const url = `${baseApi}/api/user/editProfile/profilePicture`;
+      const url = `${baseApi}/api/user/editProfile/profilePicture?sameUser=${sameUser}&editingUserId=${editingUserId}`;
       const removeImage = await fetch(url, {
         method: "DELETE",
         headers: {
@@ -88,21 +95,30 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
         }
       })
       const response = await removeImage.json();
-      stopLoading();
+      if (deleteDirect) {
+        stopLoading();
+      }
       fetchActiveUser();
       if (response.success) {
         if (deleteDirect) {
           createAlert("success", response.message.split("#")[0]);
         }
+        if(sameUser === false) {
+          await fetchUserAccounts(); // when admin updates users profile image then user will be fetched (For admin panel only)
+        }
         return true;
       }
-      createAlert("error", "Some error updating profile");
+      if (deleteDirect) {
+        createAlert("error", "Some error updating profile");
+      }
       return false;
     } catch (error) {
-      closeModal();
-      stopLoading();
-      console.log("There is some error : ", error);
-      createAlert("error", "Some error updating profile");
+      if (deleteDirect) {
+        closeModal();
+        stopLoading();
+        console.log("There is some error : ", error);
+        createAlert("error", "Some error updating profile");
+      }
       return null;
     }
   };
@@ -113,7 +129,7 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
       let isDeleted;
       if (url !== "") {
         // user have existing image :: first delete that
-        isDeleted = await handleDeleteImage(false)
+        isDeleted = await handleDeleteImage(false) // passing "directDelete as false" to know that user trying upload new image over existing image without deleting it. So delete existing one first.
       }
       if (isDeleted === false || isDeleted === null) {
         stopLoading();
@@ -126,8 +142,8 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
         length: 6,
         charset: "alphanumeric",
       });
-      const apiUrl = `${baseApi}/api/user/editProfile/profilePicture`;
-      const docGivenName = name.split(" ")[0] + "_" + new Date() + "_" + random_string;
+      const apiUrl = `${baseApi}/api/user/editProfile/profilePicture?sameUser=${sameUser}&editingUserId=${editingUserId}`;
+      const docGivenName = name.replace(/ /g, "_") + "_" + new Date() + "_" + random_string;
       // const uploadImageRef = ref(storage, `images/profileImages/43/${docGivenName}`);
       const uploadImageRef = ref(storage, `images/profileImages/${batch}/${docGivenName}`);
       const file = profileUrl;
@@ -155,6 +171,9 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
         fetchActiveUser();
         if (response.success) {
           createAlert("success", response.message.split("#")[0])
+          if(sameUser === false) {
+            await fetchUserAccounts(); // for admin panel
+          }
           return
         }
 
@@ -206,32 +225,12 @@ const EditProfilePicture = ({ profilePic, name, batchNum, closeModal }) => {
           </p>
         )}
         {url !== "" && profileUrl === "" && (
-          <GeneralButton onClick={handleDeleteImage} className="!bg-red-600 p-2">
+          <GeneralButton onClick={()=>{handleDeleteImage(true)}} className="!bg-red-600 p-2">
             Delete Pic
           </GeneralButton>
         )}
       </div>
-
-      {/* {url !== "" && (
-        <GeneralButton
-          disabled={true}
-          className="!bg-red-200 hover:!bg-red-200 p-2"
-          buttonText={"Save changes"}
-        />
-      )} */}
-
-      {/* {url === "" || profileUrl === "" && (
-        <Button className="mt-3" variant="contained" component="label">
-          Choose Image
-          <input
-            accept=".png, .jpg, .jpeg"
-            onChange={handleFileInput}
-            type="file"
-            value={""}
-            hidden
-          />
-        </Button>
-      )} */}
+     
       <Button className="mt-3" variant="contained" component="label">
           {url === "" && profileUrl === "" ? "Choose Image" : "Choose new image" } 
           {/* Choose Image */}

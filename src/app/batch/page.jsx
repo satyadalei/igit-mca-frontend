@@ -92,7 +92,7 @@ const Batch = () => {
             {/* -------- TOP SECTION ENDS ------------ */}
 
             {/* ---------BOTTOM SECTION STARTS :: PREVIOUS BATCHES ------- */}
-            <div className={styles.bottom_container_previous_batches}>
+            <div className={`${styles.bottom_container_previous_batches} mt-5`}>
               <h1 className="text-2xl text-black font-bold mb-3" >Previous Batches</h1>
               <div className={styles.all_previous_batches} >
                 {allBatches != null ? allBatches.map((batch, index) => {

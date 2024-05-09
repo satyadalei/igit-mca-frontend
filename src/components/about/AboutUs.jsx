@@ -4,6 +4,16 @@ import ProjectContributor from './ProjectContributor'
 
 
 const AboutUs = () => {
+    const frontend_backend_contributor = [
+        "655669bc41a72f015539174d", // Satyanarayan
+        "6561901f7f0670bfa985526a", // Dibyajyoti
+        "656ac9a20469aa5099578de8",  // Soumyaranjan
+    ];
+    const tester = [
+        // "655f583df6ec28a385eafcc8", // Rakesh
+        "655f92db96ddd3aab98d4df6", // Debashish
+        "657089ed80af680e5e00e679", // M Tanuja
+    ];
 
     return (
         <div className='p-3 pl-5' >
@@ -28,10 +38,10 @@ const AboutUs = () => {
                 <div className='flex flex-wrap' >
 
                     {/* --- Frontend & backend ---- */}
-                    <ProjectContributor contributeField={"Frontend & Backend"} contributorIds={["655669bc41a72f015539174d",]} className={"lg:mr-10 mt-5 mb-5 border-l-2 border-sky-400 pl-1 md:pl-5"} />
+                    <ProjectContributor contributeField={"Frontend & Backend"} contributorIds={frontend_backend_contributor} className={"lg:mr-10 mt-5 mb-5 border-l-2 border-sky-400 pl-1 md:pl-5"} />
 
                     {/* ---- Tester ---- */}
-                    <ProjectContributor contributeField={"Testing"} contributorIds={["655f583df6ec28a385eafcc8",]} className={"lg:mr-10 mt-5 mb-5 border-l-2 border-sky-400 pl-1 md:pl-5"} />
+                    <ProjectContributor contributeField={"Testing"} contributorIds={tester} className={"lg:mr-10 mt-5 mb-5 border-l-2 border-sky-400 pl-1 md:pl-5"} />
 
                 </div>
             </div>

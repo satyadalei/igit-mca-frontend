@@ -32,19 +32,26 @@ const App = ({ children }) => {
     return (
         <>
             <Provider store={store} >
+                {loading && <Loading />}
+                {alert.alert && <Alert />}
                 {activeUser !== null && loginStatus && activeUser.status === 0 &&
                     <div className="bg-red-500 text-black p-2 flex flex-col items-center" >
                         <p className='text-center' >
                             Account not verified! <br />
-                            Upload profile picture (Professional) and add LinkedIn profile to get verified soon!
+                            Upload profile picture(Professional) and add LinkedIn profile to get verified soon! <br />
+                        <Link className='text-white underline' href="/profile">Update profile!</Link>
+                         <br /> If already did, wait for few hours. {" "}
+                            <Link
+                                className='text-white underline'
+                                target="_blank"
+                                href={"https://firebasestorage.googleapis.com/v0/b/mca-community.appspot.com/o/documents%2Fhowto%2Fdocument.pdf?alt=media&token=9bdc2dc2-04c1-4273-8fb9-0479b077b490"}
+                            >
+                               Learn more
+                            </Link>
                         </p>
-                        <Link className='text-blue-700 underline' href="/profile">Update profile!</Link>
                     </div>
                 }
-
                 <NavBar />
-                {loading && <Loading />}
-                {alert.alert && <Alert />}
                 {children}
                 <Footer />
             </Provider>

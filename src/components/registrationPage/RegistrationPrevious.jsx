@@ -193,9 +193,7 @@ const RegistrationForm = () => {
       <section className="page_section">
         {registeringUser != null && user != null ? (
           <>
-            {/* ---- <Alert/> -----  */}
-            {alert.alert && <Alert />}
-
+            
             {/* ---- Loading -----  */}
             {loading && <Loading />}
 
